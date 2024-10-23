@@ -124,26 +124,35 @@ export default function HomePage() {
 
       <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Flats for Sale in Mumbai in New Projects</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-      <Welcome />
+      <div className="p-20">
+        <Welcome />
+      </div>
 
 
       <h1 className="text-3xl font-bold mt-8 mb-4 text-center">New Launch Projects in Mumbai</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-      <Properties properties={propertiesData} />
+      <div className="px-20">
+        <Properties properties={propertiesData} />
+      </div>
 
-      <h1 className="text-3xl font-bold mt-8 mb-4 text-center">New Launch Projects in Thane</h1>
+
+      <h1 className="text-3xl font-bold mt-20 mb-4 text-center">New Launch Projects in Thane</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-      <Properties properties={propertiesData} />
+      <div className="px-20">
+        <Properties properties={propertiesData} />
+      </div>
 
-      <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Browse by Localities</h1>
+      <h1 className="text-3xl font-bold mt-20 mb-4 text-center">Browse by Localities</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-      <Localities />
+      <div className="px-20">
+        <Localities />
+      </div>
 
-      <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Our Services</h1>
+      <h1 className="text-3xl font-bold mt-4 mb-4 text-center">Our Services</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <Services />
 
-      <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Real Estate Property With Us</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center">Real Estate Property With Us</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <div className="text-center px-4 py-8 max-w-4xl mx-auto">
         <p className="mb-4">

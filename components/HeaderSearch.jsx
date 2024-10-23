@@ -1,4 +1,7 @@
 import "./HeaderSearch.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function HeaderSearch() {
     return (
@@ -8,7 +11,7 @@ export default function HeaderSearch() {
                     <div className="content-zed">
                         <div className="row-etd content-nj1 text-i2x">
                             <div className="col-8nj">
-                                <h2>Find Your Dream Home With Us</h2><br />
+                                <h2>Find Your Dream Home With Us</h2>
                             </div>
                             <div className="col-8nj">
                                 <div className="search-vvo">
@@ -40,7 +43,7 @@ export default function HeaderSearch() {
                                                 </div>
                                                 <div className="col-gbd col-hz4">
                                                     <button type="submit">
-                                                        <i className="hygin search-48v" />
+                                                        <FontAwesomeIcon icon={faSearch} className="hygin search-48v" />
                                                     </button>
                                                 </div>
                                             </div>
