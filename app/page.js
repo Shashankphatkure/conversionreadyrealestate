@@ -1,6 +1,7 @@
 "use client";
 import Localities from "@/components/localities";
 import Properties from "@/components/properties";
+import Welcome from "@/components/Welcome";
 
 const propertiesData = [
   {
@@ -107,6 +108,11 @@ const propertiesData = [
 export default function HomePage() {
   return (
     <div>
+      <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Flats for Sale in Mumbai in New Projects</h1>
+      <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
+      <Welcome />
+
+
       <h1 className="text-3xl font-bold mt-8 mb-4 text-center">New Launch Projects in Mumbai</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <Properties properties={propertiesData} />
