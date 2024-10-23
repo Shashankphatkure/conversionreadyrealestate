@@ -1,5 +1,9 @@
 "use client";
 import ContactUs from "@/components/ContactUs";
+import FooterBottom from "@/components/FooterBottom";
+import FooterTop from "@/components/FooterTop";
+import Header from "@/components/Header";
+import HeaderSearch from "@/components/HeaderSearch";
 import Localities from "@/components/localities";
 import Properties from "@/components/properties";
 import Services from "@/components/services";
@@ -110,6 +114,12 @@ const propertiesData = [
 export default function HomePage() {
   return (
     <div>
+
+      <Header />
+      <HeaderSearch />
+      
+      
+
       <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Flats for Sale in Mumbai in New Projects</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <Welcome />
@@ -151,6 +161,10 @@ export default function HomePage() {
       <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Contact Us</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <ContactUs />
+
+      <FooterTop />
+
+      <FooterBottom />
 
 
     </div>
