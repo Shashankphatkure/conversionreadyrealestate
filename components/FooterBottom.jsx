@@ -1,4 +1,7 @@
 import "./FooterBottom.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot, faEnvelope, faPhone, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function FooterBottom() {
     return (
@@ -24,19 +27,19 @@ export default function FooterBottom() {
                                 <h3>Contact Us</h3>
                                 <ul>
                                     <li className="address">
-                                        <i className="fa-tog map-jrd" />
+                                        <FontAwesomeIcon icon={faLocationDot} />
                                         603, Shiv Pratap Plaza, Plot No. 113B/C, Sector 50E, Seawoods West, Navi Mumbai 400706
                                     </li>
                                     <li>
-                                        <i className="fa-tog fa-8yk" />
+                                        <FontAwesomeIcon icon={faEnvelope} />
                                         <a href="mailto:info@newprojectsonline.com">info@newprojectsonline.com</a>
                                     </li>
                                     <li>
-                                        <i className="fa-tog fa-46n" />
+                                        <FontAwesomeIcon icon={faPhone} />
                                         <a href="tel:+919137458691">+91 9137458691</a>
                                     </li>
                                     <li>
-                                        <i className="fa-tog info-erj" />
+                                        <FontAwesomeIcon icon={faShieldHalved} />
                                         <a href="https://newprojectsonline.com/privacy-policy.html">Read Privacy &amp; Policy</a>
                                     </li>
                                 </ul>
@@ -57,7 +60,7 @@ export default function FooterBottom() {
                         </div>
                         <div className="col-hno align-self-tcn">
                             <div className="cal-w93">
-                                <i className="fa-atf fa-g5o" />
+                                <FontAwesomeIcon icon={faPhone} />
                                 <div>Do You Have Questions ?</div>
                                 <a href="tel:+919137458691">+91 9137458691</a>
                             </div>

@@ -1,42 +1,42 @@
 import "./Header.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faPhone, faBars } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 export default function Header() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
-        <header>
-  <div className="container-wl8">
-    <div className="logo-yph"><a href="https://newprojectsonline.com/"><img src="https://newprojectsonline.com/assets/main/img/logos/logo.png" width={255} height={50} /></a></div>
-    <div className="logo-w4g"><a href="https://newprojectsonline.com/"><img src="https://newprojectsonline.com/assets/main/img/logos/logo.png" width={255} height={50} /></a></div>
-    <div className="header-xra">
-      <div className="menu-9rd">
-        <div className="cle-76v">
-          <div className="ove-voy" />
-          <div className="main-rcg"><a><span /></a></div>
-          <nav className="menu-8c5 cle-76v">
-            <ul className="menu-3oy">
-              <li className="block-nnc d-sm-osl"><img src="https://newprojectsonline.com/assets/main/img/logos/logo.png" width={255} height={50} /></li>
-              <li className="block-nnc d-sm-osl"><a href="https://newprojectsonline.com/">Home</a></li>
-              <li><a href="https://newprojectsonline.com/">Home</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><a href="https://newprojectsonline.com/privacy-policy.html">Privacy Policy</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-    <div className="header-hn1">
-      <a href className="post-jmp d-thd">
-        <i className="ebrbx bi-vq7" /> Post<br />Requirement </a>
-      <a href className="search-n9r d-thd"><i className="fa-o9y search-3zk" /></a>
-      <a href="tel:+91-9137458691">
-        <FontAwesomeIcon icon={faPhone} className="fa-o9y" /> <span>+91-9137458691</span>
-      </a>
-    </div>
-    <div className="cle-ske" />
-  </div>
-</header>
+        <header className="absolute z-10 left-0 top-10 w-full bg-transparent py-4">
+            <div className="container mx-auto px-4">
+                <div className="flex justify-between items-center">
+                    <div className="logo">
+                        <a href="https://newprojectsonline.com/">
+                            <img src="https://newprojectsonline.com/assets/main/img/logos/logo.png" width={255} height={50} alt="Logo" />
+                        </a>
+                    </div>
+                    <div className="lg:hidden">
+                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white">
+                            <FontAwesomeIcon icon={faBars} className="text-2xl" />
+                        </button>
+                    </div>
+                    <nav className={`lg:block ${isMenuOpen ? 'block' : 'hidden'} absolute lg:relative top-full left-0 w-full lg:w-auto bg-white lg:bg-transparent`}>
+                        <ul className="flex flex-col lg:flex-row">
+                            <li><a href="https://newprojectsonline.com/" className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80">Home</a></li>
+                            <li><a href="#about" className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80">About Us</a></li>
+                            <li><a href="#services" className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80">Services</a></li>
+                            <li><a href="#contact" className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80">Contact</a></li>
+                            <li><a href="https://newprojectsonline.com/privacy-policy.html" className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                    <div className="hidden lg:block">
+                        <a href="tel:+91-9137458691" className="inline-flex items-center bg-[#f64d0d] text-white px-4 py-2 rounded">
+                            <FontAwesomeIcon icon={faPhone} className="mr-2" />
+                            <span>+91-9137458691</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
     );
 }

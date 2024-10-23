@@ -1,5 +1,8 @@
 import "./ContactUs.css";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
+
 export default function ContactUs() {
     return (
         <div className="contact-container">
@@ -29,21 +32,21 @@ export default function ContactUs() {
                     "height": "100%"
                 }}>
                     <div className="media-oxt">
-                        <i className="fa-1f3 fa-phone" />
+                        <FontAwesomeIcon icon={faPhone} className="fa-1f3" style={{ marginRight: '10px' }} />
                         <div className="media-57v">
                             <h5>Phone:</h5>
                             <p><a href="tel:+919137458691">+91 9137458691</a></p>
                         </div>
                     </div>
                     <div className="media-oxt">
-                        <i className="fa-1f3 fa-envelope" />
+                        <FontAwesomeIcon icon={faEnvelope} className="fa-1f3" style={{ marginRight: '10px' }} />
                         <div className="media-57v">
                             <h5>Email:</h5>
                             <p><a href="mailto:newprojectsonline.com@gmail.com">newprojectsonline.com@gmail.com</a></p>
                         </div>
                     </div>
                     <div className="media-oxt">
-                        <i className="fa-1f3 fa-globe" />
+                        <FontAwesomeIcon icon={faGlobe} className="fa-1f3" style={{ marginRight: '10px' }} />
                         <div className="media-57v">
                             <h5>Web:</h5>
                             <p><a href="https://newprojectsonline.com">newprojectsonline.com</a></p>
