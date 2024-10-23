@@ -1,4 +1,6 @@
 import "./Header.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export default function Header() {
     return (
@@ -30,7 +32,7 @@ export default function Header() {
         <i className="ebrbx bi-vq7" /> Post<br />Requirement </a>
       <a href className="search-n9r d-thd"><i className="fa-o9y search-3zk" /></a>
       <a href="tel:+91-9137458691">
-        <i className="fa-o9y fa-cd3" /> <span>+91-9137458691</span>
+        <FontAwesomeIcon icon={faPhone} className="fa-o9y" /> <span>+91-9137458691</span>
       </a>
     </div>
     <div className="cle-ske" />
