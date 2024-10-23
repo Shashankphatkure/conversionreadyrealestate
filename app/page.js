@@ -4,6 +4,7 @@ import FooterBottom from "@/components/FooterBottom";
 import FooterTop from "@/components/FooterTop";
 import Header from "@/components/Header";
 import HeaderSearch from "@/components/HeaderSearch";
+import HeaderTop from "@/components/HeaderTop";
 import Localities from "@/components/localities";
 import Properties from "@/components/properties";
 import Services from "@/components/services";
@@ -115,6 +116,7 @@ export default function HomePage() {
   return (
     <div>
 
+      <HeaderTop />
       <Header />
       <HeaderSearch />
       
