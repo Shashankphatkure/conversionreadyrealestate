@@ -1,4 +1,5 @@
 "use client";
+import Localities from "@/components/localities";
 import Properties from "@/components/properties";
 
 const propertiesData = [
@@ -113,6 +114,10 @@ export default function HomePage() {
       <h1 className="text-3xl font-bold mt-8 mb-4 text-center">New Launch Projects in Thane</h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <Properties properties={propertiesData} />
+
+      <h1 className="text-3xl font-bold mt-8 mb-4 text-center">Browse by Localities</h1>
+      <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
+      <Localities />
     </div>
   );
 }
