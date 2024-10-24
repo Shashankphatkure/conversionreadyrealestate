@@ -3,7 +3,7 @@ import "./PropertyOverview.css";
 export default function PropertyOverview() {
   return (
     <section className="section-nkt shadow-c1i">
-      <span className="hea-njg text-56r d-8lo block-kvs">Overview</span>
+      <span className="hea-njg text-56r d-8lo block-kvs pr-5">Overview</span>
       <h1 className="block-qo4 section-fnm col-qgi text-56r">
         Ashar Merac Thane
       </h1>

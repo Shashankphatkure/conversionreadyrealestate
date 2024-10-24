@@ -4,7 +4,7 @@ export default function PropertySitePlan() {
   return (
     <section className="section-vhg shadow-y88">
       <span className="section-ara" />
-      <span className="hea-xq2 text-vmg">Site &amp; Floor Plan</span>
+      <span className="hea-xq2 text-vmg pr-5">Site &amp; Floor Plan</span>
       <span className="block-ifq section-7vm text-vmg">Master Plan</span>
       <a href="#" className="text-oid">
         <div className="item-3xt mt-asz">

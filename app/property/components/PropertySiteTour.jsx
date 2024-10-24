@@ -4,7 +4,7 @@ export default function PropertySiteTour() {
   return (
     <section className="section-lw2 shadow-pfo">
       <span />
-      <span className="hea-6e1 text-vx6">Virtual Site Tour</span>
+      <span className="hea-6e1 text-vx6 pr-5">Virtual Site Tour</span>
       <a href="#">
         <div className="my-e8o pt-md-mdk">
           <div className="at-property-sjq vsv-jgs">

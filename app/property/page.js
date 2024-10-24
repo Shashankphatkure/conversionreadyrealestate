@@ -12,25 +12,40 @@ import PropertySiteTour from "./components/PropertySiteTour";
 import Sidebar from "./components/sidebar";
 
 export default function Page() {
-    return (
-        <div className="flex">
-            <div className="w-3/4">
-                <PropertyHeader />
-                <PropertyHero />
-                <PropertyOverview />
-                <PropertyPrice />
-                <PropertySitePlan />
-                <PropertyAmenities />
-                <PropertyGallery /> 
-                <PropertyLocation />    
-                <PropertySiteTour />
-                <PropertyFAQ />
-                <PropertyFooter />
-
-            </div>
-            <div className="w-1/4">
-                <Sidebar />
-            </div>
+  return (
+    <div className="flex">
+      <div className="w-3/4">
+        <PropertyHeader />
+        <PropertyHero />
+        <div className="px-3">
+          <PropertyOverview />
         </div>
-    );
+        <div className="px-3">
+          <PropertyPrice />
+        </div>
+        <div className="px-3">
+          <PropertySitePlan />
+        </div>
+        <div className="px-3">
+          <PropertyAmenities />
+        </div>
+        <div className="px-3">
+          <PropertyGallery />
+        </div>
+        <div className="px-3">
+          <PropertyLocation />
+        </div>
+        <div className="px-3">
+          <PropertySiteTour />
+        </div>
+        <div className="px-3">
+          <PropertyFAQ />
+        </div>
+        <PropertyFooter />
+      </div>
+      <div className="w-1/4">
+        <Sidebar />
+      </div>
+    </div>
+  );
 }

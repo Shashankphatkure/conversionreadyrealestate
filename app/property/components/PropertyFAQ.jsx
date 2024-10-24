@@ -5,7 +5,7 @@ export default function PropertyFAQ() {
     <section className="section-ef9 shadow-jph">
       <span />
       <h2> FAQs - of Ashar Merac Thane At Thane, Mumbai</h2>
-      <span className="hea-4ti text-z88">Faq</span>
+      <span className="hea-4ti text-z88 pr-5">Faq</span>
       <div className="row-w22">
         <div className="col-78b">
           <ul className="list-group-npc">

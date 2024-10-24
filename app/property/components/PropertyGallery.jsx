@@ -5,7 +5,7 @@ export default function PropertyGallery() {
     <section className="block-cfk section-n2n shadow-8ea">
       {" "}
       <span className="section-kjw" />{" "}
-      <span className="hea-zos text-d42">Gallery</span>
+      <span className="hea-zos text-d42 pr-5">Gallery</span>
       <div className="carousel-6g1 owl-3mp owl-1nm owl-n2n">
         <div className="tag-zpy">
           <div

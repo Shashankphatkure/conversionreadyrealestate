@@ -4,7 +4,7 @@ export default function PropertyAmenities() {
   return (
     <section className="section-jhc shadow-7y3">
       <span className="section-ihs" />
-      <span className="hea-jgp text-x9d">Amenities</span>
+      <span className="hea-jgp text-x9d pr-5">Amenities</span>
       <div id="ami-lem" className="carousel-opg owl-is3 owl-mmz">
         <div className="tag-2wa">
           <div

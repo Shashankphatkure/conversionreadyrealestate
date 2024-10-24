@@ -4,7 +4,7 @@ export default function PropertyLocation() {
   return (
     <section className="section-9de shadow-8vf">
       <span />
-      <span className="hea-6ig text-lxi">Location</span>
+      <span className="hea-6ig text-lxi pr-5">Location</span>
       <br />
       <div className="row-fv6 mb-d67">
         <div className="col-dpq col-353">
