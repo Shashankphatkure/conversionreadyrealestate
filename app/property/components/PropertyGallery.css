@@ -1,0 +1,412 @@
+@font-face {
+  font-family: muli;
+  src: url(https://newprojectsonline.com/assets/fonts/muli-variablefont_wght-webfont.woff2)
+      format("woff2"),
+    url(https://newprojectsonline.com/assets/fonts/muli-variablefont_wght-webfont.woff)
+      format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: roboto;
+  src: url(https://newprojectsonline.com/assets/fonts/roboto-regular-webfont.woff2)
+      format("woff2"),
+    url(https://newprojectsonline.com/assets/fonts/roboto-regular-webfont.woff)
+      format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 1.12vw;
+    letter-spacing: 0.02vw;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+
+body {
+  font-family: muli, Helvetica, Arial, sans-serif;
+  background-color: #dbe4e9;
+  overflow-y: scroll;
+  position: relative;
+}
+
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 1.12vw;
+    letter-spacing: 0.02vw;
+  }
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --colorPrimary: #ba8d4a;
+}
+
+section {
+  display: block;
+}
+
+.shadow-8ea {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.shadow-8ea {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.section-n2n {
+  background-color: #fff;
+  color: #000;
+  font-family: muli, Helvetica, Arial, sans-serif;
+  letter-spacing: 0.03vw;
+}
+
+@media only screen and (min-width: 992px) {
+  .section-n2n {
+    padding: 1.5vw 6vw 1.5vw 2vw;
+    max-width: 76vw;
+    margin: 1vw 0;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.section-kjw {
+  position: absolute;
+  width: 100%;
+  background-color: transparent;
+  display: block;
+}
+
+@media only screen and (min-width: 992px) {
+  .section-kjw {
+    top: -4.3vw;
+    height: 4.3vw;
+  }
+}
+
+.text-d42 {
+  text-transform: capitalize !important;
+}
+
+.text-d42 {
+  text-transform: capitalize !important;
+}
+
+@media only screen and (min-width: 992px) {
+  .hea-zos {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    color: var(--colorPrimary);
+    font-family: roboto, Helvetica, Arial, sans-serif;
+    font-size: 3vw;
+    letter-spacing: 0;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+.carousel-6g1 {
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.carousel-6g1 {
+  display: none;
+  width: 100%;
+  z-index: 1;
+}
+
+.carousel-6g1.owl-1nm {
+  display: block;
+}
+
+.carousel-6g1 .tag-zpy {
+  position: relative;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.carousel-6g1 .tag-zpy {
+  background-color: #fafafa;
+}
+
+.owl-3mp .nav-dj9 {
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.owl-3mp .nav-dj9 {
+  margin-top: 10px;
+}
+
+.owl-3mp .owl-yf4 {
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.carousel-6g1 .owl-yf4.dis-hwt {
+  display: none;
+}
+
+.carousel-6g1 .tag-fio {
+  position: relative;
+  -ms-touch-action: pan-Y;
+  touch-action: manipulation;
+  -moz-backface-visibility: hidden;
+}
+
+.carousel-6g1 .tag-fio::after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+button {
+  border-radius: 0;
+}
+
+button {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  overflow: visible;
+}
+
+button {
+  text-transform: none;
+}
+
+[type="button"],
+button {
+  -webkit-appearance: button;
+}
+
+.nav-dj9 button {
+  position: absolute;
+  top: 50%;
+  color: #fff;
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-50%);
+  font-family: serif !important;
+  background: #fff !important;
+  width: 50px;
+  height: 50px;
+  line-height: 75px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0.4;
+}
+
+[type="button"]:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+.nav-dj9 button.owl-dbk {
+  left: 0;
+  margin-left: -20px !important;
+}
+
+.carousel-6g1 .nav-dj9 .owl-dbk {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.owl-3mp .nav-dj9 [class*="owl-"] {
+  color: #fff;
+  font-size: 14px;
+  margin: 5px;
+  padding: 4px 7px;
+  background: #d6d6d6;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.carousel-6g1 .nav-dj9 button.owl-dbk {
+  background: 0 0;
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+}
+
+.owl-3mp .nav-dj9 [class*="owl-"]:hover {
+  background: #869791;
+  color: #fff;
+  text-decoration: none;
+}
+
+.owl-3mp .nav-dj9 [class*="owl-"]:hover {
+  color: var(--colorPrimary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+}
+
+.nav-dj9 button.owl-r4s {
+  right: 0;
+  margin-right: -20px !important;
+}
+
+.carousel-6g1 .nav-dj9 .owl-r4s {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.carousel-6g1 .nav-dj9 button.owl-r4s {
+  background: 0 0;
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+}
+
+.carousel-6g1 .item-o6j {
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.carousel-6g1 .item-o6j {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+}
+
+.carousel-6g1 .item-o6j {
+  min-height: 1px;
+  float: left;
+  -webkit-backface-visibility: hidden;
+  -webkit-touch-callout: none;
+}
+
+.carousel-6g1.owl-n2n .item-o6j {
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.nav-dj9 button span {
+  font-size: 70px;
+  position: relative;
+  top: -20px;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.gallery-icp {
+  width: 100%;
+  height: 150px;
+  transition: all 0.5s;
+  border-radius: 3px;
+}
+
+@media only screen and (min-width: 575px) {
+  .gallery-icp {
+    height: 150px;
+  }
+}
+
+.block-cfk img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-6g1 .item-o6j img {
+  display: block;
+  width: 100%;
+}
+
+.gallery-icp:hover {
+  opacity: 1;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
