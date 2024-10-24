@@ -6,6 +6,7 @@ import PropertyHeader from "./components/PropertyHeader";
 import PropertyHero from "./components/PropertyHero";
 import PropertyLocation from "./components/PropertyLocation";
 import PropertyOverview from "./components/PropertyOverview";
+import PropertyPopup from "./components/PropertyPopup";
 import PropertyPrice from "./components/PropertyPrice";
 import PropertySitePlan from "./components/PropertySitePlan";
 import PropertySiteTour from "./components/PropertySiteTour";
