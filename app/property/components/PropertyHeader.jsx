@@ -1,4 +1,17 @@
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faDollarSign,
+  faBuilding,
+  faSwimmingPool,
+  faImages,
+  faMapMarkerAlt,
+  faVideo,
+  faFileDownload,
+} from "@fortawesome/free-solid-svg-icons";
 import "./PropertyHeader.css";
+
 export default function PropertyHeader() {
   return (
     <nav className="navbar-t4w navbar-kqe navbar-ele bg-7pn navbar-5sv">
@@ -6,6 +19,7 @@ export default function PropertyHeader() {
         <img
           src="https://newprojectsonline.com/assets/uploads/logos/1719552634-logo1.png"
           className="logo-2nm"
+          alt="Logo"
         />
       </a>
       <button className="navbar-nzs" type="button">
@@ -15,44 +29,74 @@ export default function PropertyHeader() {
         <ul className="navbar-nav-vlg nav-vwb">
           <li className="nav-item-3s3">
             <a className="nav-link-xai act-aef" href="#home">
-              <i className="ewhem mi-oi4 icon-jen" />
-              <span className="d-sm-wo2 d-md-oft">Home</span>
+              <FontAwesomeIcon
+                icon={faHome}
+                className="icon-jen fa-xs custom-icon"
+              />
+              <span>Home</span>
             </a>
           </li>
           <li className="nav-item-3s3">
             <a className="nav-link-xai" href="#pricing">
-              <i className="ewhem mi-74p icon-jen" /> Price
+              <FontAwesomeIcon
+                icon={faDollarSign}
+                className="icon-jen fa-xs custom-icon"
+              />
+              <span>Price</span>
             </a>
           </li>
           <li className="nav-item-3s3">
             <a className="nav-link-xai" href="#sitefloorplan">
-              <i className="ewhem mi-72s icon-jen" /> Site &amp; Floor Plan
+              <FontAwesomeIcon
+                icon={faBuilding}
+                className="icon-jen fa-xs custom-icon"
+              />
+              <span>Site &amp; Floor Plan</span>
             </a>
           </li>
           <li className="nav-item-3s3">
             <a className="nav-link-xai" href="#amenities">
-              <i className="ewhem mi-ha8 icon-jen" /> Amenities
+              <FontAwesomeIcon
+                icon={faSwimmingPool}
+                className="icon-jen fa-xs custom-icon"
+              />
+              <span>Amenities</span>
             </a>
           </li>
           <li className="nav-item-3s3">
             <a className="nav-link-xai" href="#gallery">
-              <i className="ewhem gallery-8aa icon-jen" /> Gallery
+              <FontAwesomeIcon
+                icon={faImages}
+                className="icon-jen fa-xs custom-icon"
+              />
+              <span>Gallery</span>
             </a>
           </li>
           <li className="nav-item-3s3">
             <a className="nav-link-xai" href="#location">
-              <i className="ewhem mi-div icon-jen" /> Location
+              <FontAwesomeIcon
+                icon={faMapMarkerAlt}
+                className="icon-jen fa-xs custom-icon"
+              />
+              <span>Location</span>
             </a>
           </li>
           <li className="nav-item-3s3">
             <a className="nav-link-xai" href="#sitevisit">
-              <i className="ewhem mi-it3 icon-jen" /> Virtual Site Tour
+              <FontAwesomeIcon
+                icon={faVideo}
+                className="icon-jen fa-xs custom-icon"
+              />
+              <span>Virtual Site Tour</span>
             </a>
           </li>
           <li className="nav-item-3s3 overflow-bdf">
             <a className="nav-link-xai" href="#">
-              <i className="ewhem mi-12p icon-jen block-gvw ani-5fc slide-obl inf-q4g" />{" "}
-              Brochure
+              <FontAwesomeIcon
+                icon={faFileDownload}
+                className="icon-jen fa-xs custom-icon block-gvw ani-5fc slide-obl inf-q4g"
+              />
+              <span>Brochure</span>
             </a>
           </li>
         </ul>

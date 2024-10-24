@@ -612,3 +612,184 @@ ul {
     transform: translate3d(0px, 0px, 0px);
   }
 }
+
+.custom-icon {
+  font-size: 20px !important; /* Set a fixed size of 10px */
+  width: 20px !important; /* Ensure width is also 10px */
+  height: 20px !important; /* Ensure height is also 10px */
+  vertical-align: middle;
+  margin-right: 5px; /* Keep the space between icon and text */
+}
+
+.nav-link-xai {
+  display: flex;
+  align-items: center;
+}
+
+/* Override any conflicting styles */
+.icon-jen {
+  font-size: 10px !important;
+  margin-right: 5px;
+}
+
+@media only screen and (min-width: 992px) {
+  .icon-jen {
+    font-size: 10px !important;
+    margin-right: 5px;
+  }
+}
+
+/* Ensure FontAwesome icons are also 10px */
+.fa-xs.custom-icon {
+  font-size: 10px !important;
+}
+
+/* Center the navbar items */
+.navbar-nav-vlg {
+  width: 100%;
+  justify-content: center;
+}
+
+.nav-item-3s3 {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link-xai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem 0.25rem; /* Reduce horizontal padding */
+}
+
+/* Adjust icon size and alignment */
+.custom-icon {
+  font-size: 10px !important;
+  width: 10px !important;
+  height: 10px !important;
+  vertical-align: middle;
+  margin-right: 3px; /* Reduce space between icon and text */
+}
+
+/* Ensure consistent font size for menu items */
+.nav-link-xai span {
+  font-size: 14px; /* Adjust this value as needed */
+}
+
+/* Responsive adjustments */
+@media only screen and (min-width: 992px) {
+  .navbar-nav-vlg {
+    flex-direction: row;
+  }
+
+  .nav-item-3s3 {
+    flex: 1;
+  }
+
+  .nav-link-xai {
+    padding: 0.5rem 0.1rem; /* Further reduce padding for larger screens */
+  }
+}
+
+/* Adjust the navbar to full width */
+.navbar-t4w {
+  width: 100%;
+  padding: 0;
+}
+
+/* Center the navbar items and make them cover full width */
+.navbar-nav-vlg {
+  width: 100%;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.nav-item-3s3 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link-xai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem 0.5rem;
+  width: 100%;
+}
+
+/* Increase icon size */
+.custom-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* Increase text size */
+.nav-link-xai span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media only screen and (min-width: 992px) {
+  .navbar-nav-vlg {
+    flex-direction: row;
+  }
+
+  .nav-item-3s3 {
+    border-right: 1px solid #dbe4e9;
+  }
+
+  .nav-item-3s3:first-child {
+    border-left: 1px solid #dbe4e9;
+  }
+
+  .nav-link-xai {
+    padding: 1rem 0.25rem;
+  }
+
+  .custom-icon {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .nav-link-xai span {
+    font-size: 14px;
+  }
+}
+
+/* Ensure the navbar collapse is always visible on larger screens */
+@media (min-width: 992px) {
+  .navbar-kqe .navbar-collapse-8nw {
+    display: flex !important;
+  }
+}
+
+/* Hide the toggle button on larger screens */
+@media (min-width: 992px) {
+  .navbar-nzs {
+    display: none;
+  }
+}
+
+/* Adjust logo size */
+@media only screen and (min-width: 992px) {
+  .logo-2nm {
+    max-width: 150px;
+    height: auto;
+  }
+}
+
+/* Remove any max-width constraints on the navbar */
+.navbar-t4w,
+.navbar-kqe,
+.navbar-ele,
+.navbar-5sv {
+  max-width: none;
+}
