@@ -47,10 +47,6 @@ export default function PropertyFooter() {
         subject to change without prior notice and properties mentioned are
         subject to availability. You can expect a call, SMS or emails on details
         registered with us. | Project RERA No. P51700056361.
-        <div className="footer-actions">
-          <h5 className="footer-heading">Check out our</h5>
-          <button className="privacy-button">Privacy & Policies</button>
-        </div>
       </div>
     </footer>
   );
