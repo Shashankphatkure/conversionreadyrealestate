@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./localities.css";
 
-import { HomeIcon } from "@heroicons/react/24/solid";
+import { MapPinIcon, BuildingOfficeIcon } from "@heroicons/react/24/solid";
 
 const LocalityCard = ({ locality }) => (
   <div className="item-cim">
@@ -15,9 +15,9 @@ const LocalityCard = ({ locality }) => (
             <img src={locality.image} alt={locality.name} />
             <div className="pti-mk5">
               <h6>
-                <HomeIcon className="h-5 w-5 inline-block mr-1" />
+                <MapPinIcon className="h-5 w-5 inline-block mr-1" />
                 {locality.name}&nbsp;&nbsp;&nbsp;
-                <HomeIcon className="h-5 w-5 inline-block mr-1" />
+                <BuildingOfficeIcon className="h-5 w-5 inline-block mr-1" />
                 &nbsp;&nbsp;{locality.properties}&nbsp;Properties
               </h6>
               <div className="sta-ldo">
