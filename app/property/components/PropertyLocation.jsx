@@ -1,4 +1,5 @@
 import "./PropertyLocation.css";
+import { MapPinIcon } from "@heroicons/react/24/solid";
 
 export default function PropertyLocation() {
   return (
@@ -36,68 +37,36 @@ export default function PropertyLocation() {
         </div>
       </div>
       <p />
-      <div className="row-fv6 row-fqw row-hsh row-6pv">
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Pokhran Road - 07
-          Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Eastern Express
-          Highway - 05 Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Thane Railway
-          Station - 13 Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Ghodbunder Road - 08
-          Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Kolshet Road - 20
-          min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Chattrapati Shivaji
-          Maharaj International Airport - 47 Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Mulund West - 11 min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Airoli - 26 min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Kalwa - 20 min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Thane West - 20 min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Bhandup - 16 min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Kalyan - 45 min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Jupiter Hospital -
-          15 Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> C.P. Goenka
-          International School - 16 Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Lodha World School -
-          18 Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Holy Cross Convent -
-          16 Min
-        </div>
-        <div className="col-pfa my-mlj">
-          <i className="jdrkg list-o2f col-ecm icon-k9e" /> Big Bazaar - 15 Min
-        </div>
+      <div className="location-list">
+        {[
+          { name: "Pokhran Road", time: "07 Min" },
+          { name: "Eastern Express Highway", time: "05 Min" },
+          { name: "Thane Railway Station", time: "13 Min" },
+          { name: "Ghodbunder Road", time: "08 Min" },
+          { name: "Kolshet Road", time: "20 min" },
+          {
+            name: "Chattrapati Shivaji Maharaj International Airport",
+            time: "47 Min",
+          },
+          { name: "Mulund West", time: "11 min" },
+          { name: "Airoli", time: "26 min" },
+          { name: "Kalwa", time: "20 min" },
+          { name: "Thane West", time: "20 min" },
+          { name: "Bhandup", time: "16 min" },
+          { name: "Kalyan", time: "45 min" },
+          { name: "Jupiter Hospital", time: "15 Min" },
+          { name: "C.P. Goenka International School", time: "16 Min" },
+          { name: "Lodha World School", time: "18 Min" },
+          { name: "Holy Cross Convent", time: "16 Min" },
+          { name: "Big Bazaar", time: "15 Min" },
+        ].map((location, index) => (
+          <div key={index} className="location-item">
+            <MapPinIcon className="location-icon" />
+            <span className="location-text">
+              {location.name} - {location.time}
+            </span>
+          </div>
+        ))}
       </div>
     </section>
   );
