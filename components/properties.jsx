@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 import Slider from "react-slick";
+import { HomeIcon, CurrencyRupeeIcon } from "@heroicons/react/24/solid";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./properties.css";
@@ -12,9 +13,14 @@ const PropertyCard = ({ property }) => (
           <div className="pt-i6m">
             <img src={property.image} alt={property.name} />
             <div className="pti-tly">
-              <h6><i className="pbknf bi-geo-ekf" />{property.location}</h6>
+              <h6>
+                <i className="pbknf bi-geo-ekf" />
+                {property.location}
+              </h6>
               <div className="sta-6qv">
-                <span className="hdwah"><i className="fa-ofi fa-ge3" /> {property.type}</span>
+                <span className="hdwah">
+                  <i className="fa-ofi fa-ge3" /> {property.type}
+                </span>
                 <span>{property.status}</span>
               </div>
             </div>
@@ -22,14 +28,30 @@ const PropertyCard = ({ property }) => (
           <div className="pt-h3v">
             <h3>{property.name}</h3>
             <div className="bui-wnd">
-              <span><strong>By: {property.developer}</strong></span>
-              <div className="con-qk6"><i className="pbknf bi-mqo" /> {property.configurations}</div>
+              <span>
+                <strong>By: {property.developer}</strong>
+              </span>
+              <div className="con-qk6">
+                <HomeIcon className="h-5 w-5 inline-block mr-1" />{" "}
+                {property.configurations}
+              </div>
             </div>
-            <h4><i className="fa-sx8 fa-eec" /> {property.price}</h4>
+            <h4>
+              <CurrencyRupeeIcon className="h-5 w-5 inline-block mr-1" />{" "}
+              {property.price}
+            </h4>
           </div>
         </a>
-        <a href={`https://api.whatsapp.com/send?phone=919137458691&text=Hi!%20I%20am%20interested%20in ${encodeURIComponent(property.name)}`} className="p-w95">
-          <img src="https://newprojectsonline.com/assets/newprojectonline/wa.svg" alt="WhatsApp" />
+        <a
+          href={`https://api.whatsapp.com/send?phone=919137458691&text=Hi!%20I%20am%20interested%20in ${encodeURIComponent(
+            property.name
+          )}`}
+          className="p-w95"
+        >
+          <img
+            src="https://newprojectsonline.com/assets/newprojectonline/wa.svg"
+            alt="WhatsApp"
+          />
         </a>
       </div>
     </div>
@@ -49,16 +71,16 @@ export default function Properties({ properties }) {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
