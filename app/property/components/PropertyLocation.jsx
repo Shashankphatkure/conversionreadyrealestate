@@ -37,7 +37,7 @@ export default function PropertyLocation() {
         </div>
       </div>
       <p />
-      <div className="location-list">
+      <div className="location-list" style={{ textAlign: "left" }}>
         {[
           { name: "Pokhran Road", time: "07 Min" },
           { name: "Eastern Express Highway", time: "05 Min" },
