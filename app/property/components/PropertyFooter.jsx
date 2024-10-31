@@ -2,7 +2,7 @@ import "./PropertyFooter.css";
 
 export default function PropertyFooter() {
   return (
-    <footer>
+    <footer style={{ padding: "0 10px" }}>
       <div className="social-share-container">
         <div className="social-share-text">
           Share This Project On Social Media

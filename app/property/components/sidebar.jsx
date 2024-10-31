@@ -1,5 +1,13 @@
 import "./sidebar.css";
 
+import {
+  PhoneIcon,
+  EnvelopeIcon,
+  ChatBubbleLeftIcon,
+  MapPinIcon,
+  DocumentIcon,
+} from "@heroicons/react/24/outline";
+
 export default function Sidebar() {
   return (
     <div className="micro-9at text-bln">
@@ -462,7 +470,7 @@ export default function Sidebar() {
                   <div className="box-otr">
                     <div className="iti-vw6 iti-olo" />
                   </div>
-                  <span className="iti__country-hay">Côte d’Ivoire</span>
+                  <span className="iti__country-hay">Côte d'Ivoire</span>
                   <span className="iti__dial-1ek">+225</span>
                 </li>
                 <li className="iti-so7 iti-2cr">
@@ -1971,54 +1979,58 @@ export default function Sidebar() {
           <span>✓ Price </span> : 85 Lac* All Incl. Onwards
         </li>
       </ul>
-      <div>
-        {" "}
-        Share This Project On Social Media
-        <br />
-        <a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
-          <img
-            src="https://newprojectsonline.com/assets/img/comman/facebook.png"
-            width={30}
-            height={30}
-          />
-        </a>
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
-          <img
-            src="https://newprojectsonline.com/assets/img/comman/linkedin.png"
-            width={30}
-            height={30}
-          />
-        </a>
-        <a href="https://twitter.com/share?url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
-          <img
-            src="https://newprojectsonline.com/assets/img/comman/twitter.png"
-            width={30}
-            height={30}
-          />
-        </a>
-        <a href="https://wa.me/?text=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
-          <img
-            src="https://newprojectsonline.com/assets/img/comman/whatsapp.png"
-            width={30}
-            height={30}
-          />
-        </a>
+      <div className="social-share-container">
+        <p>Share This Project On Social Media</p>
+        <div className="social-icons">
+          <a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+            <img
+              src="https://newprojectsonline.com/assets/img/comman/facebook.png"
+              width={30}
+              height={30}
+              alt="Share on Facebook"
+            />
+          </a>
+          <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+            <img
+              src="https://newprojectsonline.com/assets/img/comman/linkedin.png"
+              width={30}
+              height={30}
+              alt="Share on LinkedIn"
+            />
+          </a>
+          <a href="https://twitter.com/share?url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+            <img
+              src="https://newprojectsonline.com/assets/img/comman/twitter.png"
+              width={30}
+              height={30}
+              alt="Share on Twitter"
+            />
+          </a>
+          <a href="https://wa.me/?text=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+            <img
+              src="https://newprojectsonline.com/assets/img/comman/whatsapp.png"
+              width={30}
+              height={30}
+              alt="Share on WhatsApp"
+            />
+          </a>
+        </div>
       </div>
       <div className="link-ec4">
         <a href="tel:+919137458691">
-          <i className="fa-11g fa-opw" />
+          <PhoneIcon className="h-6 w-6" />
         </a>
         <a href="#">
-          <i className="fa-11g fa-c3a" />
+          <EnvelopeIcon className="h-6 w-6" />
         </a>
         <a href="#">
-          <i className="fa-11g fa-c9e" />
+          <ChatBubbleLeftIcon className="h-6 w-6" />
         </a>
         <a href="#">
-          <i className="fa-11g map-q8v" />
+          <MapPinIcon className="h-6 w-6" />
         </a>
         <a href="#">
-          <i className="fa-11g fa-j2z" />
+          <DocumentIcon className="h-6 w-6" />
         </a>
       </div>
     </div>
