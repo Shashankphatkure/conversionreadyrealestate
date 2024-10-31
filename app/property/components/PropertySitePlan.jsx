@@ -5,7 +5,12 @@ export default function PropertySitePlan() {
     <section className="section-vhg shadow-y88">
       <span className="section-ara" />
       <span className="hea-xq2 text-vmg pr-5">Site &amp; Floor Plan</span>
-      <span className="block-ifq section-7vm text-vmg">Master Plan</span>
+      <span
+        className="block-ifq section-7vm text-vmg"
+        style={{ textAlign: "left" }}
+      >
+        Master Plan
+      </span>
       <a href="#" className="text-oid">
         <div className="item-3xt mt-asz">
           <div className="at-property-etq master-5v7 text-5rz">
@@ -20,7 +25,12 @@ export default function PropertySitePlan() {
           </div>
         </div>
       </a>
-      <span className="block-ifq section-7vm text-vmg mt-4am">Floor Plan</span>
+      <span
+        className="block-ifq section-7vm text-vmg mt-4am"
+        style={{ textAlign: "left" }}
+      >
+        Floor Plan
+      </span>
       <div className="row-fx7 row-ebz row-735">
         <div className="col-gco">
           <a href="#" className="text-oid">

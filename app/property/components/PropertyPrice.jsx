@@ -46,8 +46,7 @@ export default function PropertyPrice() {
                   390 - 444 sq.ft.{" "}
                 </td>
                 <td className="price-rit" style={{ textAlign: "left" }}>
-                  <i className="yxywx mi-rs-pge" />
-                  78 Lacs* + Onwards
+                  ₹ 78 Lacs* + Onwards
                 </td>
                 <td>
                   <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
@@ -69,8 +68,7 @@ export default function PropertyPrice() {
                   596 - 664 sq.ft.{" "}
                 </td>
                 <td className="price-rit" style={{ textAlign: "left" }}>
-                  <i className="yxywx mi-rs-pge" />
-                  1.19 Cr*+ Onwards
+                  ₹ 1.19 Cr*+ Onwards
                 </td>
                 <td>
                   <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
@@ -92,8 +90,7 @@ export default function PropertyPrice() {
                   830 sq.ft.{" "}
                 </td>
                 <td className="price-rit" style={{ textAlign: "left" }}>
-                  <i className="yxywx mi-rs-pge" />
-                  1.69 Cr*+ Onwards
+                  ₹ 1.69 Cr*+ Onwards
                 </td>
                 <td>
                   <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
