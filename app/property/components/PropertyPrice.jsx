@@ -10,9 +10,22 @@ export default function PropertyPrice() {
           <table className="table-j4y table-k76 table-hwc bor-pz1">
             <thead>
               <tr>
-                <th className="bor-pz1 border-bottom-9fg">Type</th>
-                <th className="bor-pz1 border-bottom-9fg">Carpet Area</th>
-                <th className="bor-pz1 border-bottom-9fg border-right-yw4">
+                <th
+                  className="bor-pz1 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
+                  Type
+                </th>
+                <th
+                  className="bor-pz1 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
+                  Carpet Area
+                </th>
+                <th
+                  className="bor-pz1 border-bottom-9fg border-right-yw4"
+                  style={{ textAlign: "left" }}
+                >
                   Price
                 </th>
                 <th />
@@ -20,13 +33,19 @@ export default function PropertyPrice() {
             </thead>
             <tbody>
               <tr>
-                <td className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg">
+                <td
+                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
                   1 BHK{" "}
                 </td>
-                <td className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg">
+                <td
+                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
                   390 - 444 sq.ft.{" "}
                 </td>
-                <td className="price-rit">
+                <td className="price-rit" style={{ textAlign: "left" }}>
                   <i className="yxywx mi-rs-pge" />
                   78 Lacs* + Onwards
                 </td>
@@ -37,13 +56,19 @@ export default function PropertyPrice() {
                 </td>
               </tr>
               <tr>
-                <td className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg">
+                <td
+                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
                   2 BHK{" "}
                 </td>
-                <td className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg">
+                <td
+                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
                   596 - 664 sq.ft.{" "}
                 </td>
-                <td className="price-rit">
+                <td className="price-rit" style={{ textAlign: "left" }}>
                   <i className="yxywx mi-rs-pge" />
                   1.19 Cr*+ Onwards
                 </td>
@@ -54,13 +79,19 @@ export default function PropertyPrice() {
                 </td>
               </tr>
               <tr>
-                <td className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg">
+                <td
+                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
                   3 BHK{" "}
                 </td>
-                <td className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg">
+                <td
+                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                  style={{ textAlign: "left" }}
+                >
                   830 sq.ft.{" "}
                 </td>
-                <td className="price-rit">
+                <td className="price-rit" style={{ textAlign: "left" }}>
                   <i className="yxywx mi-rs-pge" />
                   1.69 Cr*+ Onwards
                 </td>
