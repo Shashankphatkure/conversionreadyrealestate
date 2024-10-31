@@ -14,12 +14,13 @@ const PropertyCard = ({ property }) => (
             <img src={property.image} alt={property.name} />
             <div className="pti-tly">
               <h6>
-                <i className="pbknf bi-geo-ekf" />
+                <HomeIcon className="h-5 w-5 inline-block mr-1" />
                 {property.location}
               </h6>
               <div className="sta-6qv">
                 <span className="hdwah">
-                  <i className="fa-ofi fa-ge3" /> {property.type}
+                  <HomeIcon className="h-5 w-5 inline-block mr-1" />{" "}
+                  {property.type}
                 </span>
                 <span>{property.status}</span>
               </div>

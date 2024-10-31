@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./localities.css";
+
+import { HomeIcon } from "@heroicons/react/24/solid";
 
 const LocalityCard = ({ locality }) => (
   <div className="item-cim">
@@ -13,9 +15,9 @@ const LocalityCard = ({ locality }) => (
             <img src={locality.image} alt={locality.name} />
             <div className="pti-mk5">
               <h6>
-                <i className="jmxgo bi-geo-oco" />
+                <HomeIcon className="h-5 w-5 inline-block mr-1" />
                 {locality.name}&nbsp;&nbsp;&nbsp;
-                <i className="jmxgo bi-oy6" />
+                <HomeIcon className="h-5 w-5 inline-block mr-1" />
                 &nbsp;&nbsp;{locality.properties}&nbsp;Properties
               </h6>
               <div className="sta-ldo">
@@ -34,93 +36,108 @@ export default function Localities() {
     {
       name: "Pune",
       link: "https://newprojectsonline.com/new-projects-in-pune",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/pune.webp",
-      properties: 76
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/pune.webp",
+      properties: 76,
     },
     {
       name: "Thane",
       link: "https://newprojectsonline.com/new-projects-in-thane",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/thane.webp",
-      properties: 50
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/thane.webp",
+      properties: 50,
     },
     {
       name: "Ghaziabad",
       link: "https://newprojectsonline.com/new-projects-in-ghaziabad",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/ghaziabad.webp",
-      properties: 3
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/ghaziabad.webp",
+      properties: 3,
     },
     {
       name: "Navi Mumbai",
       link: "https://newprojectsonline.com/new-projects-in-navi-mumbai",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/navi-mumbai.webp",
-      properties: 396
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/navi-mumbai.webp",
+      properties: 396,
     },
     {
       name: "Kalyan",
       link: "https://newprojectsonline.com/new-projects-in-kalyan",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/kalyan.webp",
-      properties: 26
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/kalyan.webp",
+      properties: 26,
     },
     {
       name: "Noida",
       link: "https://newprojectsonline.com/new-projects-in-noida",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/noida.webp",
-      properties: 5
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/noida.webp",
+      properties: 5,
     },
     {
       name: "Dombivali",
       link: "https://newprojectsonline.com/new-projects-in-dombivali",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/dombivali.webp",
-      properties: 13
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/dombivali.webp",
+      properties: 13,
     },
     {
       name: "Goa",
       link: "https://newprojectsonline.com/new-projects-in-goa",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/goa.webp",
-      properties: 1
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/goa.webp",
+      properties: 1,
     },
     {
       name: "Hyderabad",
       link: "https://newprojectsonline.com/new-projects-in-hyderabad",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/hyderabad.webp",
-      properties: 2
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/hyderabad.webp",
+      properties: 2,
     },
     {
       name: "Bangalore",
       link: "https://newprojectsonline.com/new-projects-in-banglore",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/banglore.webp",
-      properties: 37
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/banglore.webp",
+      properties: 37,
     },
     {
       name: "Ahmedabad",
       link: "https://newprojectsonline.com/new-projects-in-ahmedabad",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/ahmedabad.webp",
-      properties: 1
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/ahmedabad.webp",
+      properties: 1,
     },
     {
       name: "Gurgaon",
       link: "https://newprojectsonline.com/new-projects-in-gurgaon",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/gurgaon.webp",
-      properties: 26
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/gurgaon.webp",
+      properties: 26,
     },
     {
       name: "Mumbai City",
       link: "https://newprojectsonline.com/new-projects-in-mumbai-city",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/Mumbai.webp",
-      properties: 228
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/Mumbai.webp",
+      properties: 228,
     },
     {
       name: "Mumbai Suburban",
       link: "https://newprojectsonline.com/new-projects-in-mumbai-suburban",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/mumbai-sub.webp",
-      properties: 28
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/mumbai-sub.webp",
+      properties: 28,
     },
     {
       name: "Nagpur",
       link: "https://newprojectsonline.com/new-projects-in-nagpur",
-      image: "https://newprojectsonline.com/assets/uploads/homelocalities_image/nagpur.webp",
-      properties: 2
-    }
+      image:
+        "https://newprojectsonline.com/assets/uploads/homelocalities_image/nagpur.webp",
+      properties: 2,
+    },
   ];
 
   const settings = {
@@ -135,16 +152,16 @@ export default function Localities() {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
