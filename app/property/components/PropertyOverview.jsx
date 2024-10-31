@@ -1,5 +1,7 @@
 import "./PropertyOverview.css";
 
+import { DocumentIcon } from "@heroicons/react/24/outline";
+
 export default function PropertyOverview() {
   return (
     <section className="section-nkt shadow-c1i">
@@ -39,33 +41,41 @@ export default function PropertyOverview() {
       <center>
         {" "}
         <button className="btn-zi3 btn-foh info-aro btn-xr8 overflow-a2r">
-          <span className="block-syk ppgja mi-tx9 mr-bz4 ani-oly slide-wti inf-pao" />{" "}
-          Download Brochure
+          <DocumentIcon className="h-5 w-5 inline-block" /> Download Brochure
         </button>{" "}
       </center>
-      <span className="block-qo4 section-29f text-56r mt-oq8">
+      <span
+        className="block-qo4 section-29f text-56r mt-oq8"
+        style={{ textAlign: "left" }}
+      >
         About Ashar Group
       </span>
       <img
         height={80}
         src="https://newprojectsonline.com/assets/uploads/logos/1719552186-logo_(1).webp"
       />
-      <p>
+      <p style={{ textAlign: "left" }}>
         Since its inception in 2001, Ashar Group has believed that execution
         &amp; quality is essential to success in real estate. When combined with
         uncompromising values, customer-centric attitude, robust engineering,
         and transparency in business operations; it makes Ashar one of the most
         preferred real estate brands in the residential and commercial segment.
-        Ashar Group has been a game-changer to Thane’s skyline. They are
+        Ashar Group has been a game-changer to Thane's skyline. They are
         crafting future-ready homes and office spaces and are the makers of
-        Thane’s Largest IT Park - Ashar IT Park and Thane’s First International
+        Thane's Largest IT Park - Ashar IT Park and Thane's First International
         School - Billabong High. The group delivers nothing but excellence with
         best-in-class quality in a time-bound manner. Their Zero RERA complaints
         track record and value to commitment is pivotal to their success story.
       </p>
       <hr />
-      <span className="at-property-bge eff-byd"> Project Highlights </span>
-      <div className="row-m23">
+      <span
+        className="at-property-bge eff-byd"
+        style={{ textAlign: "left", marginLeft: "0" }}
+      >
+        {" "}
+        Project Highlights{" "}
+      </span>
+      <div className="row-m23" style={{ textAlign: "left" }}>
         <div className="col-3lh">
           <ul
             className="list-group-tzc"
@@ -74,6 +84,7 @@ export default function PropertyOverview() {
               "font-size": "16px",
               "list-style": "none",
               "padding-left": "0",
+              textAlign: "left",
             }}
           >
             <li

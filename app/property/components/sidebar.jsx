@@ -6,6 +6,7 @@ import {
   ChatBubbleLeftIcon,
   MapPinIcon,
   DocumentIcon,
+  HomeIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Sidebar() {
@@ -15,16 +16,12 @@ export default function Sidebar() {
         <ul className="nav-svv nav-6gq block-63t">
           <li className="nav-item-rvj">Organize Site Visit</li>
           <li className="nav-item-rvj">
-            <span className="lboea mi-p4n">
-              <span className="pat-5fr" />
-              <span className="pat-zqh" />
-              <span className="pat-34f" />
-            </span>{" "}
-            Send us Whatsapp
+            <ChatBubbleLeftIcon className="h-5 w-5 inline-block" /> Send us
+            Whatsapp
           </li>
         </ul>
         <button className="btn-pm7 btn-tjz info-4em form-hok eff-yls eff-jqi mt-7er">
-          <span className="lboea mi-mhb" /> Request Call Back
+          <PhoneIcon className="h-5 w-5 inline-block" /> Request Call Back
         </button>
       </div>
       <span className="block-pw4 form-91l font-weight-k7b my-cb8">
@@ -1956,13 +1953,13 @@ export default function Sidebar() {
       <p className="animate-4y8">
         Call Us :{" "}
         <a href="tel:+919137458691">
-          <i className="fa-11g fa-opw" /> +91 9137458691
+          <PhoneIcon className="h-4 w-4 inline-block" /> +91 9137458691
         </a>
       </p>
       <p className="dlres">
         <a href="#">
           Book A Site Visit &nbsp;&nbsp;
-          <i className="fa-11g fa-4r7 icon-w8o" />
+          <HomeIcon className="h-5 w-5 inline-block" />
         </a>
       </p>
       <ul className="animate-4y8">
