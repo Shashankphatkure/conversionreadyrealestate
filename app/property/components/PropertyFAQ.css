@@ -112,6 +112,7 @@ section {
   color: #000;
   font-family: muli, Helvetica, Arial, sans-serif;
   letter-spacing: 0.03vw;
+  text-align: left;
 }
 
 @media only screen and (min-width: 992px) {
