@@ -233,6 +233,317 @@ const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
             </div>
           </div>
         </div>
+
+        {/* Overview Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Project Overview
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Project Area (acres)
+              </label>
+              <input
+                type="text"
+                value={property.overview?.project_area || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    overview: {
+                      ...property.overview,
+                      project_area: e.target.value,
+                    },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Total Towers
+              </label>
+              <input
+                type="number"
+                value={property.overview?.total_towers || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    overview: {
+                      ...property.overview,
+                      total_towers: e.target.value,
+                    },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                RERA ID
+              </label>
+              <input
+                type="text"
+                value={property.overview?.rera_id || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    overview: { ...property.overview, rera_id: e.target.value },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Price Details Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Price Details
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Price per sq.ft
+              </label>
+              <input
+                type="text"
+                value={property.price_details?.price_per_sqft || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    price_details: {
+                      ...property.price_details,
+                      price_per_sqft: e.target.value,
+                    },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Booking Amount
+              </label>
+              <input
+                type="text"
+                value={property.price_details?.booking_amount || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    price_details: {
+                      ...property.price_details,
+                      booking_amount: e.target.value,
+                    },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Location Details Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Location Details
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Full Address
+              </label>
+              <textarea
+                value={property.location_details?.address || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    location_details: {
+                      ...property.location_details,
+                      address: e.target.value,
+                    },
+                  })
+                }
+                rows={3}
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Landmarks (comma separated)
+              </label>
+              <input
+                type="text"
+                value={property.location_details?.landmarks?.join(", ") || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    location_details: {
+                      ...property.location_details,
+                      landmarks: e.target.value
+                        .split(",")
+                        .map((item) => item.trim()),
+                    },
+                  })
+                }
+                placeholder="Enter landmarks separated by commas"
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Latitude
+              </label>
+              <input
+                type="text"
+                value={property.location_details?.latitude || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    location_details: {
+                      ...property.location_details,
+                      latitude: e.target.value,
+                    },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Longitude
+              </label>
+              <input
+                type="text"
+                value={property.location_details?.longitude || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    location_details: {
+                      ...property.location_details,
+                      longitude: e.target.value,
+                    },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Gallery Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Gallery</h3>
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Image URLs (one per line)
+              </label>
+              <textarea
+                value={property.gallery?.images?.join("\n") || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    gallery: {
+                      ...property.gallery,
+                      images: e.target.value
+                        .split("\n")
+                        .filter((url) => url.trim()),
+                    },
+                  })
+                }
+                rows={4}
+                placeholder="Enter image URLs, one per line"
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Video URLs (one per line)
+              </label>
+              <textarea
+                value={property.gallery?.videos?.join("\n") || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    gallery: {
+                      ...property.gallery,
+                      videos: e.target.value
+                        .split("\n")
+                        .filter((url) => url.trim()),
+                    },
+                  })
+                }
+                rows={4}
+                placeholder="Enter video URLs, one per line"
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">FAQs</h3>
+          <div className="space-y-4">
+            {(property.faq || []).map((faq, index) => (
+              <div key={index} className="grid grid-cols-1 gap-2">
+                <input
+                  type="text"
+                  value={faq.question || ""}
+                  onChange={(e) => {
+                    const newFaqs = [...(property.faq || [])];
+                    newFaqs[index] = {
+                      ...newFaqs[index],
+                      question: e.target.value,
+                    };
+                    setProperty({ ...property, faq: newFaqs });
+                  }}
+                  placeholder="Question"
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                <textarea
+                  value={faq.answer || ""}
+                  onChange={(e) => {
+                    const newFaqs = [...(property.faq || [])];
+                    newFaqs[index] = {
+                      ...newFaqs[index],
+                      answer: e.target.value,
+                    };
+                    setProperty({ ...property, faq: newFaqs });
+                  }}
+                  placeholder="Answer"
+                  rows={2}
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newFaqs = property.faq.filter((_, i) => i !== index);
+                    setProperty({ ...property, faq: newFaqs });
+                  }}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  Remove FAQ
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                const newFaqs = [
+                  ...(property.faq || []),
+                  { question: "", answer: "" },
+                ];
+                setProperty({ ...property, faq: newFaqs });
+              }}
+              className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200"
+            >
+              Add FAQ
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="flex justify-end gap-4 pt-4 border-t">
@@ -276,7 +587,7 @@ export default function Dashboard() {
     image: "",
     location: "",
     type: "residential",
-    status: "UNDER CONSTRUCTION",
+    status: "UNDER_CONSTRUCTION",
     developer: "",
     configurations: "",
     price: "",
@@ -284,6 +595,39 @@ export default function Dashboard() {
     amenities: [],
     completion_date: "",
     total_units: "",
+    overview: {
+      project_area: "",
+      total_towers: "",
+      total_floors: "",
+      possession_date: "",
+      rera_id: "",
+    },
+    price_details: {
+      starting_price: "",
+      price_per_sqft: "",
+      booking_amount: "",
+      maintenance_charges: "",
+    },
+    site_plan: {
+      plan_image: "",
+      plan_description: "",
+    },
+    gallery: {
+      images: [],
+      videos: [],
+    },
+    location_details: {
+      address: "",
+      landmarks: [],
+      latitude: "",
+      longitude: "",
+      connectivity: [],
+    },
+    site_tour: {
+      virtual_tour_link: "",
+      tour_images: [],
+    },
+    faq: [],
   };
 
   const [newProperty, setNewProperty] = useState(initialPropertyState);
@@ -320,7 +664,7 @@ export default function Dashboard() {
         image: "",
         location: "",
         type: "residential",
-        status: "UNDER CONSTRUCTION",
+        status: "UNDER_CONSTRUCTION",
         developer: "",
         configurations: "",
         price: "",
@@ -456,7 +800,7 @@ export default function Dashboard() {
                 className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="all">All Status</option>
-                <option value="UNDER CONSTRUCTION">Under Construction</option>
+                <option value="UNDER_CONSTRUCTION">Under Construction</option>
                 <option value="READY_TO_MOVE">Ready to Move</option>
                 <option value="UPCOMING">Upcoming</option>
               </select>
