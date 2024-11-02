@@ -648,28 +648,51 @@ export default function Dashboard() {
 
   async function handleAddProperty(e) {
     e.preventDefault();
+    setIsLoading(true);
+
+    // Clean up the property data before sending
+    const propertyToAdd = {
+      ...newProperty,
+      amenities: Array.isArray(newProperty.amenities)
+        ? newProperty.amenities
+        : newProperty.amenities
+            ?.split(",")
+            .map((item) => item.trim())
+            .filter(Boolean) || [],
+      gallery: {
+        images: Array.isArray(newProperty.gallery?.images)
+          ? newProperty.gallery.images
+          : newProperty.gallery?.images?.split("\n").filter(Boolean) || [],
+        videos: Array.isArray(newProperty.gallery?.videos)
+          ? newProperty.gallery.videos
+          : newProperty.gallery?.videos?.split("\n").filter(Boolean) || [],
+      },
+      location_details: {
+        ...newProperty.location_details,
+        landmarks: Array.isArray(newProperty.location_details?.landmarks)
+          ? newProperty.location_details.landmarks
+          : newProperty.location_details?.landmarks
+              ?.split(",")
+              .map((item) => item.trim())
+              .filter(Boolean) || [],
+      },
+    };
 
     const { data, error } = await supabase
       .from("properties")
-      .insert([newProperty])
+      .insert([propertyToAdd])
       .select();
 
     if (error) {
+      toast.error("Error adding property");
       console.error("Error adding property:", error);
     } else {
       setProperties([...properties, data[0]]);
-      setNewProperty({
-        name: "",
-        link: "",
-        image: "",
-        location: "",
-        type: "residential",
-        status: "UNDER_CONSTRUCTION",
-        developer: "",
-        configurations: "",
-        price: "",
-      });
+      setNewProperty(initialPropertyState);
+      setIsAddingProperty(false);
+      toast.success("Property added successfully");
     }
+    setIsLoading(false);
   }
 
   async function handleDeleteProperty(id) {
@@ -714,23 +737,34 @@ export default function Dashboard() {
   };
 
   const filteredProperties = properties.filter((property) => {
+    if (!property) return false;
+
     const matchesType =
       filters.type === "all" || property.type === filters.type;
     const matchesStatus =
       filters.status === "all" || property.status === filters.status;
     const matchesSearch =
-      property.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-      property.location.toLowerCase().includes(filters.search.toLowerCase()) ||
-      property.developer.toLowerCase().includes(filters.search.toLowerCase());
+      (property.name?.toLowerCase() || "").includes(
+        filters.search.toLowerCase()
+      ) ||
+      (property.location?.toLowerCase() || "").includes(
+        filters.search.toLowerCase()
+      ) ||
+      (property.developer?.toLowerCase() || "").includes(
+        filters.search.toLowerCase()
+      );
 
     return matchesType && matchesStatus && matchesSearch;
   });
 
   const sortedAndFilteredProperties = filteredProperties.sort((a, b) => {
+    const aValue = a[sortConfig.key] || "";
+    const bValue = b[sortConfig.key] || "";
+
     if (sortConfig.direction === "asc") {
-      return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1;
+      return aValue > bValue ? 1 : -1;
     }
-    return a[sortConfig.key] < b[sortConfig.key] ? 1 : -1;
+    return aValue < bValue ? 1 : -1;
   });
 
   return (
@@ -944,15 +978,20 @@ export default function Dashboard() {
 
         {/* Add Property Modal */}
         {isAddingProperty && (
-          <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-            <h2 className="text-xl font-semibold mb-4">Add New Property</h2>
-            <PropertyForm
-              property={newProperty}
-              setProperty={setNewProperty}
-              onSubmit={handleAddProperty}
-              onCancel={() => setIsAddingProperty(false)}
-              title="Add Property"
-            />
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+              <h2 className="text-xl font-semibold mb-4">Add New Property</h2>
+              <PropertyForm
+                property={newProperty}
+                setProperty={setNewProperty}
+                onSubmit={handleAddProperty}
+                onCancel={() => {
+                  setIsAddingProperty(false);
+                  setNewProperty(initialPropertyState);
+                }}
+                title="Add Property"
+              />
+            </div>
           </div>
         )}
       </div>
