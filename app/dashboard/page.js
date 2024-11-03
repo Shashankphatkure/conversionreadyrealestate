@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
+import { useAuth } from "@/components/AuthProvider";
 
 // Add this component at the top of your file, outside the main Dashboard component
 const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
@@ -566,6 +567,7 @@ const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
 };
 
 export default function Dashboard() {
+  const { user } = useAuth();
   const [properties, setProperties] = useState([]);
   const [isAddingProperty, setIsAddingProperty] = useState(false);
   const [editingProperty, setEditingProperty] = useState(null);

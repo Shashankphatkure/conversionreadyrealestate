@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
+import { useAuth } from "@/components/AuthProvider";
 
 const LocalityForm = ({ locality, setLocality, onSubmit, onCancel, title }) => {
   return (
@@ -94,6 +95,7 @@ const LocalityForm = ({ locality, setLocality, onSubmit, onCancel, title }) => {
 };
 
 export default function Localities() {
+  const { user } = useAuth();
   const [localities, setLocalities] = useState([]);
   const [isAddingLocality, setIsAddingLocality] = useState(false);
   const [editingLocality, setEditingLocality] = useState(null);

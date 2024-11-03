@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
+import { useAuth } from "@/components/AuthProvider";
 
 const LeadForm = ({ lead, setLead, onSubmit, onCancel, title }) => {
   return (
@@ -145,6 +146,7 @@ const LeadForm = ({ lead, setLead, onSubmit, onCancel, title }) => {
 };
 
 export default function Leads() {
+  const { user } = useAuth();
   const [leads, setLeads] = useState([]);
   const [isAddingLead, setIsAddingLead] = useState(false);
   const [editingLead, setEditingLead] = useState(null);
