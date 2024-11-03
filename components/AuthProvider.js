@@ -18,13 +18,18 @@ export const AuthProvider = ({ children }) => {
       setUser(session?.user ?? null);
       setLoading(false);
 
-      if (!session?.user && !isPublicRoute(pathname)) {
+      if (!session?.user && isProtectedRoute(pathname)) {
         router.push("/login");
       }
     });
 
     return () => subscription.unsubscribe();
   }, [pathname]);
+
+  const isProtectedRoute = (path) => {
+    const protectedRoutes = ["/dashboard", "/leads", "/localities"];
+    return protectedRoutes.some((route) => path.startsWith(route));
+  };
 
   const isPublicRoute = (path) => {
     const publicRoutes = ["/login"];
@@ -39,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     );
   }
 
-  if (!user && !isPublicRoute(pathname)) {
+  if (!user && isProtectedRoute(pathname)) {
     router.push("/login");
     return null;
   }
