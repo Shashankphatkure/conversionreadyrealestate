@@ -1,9 +1,10 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./localities.css";
-
+import { supabase } from "@/utils/supabase";
 import { MapPinIcon, BuildingOfficeIcon } from "@heroicons/react/24/solid";
 
 const LocalityCard = ({ locality }) => (
@@ -32,113 +33,24 @@ const LocalityCard = ({ locality }) => (
 );
 
 export default function Localities() {
-  const localitiesData = [
-    {
-      name: "Pune",
-      link: "https://newprojectsonline.com/new-projects-in-pune",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/pune.webp",
-      properties: 76,
-    },
-    {
-      name: "Thane",
-      link: "https://newprojectsonline.com/new-projects-in-thane",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/thane.webp",
-      properties: 50,
-    },
-    {
-      name: "Ghaziabad",
-      link: "https://newprojectsonline.com/new-projects-in-ghaziabad",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/ghaziabad.webp",
-      properties: 3,
-    },
-    {
-      name: "Navi Mumbai",
-      link: "https://newprojectsonline.com/new-projects-in-navi-mumbai",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/navi-mumbai.webp",
-      properties: 396,
-    },
-    {
-      name: "Kalyan",
-      link: "https://newprojectsonline.com/new-projects-in-kalyan",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/kalyan.webp",
-      properties: 26,
-    },
-    {
-      name: "Noida",
-      link: "https://newprojectsonline.com/new-projects-in-noida",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/noida.webp",
-      properties: 5,
-    },
-    {
-      name: "Dombivali",
-      link: "https://newprojectsonline.com/new-projects-in-dombivali",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/dombivali.webp",
-      properties: 13,
-    },
-    {
-      name: "Goa",
-      link: "https://newprojectsonline.com/new-projects-in-goa",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/goa.webp",
-      properties: 1,
-    },
-    {
-      name: "Hyderabad",
-      link: "https://newprojectsonline.com/new-projects-in-hyderabad",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/hyderabad.webp",
-      properties: 2,
-    },
-    {
-      name: "Bangalore",
-      link: "https://newprojectsonline.com/new-projects-in-banglore",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/banglore.webp",
-      properties: 37,
-    },
-    {
-      name: "Ahmedabad",
-      link: "https://newprojectsonline.com/new-projects-in-ahmedabad",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/ahmedabad.webp",
-      properties: 1,
-    },
-    {
-      name: "Gurgaon",
-      link: "https://newprojectsonline.com/new-projects-in-gurgaon",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/gurgaon.webp",
-      properties: 26,
-    },
-    {
-      name: "Mumbai City",
-      link: "https://newprojectsonline.com/new-projects-in-mumbai-city",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/Mumbai.webp",
-      properties: 228,
-    },
-    {
-      name: "Mumbai Suburban",
-      link: "https://newprojectsonline.com/new-projects-in-mumbai-suburban",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/mumbai-sub.webp",
-      properties: 28,
-    },
-    {
-      name: "Nagpur",
-      link: "https://newprojectsonline.com/new-projects-in-nagpur",
-      image:
-        "https://newprojectsonline.com/assets/uploads/homelocalities_image/nagpur.webp",
-      properties: 2,
-    },
-  ];
+  const [localities, setLocalities] = useState([]);
+
+  useEffect(() => {
+    async function fetchLocalities() {
+      const { data, error } = await supabase
+        .from("localities")
+        .select("*")
+        .order("properties", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching localities:", error);
+      } else {
+        setLocalities(data);
+      }
+    }
+
+    fetchLocalities();
+  }, []);
 
   const settings = {
     dots: true,
@@ -173,8 +85,11 @@ export default function Localities() {
               <div className="carousel-evd owl-hfs owl-bdo owl-62r">
                 <div className="localities-slider">
                   <Slider {...settings}>
-                    {localitiesData.map((locality, index) => (
-                      <LocalityCard key={index} locality={locality} />
+                    {localities.map((locality, index) => (
+                      <LocalityCard
+                        key={locality.id || index}
+                        locality={locality}
+                      />
                     ))}
                   </Slider>
                 </div>
