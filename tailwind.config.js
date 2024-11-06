@@ -10,6 +10,11 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "#ba8d4a",
+      },
+      fontFamily: {
+        muli: ["muli", "Helvetica", "Arial", "sans-serif"],
+        roboto: ["roboto", "Helvetica", "Arial", "sans-serif"],
       },
     },
   },
