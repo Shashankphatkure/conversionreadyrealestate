@@ -83,9 +83,7 @@ export default function FooterBottom() {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faShieldHalved} />
-                    <a href="https://newprojectsonline.com/privacy-policy.html">
-                      Read Privacy & Policy
-                    </a>
+                    <a href="/privacy">Read Privacy & Policy</a>
                   </li>
                 </ul>
               </div>

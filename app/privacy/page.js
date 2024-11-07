@@ -83,7 +83,7 @@ export default function HomeContent() {
 
         <h2 className="text-xl md:text-2xl font-bold mb-4">Log Files</h2>
         <p className="mb-4 text-sm md:text-base">
-          NewProjectsOnline.Com follows a standard procedure of using log files.
+          Shree Ganesh Realty follows a standard procedure of using log files.
           These files log visitors when they visit websites. All hosting
           companies do this and a part of hosting services' analytics. The
           information collected by log files include internet protocol (IP)

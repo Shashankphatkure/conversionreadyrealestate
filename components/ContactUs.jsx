@@ -73,10 +73,10 @@ export default function ContactUs() {
                   Website
                 </h41>
                 <a
-                  href="https://newprojectsonline.com"
+                  href="https://shreeganeshrealty.com"
                   className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
                 >
-                  newprojectsonline.com
+                  ShreeGaneshRealty.Com
                 </a>
               </div>
             </div>
