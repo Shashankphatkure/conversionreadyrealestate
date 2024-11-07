@@ -63,7 +63,7 @@ export default function Header() {
               </li>
               <li>
                 <a
-                  href="https://newprojectsonline.com/privacy-policy.html"
+                  href="/privacy"
                   className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80"
                 >
                   Privacy Policy
