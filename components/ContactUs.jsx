@@ -1,59 +1,177 @@
 import "./ContactUs.css";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPhone,
+  faEnvelope,
+  faGlobe,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function ContactUs() {
-    return (
-        <div className="contact-container">
-            <div className="contact-form">
-                <form>
-                    <div className="form-row">
-                        <input type="text" placeholder="Name" required />
-                        <input type="email" placeholder="Email" required />
-                    </div>
-                    <div className="form-row">
-                        <input type="text" placeholder="Subject" required />
-                        <input type="tel" placeholder="Number" required />
-                    </div>
-                    <textarea placeholder="Write message" required></textarea>
-                    <button type="submit">Send Us A Message</button>
-                </form>
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Contact Info Section */}
+        <div className="bg-white rounded-lg shadow-lg p-5">
+          <h3 className="text-xl font-semibold mb-3">Get in Touch</h3>
+          <p className="text-gray-600 mb-4">
+            Have questions about our properties? We're here to help you find
+            your dream home.
+          </p>
+
+          <div className="space-y-3">
+            <div className="flex">
+              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
+                <FontAwesomeIcon
+                  icon={faPhone}
+                  className="text-red-500 text-lg"
+                />
+              </div>
+              <div className="ml-4 flex flex-col justify-center">
+                <h4 className="text-sm font-semibold text-gray-900 leading-tight">
+                  Call Us
+                </h4>
+                <a
+                  href="tel:+919137458691"
+                  className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
+                >
+                  +91 9137458691
+                </a>
+              </div>
             </div>
-            <div className="contact-info">
-                <div style={{
-                    "padding":"30px",
-                    "background":"url(https://newprojectsonline.com/assets/main/img/contact-info.jpg)",
-                    "backgroundPosition":"center center",
-                    "backgroundRepeat":"no-repeat",
-                    "backgroundSize":"cover",
-                    "position":"relative",
-                    "borderRadius":"10px",
-                    "height": "100%"
-                }}>
-                    <div className="media-oxt">
-                        <FontAwesomeIcon icon={faPhone} className="fa-1f3" style={{ marginRight: '10px' }} />
-                        <div className="media-57v">
-                            <h5>Phone:</h5>
-                            <p><a href="tel:+919137458691">+91 9137458691</a></p>
-                        </div>
-                    </div>
-                    <div className="media-oxt">
-                        <FontAwesomeIcon icon={faEnvelope} className="fa-1f3" style={{ marginRight: '10px' }} />
-                        <div className="media-57v">
-                            <h5>Email:</h5>
-                            <p><a href="mailto:newprojectsonline.com@gmail.com">newprojectsonline.com@gmail.com</a></p>
-                        </div>
-                    </div>
-                    <div className="media-oxt">
-                        <FontAwesomeIcon icon={faGlobe} className="fa-1f3" style={{ marginRight: '10px' }} />
-                        <div className="media-57v">
-                            <h5>Web:</h5>
-                            <p><a href="https://newprojectsonline.com">newprojectsonline.com</a></p>
-                        </div>
-                    </div>
-                </div>
+
+            <div className="flex">
+              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="text-red-500 text-lg"
+                />
+              </div>
+              <div className="ml-4 flex flex-col justify-center">
+                <h4 className="text-sm font-semibold text-gray-900 leading-tight">
+                  Email Us
+                </h4>
+                <a
+                  href="mailto:newprojectsonline.com@gmail.com"
+                  className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
+                >
+                  newprojectsonline.com@gmail.com
+                </a>
+              </div>
             </div>
+
+            <div className="flex">
+              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
+                <FontAwesomeIcon
+                  icon={faGlobe}
+                  className="text-red-500 text-lg"
+                />
+              </div>
+              <div className="ml-4 flex flex-col justify-center">
+                <h4 className="text-sm font-semibold text-gray-900 leading-tight">
+                  Website
+                </h4>
+                <a
+                  href="https://newprojectsonline.com"
+                  className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
+                >
+                  newprojectsonline.com
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+
+        {/* Contact Form Section */}
+        <div className="bg-white rounded-lg shadow-lg p-5">
+          <form className="space-y-3">
+            <div className="grid md:grid-cols-2 gap-3">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-3">
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="subject"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="message"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                rows="2"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all resize-none"
+                required
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors duration-300 font-medium"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
