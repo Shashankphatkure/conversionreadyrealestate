@@ -53,10 +53,10 @@ export default function ContactUs() {
                   Email Us
                 </h41>
                 <a
-                  href="mailto:newprojectsonline.com@gmail.com"
+                  href="mailto:omshree5707@gmail.com"
                   className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
                 >
-                  newprojectsonline.com@gmail.com
+                  omshree5707@gmail.com
                 </a>
               </div>
             </div>

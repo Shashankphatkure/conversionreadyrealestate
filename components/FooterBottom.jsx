@@ -67,14 +67,14 @@ export default function FooterBottom() {
                   <li>
                     <FontAwesomeIcon icon={faLocationDot} />
                     <span>
-                      603, Shiv Pratap Plaza, Plot No. 113B/C, Sector 50E,
-                      Seawoods West, Navi Mumbai 400706
+                      Shah Alpine Shop no.22 Plot no.6 Sector6 Kharghar Navi
+                      Mumbai 410210
                     </span>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} />
-                    <a href="mailto:info@newprojectsonline.com">
-                      info@newprojectsonline.com
+                    <a href="mailto:omshree5707@gmail.com">
+                      omshree5707@gmail.com
                     </a>
                   </li>
                   <li>
