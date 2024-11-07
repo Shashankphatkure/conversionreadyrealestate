@@ -11,7 +11,7 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           <div className="logo">
-            <a href="https://newprojectsonline.com/">
+            <a href="/">
               <img src="/logo.png" width={50} height={50} alt="Logo" />
             </a>
           </div>
@@ -31,7 +31,7 @@ export default function Header() {
             <ul className="flex flex-col lg:flex-row">
               <li>
                 <a
-                  href="https://newprojectsonline.com/"
+                  href="/"
                   className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80"
                 >
                   Home
