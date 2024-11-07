@@ -14,8 +14,8 @@ export default function ContactUs() {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Contact Info Section */}
         <div className="bg-white rounded-lg shadow-lg p-5">
-          <h3 className="text-xl font-semibold mb-3">Get in Touch</h3>
-          <p className="text-gray-600 mb-4">
+          <h3 className="text-xl font-semibold ">Get in Touch</h3>
+          <p className="text-gray-600 ">
             Have questions about our properties? We're here to help you find
             your dream home.
           </p>
@@ -28,10 +28,10 @@ export default function ContactUs() {
                   className="text-red-500 text-lg"
                 />
               </div>
-              <div className="ml-4 flex flex-col justify-center">
-                <h4 className="text-sm font-semibold text-gray-900 leading-tight">
+              <div className="ml-4 flex flex-col justify-center mb-2">
+                <h41 className="text-2xl font-semibold text-gray-900 leading-tight">
                   Call Us
-                </h4>
+                </h41>
                 <a
                   href="tel:+919137458691"
                   className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
@@ -48,10 +48,10 @@ export default function ContactUs() {
                   className="text-red-500 text-lg"
                 />
               </div>
-              <div className="ml-4 flex flex-col justify-center">
-                <h4 className="text-sm font-semibold text-gray-900 leading-tight">
+              <div className="ml-4 flex flex-col justify-center mb-2">
+                <h41 className="text-2xl font-semibold text-gray-900 leading-tight">
                   Email Us
-                </h4>
+                </h41>
                 <a
                   href="mailto:newprojectsonline.com@gmail.com"
                   className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
@@ -68,10 +68,10 @@ export default function ContactUs() {
                   className="text-red-500 text-lg"
                 />
               </div>
-              <div className="ml-4 flex flex-col justify-center">
-                <h4 className="text-sm font-semibold text-gray-900 leading-tight">
+              <div className="ml-4 flex flex-col justify-center mb-2">
+                <h41 className="text-2xl font-semibold text-gray-900 leading-tight">
                   Website
-                </h4>
+                </h41>
                 <a
                   href="https://newprojectsonline.com"
                   className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
@@ -85,7 +85,7 @@ export default function ContactUs() {
 
         {/* Contact Form Section */}
         <div className="bg-white rounded-lg shadow-lg p-5">
-          <form className="space-y-3">
+          <form className="">
             <div className="grid md:grid-cols-2 gap-3">
               <div>
                 <label
