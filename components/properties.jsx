@@ -44,7 +44,7 @@ const PropertyCard = ({ property }) => (
           </div>
         </a>
         <a
-          href={`https://api.whatsapp.com/send?phone=919137458691&text=Hi!%20I%20am%20interested%20in ${encodeURIComponent(
+          href={`https://api.whatsapp.com/send?phone=919892666207&text=Hi!%20I%20am%20interested%20in ${encodeURIComponent(
             property.name
           )}`}
           className="p-w95"

@@ -73,11 +73,11 @@ export default function Header() {
           </nav>
           <div className="hidden lg:block">
             <a
-              href="tel:+91-9137458691"
+              href="tel:+91-9892666207"
               className="inline-flex items-center bg-[#f64d0d] text-white px-4 py-2 rounded"
             >
               <FontAwesomeIcon icon={faPhone} className="mr-2" />
-              <span>+91-9137458691</span>
+              <span>+91-9892666207</span>
             </a>
           </div>
         </div>

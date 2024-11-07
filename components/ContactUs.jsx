@@ -33,10 +33,10 @@ export default function ContactUs() {
                   Call Us
                 </h41>
                 <a
-                  href="tel:+919137458691"
+                  href="tel:+919892666207"
                   className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
                 >
-                  +91 9137458691
+                  +91 9892666207
                 </a>
               </div>
             </div>

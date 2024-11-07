@@ -1952,8 +1952,8 @@ export default function Sidebar() {
       </form>
       <p className="animate-4y8">
         Call Us :{" "}
-        <a href="tel:+919137458691">
-          <PhoneIcon className="h-4 w-4 inline-block" /> +91 9137458691
+        <a href="tel:+919892666207">
+          <PhoneIcon className="h-4 w-4 inline-block" /> +91 9892666207
         </a>
       </p>
       <p className="dlres">
@@ -2014,7 +2014,7 @@ export default function Sidebar() {
         </div>
       </div>
       <div className="link-ec4">
-        <a href="tel:+919137458691">
+        <a href="tel:+919892666207">
           <PhoneIcon className="h-6 w-6" />
         </a>
         <a href="#">

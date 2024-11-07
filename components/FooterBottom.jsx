@@ -79,7 +79,7 @@ export default function FooterBottom() {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPhone} />
-                    <a href="tel:+919137458691">+91 9137458691</a>
+                    <a href="tel:+919892666207">+91 9892666207</a>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faShieldHalved} />
@@ -116,7 +116,7 @@ export default function FooterBottom() {
             <div className="contact-cta">
               <FontAwesomeIcon icon={faPhone} />
               <div>Do You Have Questions?</div>
-              <a href="tel:+919137458691">+91 9137458691</a>
+              <a href="tel:+919892666207">+91 9892666207</a>
             </div>
           </div>
         </div>
