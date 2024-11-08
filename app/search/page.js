@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ContactUs from "@/components/ContactUs";
 import FooterBottom from "@/components/FooterBottom";
 import FooterTop from "@/components/FooterTop";
@@ -40,9 +40,76 @@ const PropertySkeleton = () => (
   </div>
 );
 
+// Add new component for filter tags
+const FilterTag = ({ label, value, onRemove }) => (
+  <span className="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-600 rounded-full text-sm">
+    {label}: {value}
+    <button onClick={onRemove} className="hover:text-red-800">
+      <XMarkIcon className="w-4 h-4" />
+    </button>
+  </span>
+);
+
+// Add new component for search history
+const SearchHistory = ({ searches, onSelect, onClear }) => (
+  <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+    <div className="flex justify-between items-center mb-4">
+      <h3 className="font-semibold text-gray-900">Recent Searches</h3>
+      <button
+        onClick={onClear}
+        className="text-sm text-red-500 hover:text-red-600"
+      >
+        Clear History
+      </button>
+    </div>
+    <div className="flex flex-wrap gap-2">
+      {searches.map((search, index) => (
+        <button
+          key={index}
+          onClick={() => onSelect(search)}
+          className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm text-gray-600"
+        >
+          {search.projectName || search.city || search.builder}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
 export default function SearchResults() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Add configurations array with other sample data at the top of the component
+  const projectTypes = ["Residential", "Commercial", "Luxury", "Affordable"];
+  const builders = [
+    "Lodha Group",
+    "Godrej Properties",
+    "Runwal Group",
+    "Piramal Realty",
+  ];
+  const cities = ["Mumbai", "Thane", "Navi Mumbai", "Kalyan"];
+  const configurations = [
+    "1 BHK",
+    "1.5 BHK",
+    "2 BHK",
+    "2.5 BHK",
+    "3 BHK",
+    "3.5 BHK",
+    "4 BHK",
+    "4+ BHK",
+  ];
+  const budgetRanges = [
+    "25 Lac",
+    "50 Lac",
+    "75 Lac",
+    "1 Cr",
+    "1.5 Cr",
+    "2 Cr",
+    "2.5 Cr",
+    "3 Cr",
+    "5 Cr",
+  ];
 
   // Initialize filters from URL params
   const [filters, setFilters] = useState({
@@ -62,28 +129,30 @@ export default function SearchResults() {
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
+  const [searchHistory, setSearchHistory] = useState([]);
 
-  // Sample data
-  const projectTypes = ["Residential", "Commercial", "Luxury", "Affordable"];
-  const builders = [
-    "Lodha Group",
-    "Godrej Properties",
-    "Runwal Group",
-    "Piramal Realty",
-  ];
-  const cities = ["Mumbai", "Thane", "Navi Mumbai", "Kalyan"];
-  const configurations = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "5+ BHK"];
-  const budgetRanges = [
-    "25 Lac",
-    "50 Lac",
-    "75 Lac",
-    "1 Cr",
-    "1.5 Cr",
-    "2 Cr",
-    "2.5 Cr",
-    "3 Cr",
-    "5 Cr",
-  ];
+  // Load search history from localStorage on mount
+  useEffect(() => {
+    const savedHistory = localStorage.getItem("searchHistory");
+    if (savedHistory) {
+      setSearchHistory(JSON.parse(savedHistory));
+    }
+  }, []);
+
+  // Save search to history
+  const saveToHistory = useCallback(
+    (searchFilters) => {
+      const newHistory = [
+        searchFilters,
+        ...searchHistory
+          .filter((h) => JSON.stringify(h) !== JSON.stringify(searchFilters))
+          .slice(0, 4),
+      ];
+      setSearchHistory(newHistory);
+      localStorage.setItem("searchHistory", JSON.stringify(newHistory));
+    },
+    [searchHistory]
+  );
 
   useEffect(() => {
     fetchProperties();
@@ -163,10 +232,11 @@ export default function SearchResults() {
     updateURL(newFilters);
   };
 
-  // Modified handleSearch
+  // Modified handleSearch to include history
   const handleSearch = () => {
     setCurrentPage(1);
     updateURL(filters);
+    saveToHistory(filters);
     fetchProperties();
   };
 
@@ -233,6 +303,35 @@ export default function SearchResults() {
     );
   };
 
+  // Get active filters for tags
+  const getActiveFilters = () => {
+    return Object.entries(filters).filter(([_, value]) => value !== "");
+  };
+
+  // Remove individual filter
+  const removeFilter = (key) => {
+    const newFilters = {
+      ...filters,
+      [key]: "",
+    };
+    setFilters(newFilters);
+    updateURL(newFilters);
+    fetchProperties();
+  };
+
+  // Clear search history
+  const clearSearchHistory = () => {
+    setSearchHistory([]);
+    localStorage.removeItem("searchHistory");
+  };
+
+  // Load saved search
+  const loadSavedSearch = (savedFilters) => {
+    setFilters(savedFilters);
+    updateURL(savedFilters);
+    fetchProperties();
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <HeaderTop />
@@ -266,34 +365,66 @@ export default function SearchResults() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 md:px-8 lg:px-20 py-8">
+        {/* Add Search History if available */}
+        {searchHistory.length > 0 && (
+          <SearchHistory
+            searches={searchHistory}
+            onSelect={loadSavedSearch}
+            onClear={clearSearchHistory}
+          />
+        )}
+
         {/* Search Stats and Sort */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-          <p className="text-gray-600 mb-4 md:mb-0">
-            Showing {properties.length} of {totalCount} properties
-          </p>
-          <div className="flex items-center gap-4">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-            >
-              <option value="relevance">Sort by Relevance</option>
-              <option value="price_low">Price: Low to High</option>
-              <option value="price_high">Price: High to Low</option>
-              <option value="newest">Newest First</option>
-            </select>
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 text-red-500 hover:text-red-600"
-            >
-              {showFilters ? (
-                <XMarkIcon className="w-5 h-5" />
-              ) : (
-                <AdjustmentsHorizontalIcon className="w-5 h-5" />
-              )}
-              {showFilters ? "Hide Filters" : "Show Filters"}
-            </button>
+        <div className="flex flex-col space-y-4 mb-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-600 mb-4 md:mb-0">
+              Showing {properties.length} of {totalCount} properties
+            </p>
+            <div className="flex items-center gap-4">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+              >
+                <option value="relevance">Sort by Relevance</option>
+                <option value="price_low">Price: Low to High</option>
+                <option value="price_high">Price: High to Low</option>
+                <option value="newest">Newest First</option>
+              </select>
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2 text-red-500 hover:text-red-600"
+              >
+                {showFilters ? (
+                  <XMarkIcon className="w-5 h-5" />
+                ) : (
+                  <AdjustmentsHorizontalIcon className="w-5 h-5" />
+                )}
+                {showFilters ? "Hide Filters" : "Show Filters"}
+              </button>
+            </div>
           </div>
+
+          {/* Add Filter Tags */}
+          {getActiveFilters().length > 0 && (
+            <div className="flex flex-wrap gap-2 items-center">
+              <span className="text-sm text-gray-600">Active Filters:</span>
+              {getActiveFilters().map(([key, value]) => (
+                <FilterTag
+                  key={key}
+                  label={key.replace(/([A-Z])/g, " $1").trim()}
+                  value={value}
+                  onRemove={() => removeFilter(key)}
+                />
+              ))}
+              <button
+                onClick={clearFilters}
+                className="text-sm text-red-500 hover:text-red-600 ml-2"
+              >
+                Clear All
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -313,8 +444,62 @@ export default function SearchResults() {
 
                 {/* Filter Fields */}
                 <div className="space-y-6">
-                  {/* ... existing filter fields ... */}
-                  {/* Add Configuration Filter */}
+                  {/* Project Name Search */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Project Name
+                    </label>
+                    <input
+                      type="text"
+                      name="projectName"
+                      value={filters.projectName}
+                      onChange={handleFilterChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+                      placeholder="Search projects..."
+                    />
+                  </div>
+
+                  {/* Project Type */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Project Type
+                    </label>
+                    <select
+                      name="projectType"
+                      value={filters.projectType}
+                      onChange={handleFilterChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+                    >
+                      <option value="">All Types</option>
+                      {projectTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Builder */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Builder
+                    </label>
+                    <select
+                      name="builder"
+                      value={filters.builder}
+                      onChange={handleFilterChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+                    >
+                      <option value="">All Builders</option>
+                      {builders.map((builder) => (
+                        <option key={builder} value={builder}>
+                          {builder}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Configuration */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Configuration
@@ -329,6 +514,66 @@ export default function SearchResults() {
                       {configurations.map((config) => (
                         <option key={config} value={config}>
                           {config}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Min Budget */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Min Budget
+                    </label>
+                    <select
+                      name="minBudget"
+                      value={filters.minBudget}
+                      onChange={handleFilterChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+                    >
+                      <option value="">No Min</option>
+                      {budgetRanges.map((budget) => (
+                        <option key={budget} value={budget}>
+                          {budget}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Max Budget */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Max Budget
+                    </label>
+                    <select
+                      name="maxBudget"
+                      value={filters.maxBudget}
+                      onChange={handleFilterChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+                    >
+                      <option value="">No Max</option>
+                      {budgetRanges.map((budget) => (
+                        <option key={budget} value={budget}>
+                          {budget}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* City */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      City
+                    </label>
+                    <select
+                      name="city"
+                      value={filters.city}
+                      onChange={handleFilterChange}
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+                    >
+                      <option value="">All Cities</option>
+                      {cities.map((city) => (
+                        <option key={city} value={city}>
+                          {city}
                         </option>
                       ))}
                     </select>
