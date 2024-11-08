@@ -42,7 +42,7 @@ export default function Services() {
       icon: faCar,
       title: "Inspection and Site Visits",
       description:
-        "We provide free pickup and drop facility to visit the New Projects Site/sales office.",
+        "We provide complimentary pickup and drop service for site visits to new project locations. Our dedicated team will arrange transportation and accompany you to ensure an informative visit experience.",
       id: "inspection-services",
     },
   ];
