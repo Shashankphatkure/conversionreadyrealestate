@@ -1,148 +1,30 @@
-@font-face {
-  font-family: "FontAwesome";
-  src: url("https://newprojectsonline.com/assets/fonts/fontawesome-webfont.eot?v=4.7.0");
-  src: url("https://newprojectsonline.com/assets/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0")
-      format("embedded-opentype"),
-    url("https://newprojectsonline.com/assets/fonts/fontawesome-webfont.woff2?v=4.7.0")
-      format("woff2"),
-    url("https://newprojectsonline.com/assets/fonts/fontawesome-webfont.woff?v=4.7.0")
-      format("woff"),
-    url("https://newprojectsonline.com/assets/fonts/fontawesome-webfont.ttf?v=4.7.0")
-      format("truetype"),
-    url("https://newprojectsonline.com/assets/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular")
-      format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Font Awesome 5 Brands";
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url(https://newprojectsonline.com/assets/webfonts/fa-brands-400.eot);
-  src: url(https://newprojectsonline.com/assets/webfonts/fa-brands-400.eot?#iefix)
-      format("embedded-opentype"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-brands-400.woff2)
-      format("woff2"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-brands-400.woff)
-      format("woff"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-brands-400.ttf)
-      format("truetype"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-brands-400.svg#fontawesome)
-      format("svg");
-}
-@font-face {
-  font-family: "Font Awesome 5 Free";
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.eot);
-  src: url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.eot?#iefix)
-      format("embedded-opentype"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.woff2)
-      format("woff2"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.woff)
-      format("woff"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.ttf)
-      format("truetype"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.svg#fontawesome)
-      format("svg");
-}
-@font-face {
-  font-family: "Font Awesome 5 Free";
-  font-style: normal;
-  font-weight: 900;
-  font-display: block;
-  src: url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.eot);
-  src: url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.eot?#iefix)
-      format("embedded-opentype"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.woff2)
-      format("woff2"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.woff)
-      format("woff"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.ttf)
-      format("truetype"),
-    url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.svg#fontawesome)
-      format("svg");
-}
-body {
-  font-size: 100%;
-  font: inherit;
-  background: linear-gradient(#f2fafb 0%, #fbfdfe 100%);
-  font-family: sans-serif;
-  font-weight: 400;
-  line-height: 1.15;
-  color: #212529;
-  text-align: left;
-}
+/* Base styles */
 * {
-  outline: none !important;
   margin: 0;
   padding: 0;
-}
-
-* {
   box-sizing: border-box;
+  outline: none !important;
 }
 
-div {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #212529;
+  background: linear-gradient(#f2fafb 0%, #fbfdfe 100%);
+  overflow-x: hidden;
 }
 
-.row-ehv {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-
-.content-2tw {
-  padding: 70px 0;
-}
-
-@media (min-width: 768px) {
-  .container-da8 {
-    width: 750px !important;
-  }
-}
-
-@media (min-width: 992px) {
-  .container-da8 {
-    width: 970px !important;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container-da8 {
-    width: 1170px !important;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container-da8 {
-    width: 1250px !important;
-  }
-}
-
-.container-da8 {
-  width: 100% !important;
-  max-width: 1250px !important;
-  position: relative;
-}
-
+/* Container */
 .container-da8 {
   width: 100%;
+  max-width: 1250px;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  position: relative;
 }
 
 @media (min-width: 576px) {
@@ -150,439 +32,32 @@ div {
     max-width: 540px;
   }
 }
-
 @media (min-width: 768px) {
   .container-da8 {
     max-width: 720px;
   }
 }
-
 @media (min-width: 992px) {
   .container-da8 {
     max-width: 960px;
   }
 }
-
 @media (min-width: 1200px) {
   .container-da8 {
     max-width: 1140px;
   }
 }
-
-body {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-body {
-  height: 100%;
-}
-
-body {
-  font-family: "Poppins", sans-serif !important;
-  font-weight: 400 !important;
-  line-height: 26px !important;
-  font-size: 14px !important;
-  color: #222 !important;
-  text-decoration: none;
-  height: 100%;
-  overflow-x: hidden;
-  background-color: #fff;
-  position: relative;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #fff;
-}
-
-html {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-html {
-  scroll-behavior: smooth !important;
-}
-
-html {
-  height: 100%;
-}
-
-html {
-  font-family: sans-serif;
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
-
-*,
-:before,
-:after {
-  box-sizing: border-box;
-}
-
-*,
-:after,
-:before {
-  box-sizing: border-box;
-}
-
-i {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-.fa-tog {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-}
-
-.fa-tog {
-  font-family: "Font Awesome 5 Free";
-}
-
-.fa-tog {
-  font-weight: 900;
-}
-
-.fa-tog {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.fa-handshake-o:before {
-  content: "\f2b5";
-}
-
-.col-5ot {
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-@media (min-width: 992px) {
-  .col-5ot {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
+@media (min-width: 1280px) {
+  .container-da8 {
+    max-width: 1250px;
   }
 }
 
-.soc-8k2 {
-  width: 100%;
-  text-align: left;
-  margin: 1rem 0 0 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-ul {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.footer2 ul {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100%;
-  display: table;
-}
-
-.soc-8k2 ul {
-  width: 100% !important;
-  display: table;
-}
-
-h3 {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-h3 {
-  font-weight: 600 !important;
-  font-size: 28px !important;
-  line-height: normal;
-  color: #f64d0d !important;
-  padding: 0 !important;
-  margin: 0 0 15px 0 !important;
-}
-
-h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-h3 {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-h3 {
-  font-size: 1.75rem;
-}
-
-.footer2 h3 {
-  font-size: 20px !important;
-  color: #fff !important;
-  font-weight: 600;
-  padding: 0 0 10px 0 !important;
-  margin: 20px 0 10px 0 !important;
-  position: relative;
-}
-
-.footer2 h3::after {
-  position: absolute;
-  content: "";
-  left: 0;
-  bottom: 0;
-  width: 60px;
-  height: 3px;
-  border-radius: 2px;
-  background-color: #f64d0d;
-}
-
-p {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-p {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-p {
-  font-weight: bold;
-}
-
-.content-2tw p {
-  text-align: justify;
-}
-
-li {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-ul li {
-  font-size: 14px;
-  line-height: normal;
-  display: inline-block;
-  list-style: none;
-  padding: 0 5px 0 0;
-  margin: 3px 5px 3px 0;
-  position: relative;
-  border-right: solid 1px #ccc;
-}
-
-.soc-8k2 ul li {
-  display: inline-block;
-  list-style: none;
-  margin: 0 0px 0 0 !important;
-  border: 0;
-  padding: 0 !important;
-}
-
-.footer2 .soc-8k2 ul li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 20px;
-  width: 0px;
-  height: 0px;
-  background-color: #00c194;
-}
-
-ul li:last-child {
-  border-right: solid 0px #ccc;
-}
-
-a {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-a {
-  color: #007bff;
-  text-decoration: none;
-  background-color: transparent;
-}
-
-a {
-  color: #353535;
-  font-weight: bold;
-}
-
-ul li a {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-a:hover {
-  text-decoration: none !important;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.footer2 ul li a:hover {
-  color: rgba(255, 255, 255, 1);
-}
-
-ul li i {
-  font-size: 20px;
-  margin: 0 10px 0 0;
-}
-
-.map-jrd:before {
-  content: "\f041";
-}
-
-.fa-8yk:before {
-  content: "\f003";
-}
-
-.fa-46n:before {
-  content: "\f095";
-}
-
-.info-erj:before {
-  content: "\f05a";
-}
-
-a:visited {
-  text-decoration: none !important;
-}
-
-.soc-8k2 ul li a i {
-  display: block;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: solid 0px #0b5e2a;
-  color: #fff;
-}
-
-.soc-8k2 ul li a .fa-foj {
-  background-color: #143172;
-}
-
-.fa-foj:before {
-  content: "\f09a";
-}
-
-.fa-facebook-f:before,
-.fa-foj:before {
-  content: "\f09a";
-}
-
-.soc-8k2 ul li a .tag-5h9 {
-  background-color: #9c2a95;
-}
-
-.tag-5h9:before {
-  content: "\f16d";
-}
-
-.fa-rah {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-}
-
-.fa-rah {
-  font-family: "Font Awesome 5 Brands";
-}
-
-.fa-rah {
-  font-weight: 400;
-}
-
-.soc-8k2 ul li a .fa-jpi {
-  background-color: #38b2e1;
-}
-
-.fa-jpi:before {
-  content: "\f099";
-}
-
+/* Footer Layout */
 .footer-bottom {
   background-color: #1a1a1a;
   color: #ffffff;
   padding-top: 60px;
-}
-
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
 }
 
 .footer-content {
@@ -592,12 +67,14 @@ a:visited {
   padding-bottom: 40px;
 }
 
+/* Section Headers */
 .footer-section h3 {
   color: #ffffff;
   font-size: 24px;
   margin-bottom: 20px;
-  position: relative;
   padding-bottom: 10px;
+  position: relative;
+  font-weight: 600;
 }
 
 .footer-section h3::after {
@@ -610,17 +87,19 @@ a:visited {
   background-color: #ff5722;
 }
 
+/* About Section */
 .about-us p {
   color: #cccccc;
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
+/* Social Links */
 .social-links ul {
   display: flex;
   gap: 15px;
-  padding: 0;
   list-style: none;
+  padding: 0;
 }
 
 .social-links a {
@@ -640,6 +119,7 @@ a:visited {
   transform: translateY(-3px);
 }
 
+/* Contact Section */
 .contact-us ul {
   list-style: none;
   padding: 0;
@@ -668,6 +148,7 @@ a:visited {
   color: #ff5722;
 }
 
+/* Footer Middle Section */
 .footer-middle {
   background-color: rgba(255, 255, 255, 0.05);
   padding: 30px 0;
@@ -681,6 +162,7 @@ a:visited {
   gap: 20px;
 }
 
+/* Certifications */
 .certifications ul {
   display: flex;
   gap: 20px;
@@ -693,6 +175,7 @@ a:visited {
   object-fit: contain;
 }
 
+/* Contact CTA */
 .contact-cta {
   display: flex;
   align-items: center;
@@ -711,6 +194,7 @@ a:visited {
   font-size: 18px;
 }
 
+/* Footer Bottom Section */
 .footer-bottom-section {
   padding: 20px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -723,6 +207,30 @@ a:visited {
   text-align: center;
 }
 
+/* Social Icons */
+.soc-8k2 ul li a i {
+  display: block;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #fff;
+}
+
+.soc-8k2 ul li a .fa-foj {
+  background-color: #143172;
+}
+.soc-8k2 ul li a .tag-5h9 {
+  background-color: #9c2a95;
+}
+.soc-8k2 ul li a .fa-jpi {
+  background-color: #38b2e1;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr;

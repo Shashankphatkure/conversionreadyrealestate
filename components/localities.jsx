@@ -7,47 +7,71 @@ import "./localities.css";
 import { supabase } from "@/utils/supabase";
 import { MapPinIcon, BuildingOfficeIcon } from "@heroicons/react/24/solid";
 
-const LocalityCard = ({ locality }) => (
-  <div className="item-cim">
-    <div className="item-5t2">
-      <div className="pro-oph">
-        <a href={locality.link}>
-          <div className="pt-noq">
-            <img src={locality.image} alt={locality.name} />
-            <div className="pti-mk5">
-              <h6>
-                <MapPinIcon className="h-5 w-5 inline-block mr-1" />
-                {locality.name}&nbsp;&nbsp;&nbsp;
-                <BuildingOfficeIcon className="h-5 w-5 inline-block mr-1" />
-                &nbsp;&nbsp;{locality.properties}&nbsp;Properties
-              </h6>
-              <div className="sta-ldo">
-                <span>UNDER CONSTRUCTION</span>
+// Separate LocalityCard component with prop types
+const LocalityCard = ({ locality }) => {
+  if (!locality) return null;
+
+  const { name, image, link, properties } = locality;
+
+  return (
+    <div className="item-cim">
+      <div className="item-5t2">
+        <div className="pro-oph">
+          <a href={link}>
+            <div className="pt-noq">
+              {/* Add loading="lazy" for better performance */}
+              <img
+                src={image}
+                alt={name}
+                loading="lazy"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/placeholder-image.jpg"; // Add a placeholder image
+                }}
+              />
+              <div className="pti-mk5">
+                <h6>
+                  <MapPinIcon className="h-5 w-5 inline-block mr-1" />
+                  {name}&nbsp;&nbsp;&nbsp;
+                  <BuildingOfficeIcon className="h-5 w-5 inline-block mr-1" />
+                  &nbsp;&nbsp;{properties}&nbsp;Properties
+                </h6>
+                <div className="sta-ldo">
+                  <span>UNDER CONSTRUCTION</span>
+                </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-export default function Localities() {
+const Localities = () => {
   const [localities, setLocalities] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchLocalities() {
-      const { data, error } = await supabase
-        .from("localities")
-        .select("*")
-        .order("properties", { ascending: false });
+    const fetchLocalities = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from("localities")
+          .select("*")
+          .order("properties", { ascending: false });
 
-      if (error) {
-        console.error("Error fetching localities:", error);
-      } else {
-        setLocalities(data);
+        if (error) throw error;
+
+        setLocalities(data || []);
+      } catch (err) {
+        console.error("Error fetching localities:", err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
 
     fetchLocalities();
   }, []);
@@ -58,6 +82,9 @@ export default function Localities() {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -76,6 +103,30 @@ export default function Localities() {
     ],
   };
 
+  if (isLoading) {
+    return (
+      <div className="content-5j6 flex justify-center items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="content-5j6 text-center text-red-500">
+        Error loading localities: {error}
+      </div>
+    );
+  }
+
+  if (!localities.length) {
+    return (
+      <div className="content-5j6 text-center">
+        No localities available at the moment.
+      </div>
+    );
+  }
+
   return (
     <div className="content-5j6" style={{ paddingTop: "0px" }}>
       <div className="content-dq6">
@@ -85,11 +136,8 @@ export default function Localities() {
               <div className="carousel-evd owl-hfs owl-bdo owl-62r">
                 <div className="localities-slider">
                   <Slider {...settings}>
-                    {localities.map((locality, index) => (
-                      <LocalityCard
-                        key={locality.id || index}
-                        locality={locality}
-                      />
+                    {localities.map((locality) => (
+                      <LocalityCard key={locality.id} locality={locality} />
                     ))}
                   </Slider>
                 </div>
@@ -100,4 +148,6 @@ export default function Localities() {
       </div>
     </div>
   );
-}
+};
+
+export default Localities;
