@@ -4,6 +4,7 @@ import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/AuthProvider";
+import DashboardLayout from "@/components/DashboardLayout";
 
 // Add this component at the top of your file, outside the main Dashboard component
 const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
@@ -770,233 +771,237 @@ export default function Dashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-8">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Property Dashboard
-            </h1>
-            <p className="text-gray-600 mt-1">Manage your property listings</p>
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto p-8">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Property Dashboard
+              </h1>
+              <p className="text-gray-600 mt-1">
+                Manage your property listings
+              </p>
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setIsAddingProperty(!isAddingProperty)}
+                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+              >
+                <FiPlus /> {isAddingProperty ? "Cancel" : "Add Property"}
+              </button>
+            </div>
           </div>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setIsAddingProperty(!isAddingProperty)}
-              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-            >
-              <FiPlus /> {isAddingProperty ? "Cancel" : "Add Property"}
-            </button>
-          </div>
-        </div>
 
-        {/* Enhanced Filters Section */}
-        <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
-          <h3 className="text-lg font-semibold mb-4">Filters & Search</h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Search
-              </label>
-              <input
-                type="text"
-                placeholder="Search properties..."
-                value={filters.search}
-                onChange={(e) =>
-                  setFilters({ ...filters, search: e.target.value })
-                }
-                className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Type
-              </label>
-              <select
-                value={filters.type}
-                onChange={(e) =>
-                  setFilters({ ...filters, type: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="all">All Types</option>
-                <option value="residential">Residential</option>
-                <option value="commercial">Commercial</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Status
-              </label>
-              <select
-                value={filters.status}
-                onChange={(e) =>
-                  setFilters({ ...filters, status: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="all">All Status</option>
-                <option value="UNDER_CONSTRUCTION">Under Construction</option>
-                <option value="READY_TO_MOVE">Ready to Move</option>
-                <option value="UPCOMING">Upcoming</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price Range
-              </label>
-              <select
-                value={filters.priceRange}
-                onChange={(e) =>
-                  setFilters({ ...filters, priceRange: e.target.value })
-                }
-                className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="all">All Prices</option>
-                <option value="0-5000000">Under 50L</option>
-                <option value="5000000-10000000">50L - 1Cr</option>
-                <option value="10000000+">Above 1Cr</option>
-              </select>
+          {/* Enhanced Filters Section */}
+          <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
+            <h3 className="text-lg font-semibold mb-4">Filters & Search</h3>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Search
+                </label>
+                <input
+                  type="text"
+                  placeholder="Search properties..."
+                  value={filters.search}
+                  onChange={(e) =>
+                    setFilters({ ...filters, search: e.target.value })
+                  }
+                  className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Type
+                </label>
+                <select
+                  value={filters.type}
+                  onChange={(e) =>
+                    setFilters({ ...filters, type: e.target.value })
+                  }
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="all">All Types</option>
+                  <option value="residential">Residential</option>
+                  <option value="commercial">Commercial</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Status
+                </label>
+                <select
+                  value={filters.status}
+                  onChange={(e) =>
+                    setFilters({ ...filters, status: e.target.value })
+                  }
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="all">All Status</option>
+                  <option value="UNDER_CONSTRUCTION">Under Construction</option>
+                  <option value="READY_TO_MOVE">Ready to Move</option>
+                  <option value="UPCOMING">Upcoming</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Price Range
+                </label>
+                <select
+                  value={filters.priceRange}
+                  onChange={(e) =>
+                    setFilters({ ...filters, priceRange: e.target.value })
+                  }
+                  className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="all">All Prices</option>
+                  <option value="0-5000000">Under 50L</option>
+                  <option value="5000000-10000000">50L - 1Cr</option>
+                  <option value="10000000+">Above 1Cr</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Properties Table View */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  {[
-                    "Image",
-                    "Name",
-                    "Location",
-                    "Price",
-                    "Status",
-                    "Type",
-                    "Actions",
-                  ].map((header) => (
-                    <th
-                      key={header}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                      onClick={() => handleSort(header.toLowerCase())}
-                    >
-                      {header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {sortedAndFilteredProperties.map((property) => (
-                  <tr key={property.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <img
-                        src={property.image || "/placeholder.png"}
-                        alt={property.name}
-                        className="w-16 h-16 rounded-lg object-cover"
-                      />
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-900">
-                        {property.name}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {property.developer}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {property.location}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
-                      ₹{property.price}
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-2 py-1 text-xs rounded-full ${
-                          property.status === "READY_TO_MOVE"
-                            ? "bg-green-100 text-green-800"
-                            : property.status === "UNDER_CONSTRUCTION"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : "bg-blue-100 text-blue-800"
-                        }`}
+          {/* Properties Table View */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    {[
+                      "Image",
+                      "Name",
+                      "Location",
+                      "Price",
+                      "Status",
+                      "Type",
+                      "Actions",
+                    ].map((header) => (
+                      <th
+                        key={header}
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                        onClick={() => handleSort(header.toLowerCase())}
                       >
-                        {property.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
-                        {property.type}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => setEditingProperty(property)}
-                          className="text-blue-600 hover:text-blue-800"
-                          title="Edit"
-                        >
-                          <FiEdit2 />
-                        </button>
-                        <a
-                          href={property.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-green-600 hover:text-green-800"
-                          title="View Details"
-                        >
-                          <FiExternalLink />
-                        </a>
-                        <button
-                          onClick={() => handleDeleteProperty(property.id)}
-                          className="text-red-600 hover:text-red-800"
-                          title="Delete"
-                        >
-                          <FiTrash2 />
-                        </button>
-                      </div>
-                    </td>
+                        {header}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {sortedAndFilteredProperties.map((property) => (
+                    <tr key={property.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <img
+                          src={property.image || "/placeholder.png"}
+                          alt={property.name}
+                          className="w-16 h-16 rounded-lg object-cover"
+                        />
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm font-medium text-gray-900">
+                          {property.name}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {property.developer}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {property.location}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-900">
+                        ₹{property.price}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span
+                          className={`px-2 py-1 text-xs rounded-full ${
+                            property.status === "READY_TO_MOVE"
+                              ? "bg-green-100 text-green-800"
+                              : property.status === "UNDER_CONSTRUCTION"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-blue-100 text-blue-800"
+                          }`}
+                        >
+                          {property.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
+                          {property.type}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => setEditingProperty(property)}
+                            className="text-blue-600 hover:text-blue-800"
+                            title="Edit"
+                          >
+                            <FiEdit2 />
+                          </button>
+                          <a
+                            href={property.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-green-600 hover:text-green-800"
+                            title="View Details"
+                          >
+                            <FiExternalLink />
+                          </a>
+                          <button
+                            onClick={() => handleDeleteProperty(property.id)}
+                            className="text-red-600 hover:text-red-800"
+                            title="Delete"
+                          >
+                            <FiTrash2 />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+
+          {/* Edit Property Modal */}
+          {editingProperty && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+                <h2 className="text-xl font-semibold mb-4">Edit Property</h2>
+                <PropertyForm
+                  property={editingProperty}
+                  setProperty={setEditingProperty}
+                  onSubmit={handleEditProperty}
+                  onCancel={() => setEditingProperty(null)}
+                  title="Edit Property"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Add Property Modal */}
+          {isAddingProperty && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+                <h2 className="text-xl font-semibold mb-4">Add New Property</h2>
+                <PropertyForm
+                  property={newProperty}
+                  setProperty={setNewProperty}
+                  onSubmit={handleAddProperty}
+                  onCancel={() => {
+                    setIsAddingProperty(false);
+                    setNewProperty(initialPropertyState);
+                  }}
+                  title="Add Property"
+                />
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Edit Property Modal */}
-        {editingProperty && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-xl font-semibold mb-4">Edit Property</h2>
-              <PropertyForm
-                property={editingProperty}
-                setProperty={setEditingProperty}
-                onSubmit={handleEditProperty}
-                onCancel={() => setEditingProperty(null)}
-                title="Edit Property"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Add Property Modal */}
-        {isAddingProperty && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-xl font-semibold mb-4">Add New Property</h2>
-              <PropertyForm
-                property={newProperty}
-                setProperty={setNewProperty}
-                onSubmit={handleAddProperty}
-                onCancel={() => {
-                  setIsAddingProperty(false);
-                  setNewProperty(initialPropertyState);
-                }}
-                title="Add Property"
-              />
-            </div>
-          </div>
-        )}
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

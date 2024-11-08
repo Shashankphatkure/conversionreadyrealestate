@@ -4,6 +4,7 @@ import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/AuthProvider";
+import DashboardLayout from "@/components/DashboardLayout";
 
 const BuilderForm = ({ builder, setBuilder, onSubmit, onCancel, title }) => {
   return (
@@ -323,145 +324,149 @@ export default function BuildersDashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-8">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Builders Dashboard
-            </h1>
-            <p className="text-gray-600 mt-1">Manage your builders</p>
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto p-8">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Builders Dashboard
+              </h1>
+              <p className="text-gray-600 mt-1">Manage your builders</p>
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setIsAddingBuilder(!isAddingBuilder)}
+                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+              >
+                <FiPlus /> {isAddingBuilder ? "Cancel" : "Add Builder"}
+              </button>
+            </div>
           </div>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setIsAddingBuilder(!isAddingBuilder)}
-              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-            >
-              <FiPlus /> {isAddingBuilder ? "Cancel" : "Add Builder"}
-            </button>
-          </div>
-        </div>
 
-        {/* Search Section */}
-        <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
-          <div className="flex gap-4">
-            <input
-              type="text"
-              placeholder="Search builders..."
-              value={filters.search}
-              onChange={(e) =>
-                setFilters({ ...filters, search: e.target.value })
-              }
-              className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-        </div>
-
-        {/* Builders Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-                  onClick={() => handleSort("name")}
-                >
-                  Builder
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Contact
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Projects
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {sortedBuilders.map((builder) => (
-                <tr key={builder.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center">
-                      <div className="h-10 w-10 flex-shrink-0">
-                        <img
-                          className="h-10 w-10 rounded-full object-cover"
-                          src={builder.logo || "/placeholder-builder.png"}
-                          alt={builder.name}
-                        />
-                      </div>
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">
-                          {builder.name}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {builder.headquarters}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
-                      {builder.contact_email}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {builder.contact_phone}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
-                      {builder.total_projects} Projects
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setEditingBuilder(builder)}
-                        className="text-blue-600 hover:text-blue-800"
-                      >
-                        <FiEdit2 />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteBuilder(builder.id)}
-                        className="text-red-600 hover:text-red-800"
-                      >
-                        <FiTrash2 />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Add/Edit Builder Modal */}
-        {(isAddingBuilder || editingBuilder) && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-xl font-semibold mb-4">
-                {isAddingBuilder ? "Add New Builder" : "Edit Builder"}
-              </h2>
-              <BuilderForm
-                builder={isAddingBuilder ? newBuilder : editingBuilder}
-                setBuilder={isAddingBuilder ? setNewBuilder : setEditingBuilder}
-                onSubmit={
-                  isAddingBuilder ? handleAddBuilder : handleEditBuilder
+          {/* Search Section */}
+          <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
+            <div className="flex gap-4">
+              <input
+                type="text"
+                placeholder="Search builders..."
+                value={filters.search}
+                onChange={(e) =>
+                  setFilters({ ...filters, search: e.target.value })
                 }
-                onCancel={() => {
-                  isAddingBuilder
-                    ? setIsAddingBuilder(false)
-                    : setEditingBuilder(null);
-                  isAddingBuilder && setNewBuilder(initialBuilderState);
-                }}
-                title={isAddingBuilder ? "Add Builder" : "Edit Builder"}
+                className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
           </div>
-        )}
+
+          {/* Builders Table */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                    onClick={() => handleSort("name")}
+                  >
+                    Builder
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Contact
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Projects
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {sortedBuilders.map((builder) => (
+                  <tr key={builder.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center">
+                        <div className="h-10 w-10 flex-shrink-0">
+                          <img
+                            className="h-10 w-10 rounded-full object-cover"
+                            src={builder.logo || "/placeholder-builder.png"}
+                            alt={builder.name}
+                          />
+                        </div>
+                        <div className="ml-4">
+                          <div className="text-sm font-medium text-gray-900">
+                            {builder.name}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {builder.headquarters}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-900">
+                        {builder.contact_email}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {builder.contact_phone}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-900">
+                        {builder.total_projects} Projects
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => setEditingBuilder(builder)}
+                          className="text-blue-600 hover:text-blue-800"
+                        >
+                          <FiEdit2 />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteBuilder(builder.id)}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <FiTrash2 />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Add/Edit Builder Modal */}
+          {(isAddingBuilder || editingBuilder) && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+                <h2 className="text-xl font-semibold mb-4">
+                  {isAddingBuilder ? "Add New Builder" : "Edit Builder"}
+                </h2>
+                <BuilderForm
+                  builder={isAddingBuilder ? newBuilder : editingBuilder}
+                  setBuilder={
+                    isAddingBuilder ? setNewBuilder : setEditingBuilder
+                  }
+                  onSubmit={
+                    isAddingBuilder ? handleAddBuilder : handleEditBuilder
+                  }
+                  onCancel={() => {
+                    isAddingBuilder
+                      ? setIsAddingBuilder(false)
+                      : setEditingBuilder(null);
+                    isAddingBuilder && setNewBuilder(initialBuilderState);
+                  }}
+                  title={isAddingBuilder ? "Add Builder" : "Edit Builder"}
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

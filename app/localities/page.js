@@ -4,6 +4,7 @@ import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/AuthProvider";
+import DashboardLayout from "@/components/DashboardLayout";
 
 const LocalityForm = ({ locality, setLocality, onSubmit, onCancel, title }) => {
   return (
@@ -213,129 +214,131 @@ export default function Localities() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-8">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Localities Dashboard
-            </h1>
-            <p className="text-gray-600 mt-1">Manage your localities</p>
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto p-8">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Localities Dashboard
+              </h1>
+              <p className="text-gray-600 mt-1">Manage your localities</p>
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setIsAddingLocality(!isAddingLocality)}
+                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
+              >
+                <FiPlus /> {isAddingLocality ? "Cancel" : "Add Locality"}
+              </button>
+            </div>
           </div>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setIsAddingLocality(!isAddingLocality)}
-              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-            >
-              <FiPlus /> {isAddingLocality ? "Cancel" : "Add Locality"}
-            </button>
-          </div>
-        </div>
 
-        {/* Search Section */}
-        <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
-          <div className="max-w-md">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Search Localities
-            </label>
-            <input
-              type="text"
-              placeholder="Search by name..."
-              value={filters.search}
-              onChange={(e) =>
-                setFilters({ ...filters, search: e.target.value })
-              }
-              className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-        </div>
-
-        {/* Localities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedAndFilteredLocalities.map((locality) => (
-            <div
-              key={locality.id}
-              className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden"
-            >
-              <img
-                src={locality.image}
-                alt={locality.name}
-                className="w-full h-48 object-cover"
+          {/* Search Section */}
+          <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
+            <div className="max-w-md">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Search Localities
+              </label>
+              <input
+                type="text"
+                placeholder="Search by name..."
+                value={filters.search}
+                onChange={(e) =>
+                  setFilters({ ...filters, search: e.target.value })
+                }
+                className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {locality.name}
-                </h3>
-                <p className="text-gray-600">
-                  {locality.properties} Properties Available
-                </p>
-                <div className="mt-4 flex justify-between items-center">
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setEditingLocality(locality)}
+            </div>
+          </div>
+
+          {/* Localities Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sortedAndFilteredLocalities.map((locality) => (
+              <div
+                key={locality.id}
+                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden"
+              >
+                <img
+                  src={locality.image}
+                  alt={locality.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {locality.name}
+                  </h3>
+                  <p className="text-gray-600">
+                    {locality.properties} Properties Available
+                  </p>
+                  <div className="mt-4 flex justify-between items-center">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => setEditingLocality(locality)}
+                        className="text-blue-600 hover:text-blue-800"
+                        title="Edit"
+                      >
+                        <FiEdit2 />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteLocality(locality.id)}
+                        className="text-red-600 hover:text-red-800"
+                        title="Delete"
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </div>
+                    <a
+                      href={locality.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-800"
-                      title="Edit"
                     >
-                      <FiEdit2 />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteLocality(locality.id)}
-                      className="text-red-600 hover:text-red-800"
-                      title="Delete"
-                    >
-                      <FiTrash2 />
-                    </button>
+                      <FiExternalLink />
+                    </a>
                   </div>
-                  <a
-                    href={locality.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    <FiExternalLink />
-                  </a>
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* Edit Locality Modal */}
+          {editingLocality && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+                <h2 className="text-xl font-semibold mb-4">Edit Locality</h2>
+                <LocalityForm
+                  locality={editingLocality}
+                  setLocality={setEditingLocality}
+                  onSubmit={handleEditLocality}
+                  onCancel={() => setEditingLocality(null)}
+                  title="Edit Locality"
+                />
+              </div>
             </div>
-          ))}
+          )}
+
+          {/* Add Locality Modal */}
+          {isAddingLocality && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+                <h2 className="text-xl font-semibold mb-4">Add New Locality</h2>
+                <LocalityForm
+                  locality={newLocality}
+                  setLocality={setNewLocality}
+                  onSubmit={handleAddLocality}
+                  onCancel={() => {
+                    setIsAddingLocality(false);
+                    setNewLocality(initialLocalityState);
+                  }}
+                  title="Add Locality"
+                />
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Edit Locality Modal */}
-        {editingLocality && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-xl font-semibold mb-4">Edit Locality</h2>
-              <LocalityForm
-                locality={editingLocality}
-                setLocality={setEditingLocality}
-                onSubmit={handleEditLocality}
-                onCancel={() => setEditingLocality(null)}
-                title="Edit Locality"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Add Locality Modal */}
-        {isAddingLocality && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-xl font-semibold mb-4">Add New Locality</h2>
-              <LocalityForm
-                locality={newLocality}
-                setLocality={setNewLocality}
-                onSubmit={handleAddLocality}
-                onCancel={() => {
-                  setIsAddingLocality(false);
-                  setNewLocality(initialLocalityState);
-                }}
-                title="Add Locality"
-              />
-            </div>
-          </div>
-        )}
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

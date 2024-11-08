@@ -4,6 +4,7 @@ import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/AuthProvider";
+import DashboardLayout from "@/components/DashboardLayout";
 
 const LeadForm = ({ lead, setLead, onSubmit, onCancel, title }) => {
   return (
@@ -273,190 +274,192 @@ export default function Leads() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-8">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Leads Dashboard
-            </h1>
-            <p className="text-gray-600 mt-1">Manage your leads</p>
-          </div>
-          <div className="flex gap-4">
-            <button
-              onClick={() => setIsAddingLead(!isAddingLead)}
-              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
-            >
-              <FiPlus /> {isAddingLead ? "Cancel" : "Add Lead"}
-            </button>
-          </div>
-        </div>
-
-        {/* Filters Section */}
-        <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
-          <h3 className="text-lg font-semibold mb-4">Filters & Search</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <DashboardLayout>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto p-8">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Search
-              </label>
-              <input
-                type="text"
-                placeholder="Search leads..."
-                value={filters.search}
-                onChange={(e) =>
-                  setFilters({ ...filters, search: e.target.value })
-                }
-                className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
+              <h1 className="text-3xl font-bold text-gray-900">
+                Leads Dashboard
+              </h1>
+              <p className="text-gray-600 mt-1">Manage your leads</p>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Status
-              </label>
-              <select
-                value={filters.status}
-                onChange={(e) =>
-                  setFilters({ ...filters, status: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            <div className="flex gap-4">
+              <button
+                onClick={() => setIsAddingLead(!isAddingLead)}
+                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
               >
-                <option value="all">All Status</option>
-                <option value="NEW">New</option>
-                <option value="CONTACTED">Contacted</option>
-                <option value="QUALIFIED">Qualified</option>
-                <option value="PROPOSAL">Proposal</option>
-                <option value="NEGOTIATION">Negotiation</option>
-                <option value="CLOSED">Closed</option>
-                <option value="LOST">Lost</option>
-              </select>
+                <FiPlus /> {isAddingLead ? "Cancel" : "Add Lead"}
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* Leads Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  {[
-                    "Name",
-                    "Email",
-                    "Phone",
-                    "Status",
-                    "Interested Property",
-                    "Created At",
-                    "Actions",
-                  ].map((header) => (
-                    <th
-                      key={header}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                      onClick={() => handleSort(header.toLowerCase())}
-                    >
-                      {header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {sortedAndFilteredLeads.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-900">
-                        {lead.name}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {lead.email}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {lead.phone}
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-2 py-1 text-xs rounded-full ${
-                          lead.status === "NEW"
-                            ? "bg-blue-100 text-blue-800"
-                            : lead.status === "CONTACTED"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : lead.status === "QUALIFIED"
-                            ? "bg-green-100 text-green-800"
-                            : lead.status === "CLOSED"
-                            ? "bg-gray-100 text-gray-800"
-                            : "bg-red-100 text-red-800"
-                        }`}
+          {/* Filters Section */}
+          <div className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-gray-100">
+            <h3 className="text-lg font-semibold mb-4">Filters & Search</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Search
+                </label>
+                <input
+                  type="text"
+                  placeholder="Search leads..."
+                  value={filters.search}
+                  onChange={(e) =>
+                    setFilters({ ...filters, search: e.target.value })
+                  }
+                  className="w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Status
+                </label>
+                <select
+                  value={filters.status}
+                  onChange={(e) =>
+                    setFilters({ ...filters, status: e.target.value })
+                  }
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="all">All Status</option>
+                  <option value="NEW">New</option>
+                  <option value="CONTACTED">Contacted</option>
+                  <option value="QUALIFIED">Qualified</option>
+                  <option value="PROPOSAL">Proposal</option>
+                  <option value="NEGOTIATION">Negotiation</option>
+                  <option value="CLOSED">Closed</option>
+                  <option value="LOST">Lost</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Leads Table */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    {[
+                      "Name",
+                      "Email",
+                      "Phone",
+                      "Status",
+                      "Interested Property",
+                      "Created At",
+                      "Actions",
+                    ].map((header) => (
+                      <th
+                        key={header}
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                        onClick={() => handleSort(header.toLowerCase())}
                       >
-                        {lead.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {lead.interested_property}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {new Date(lead.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => setEditingLead(lead)}
-                          className="text-blue-600 hover:text-blue-800"
-                          title="Edit"
-                        >
-                          <FiEdit2 />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteLead(lead.id)}
-                          className="text-red-600 hover:text-red-800"
-                          title="Delete"
-                        >
-                          <FiTrash2 />
-                        </button>
-                      </div>
-                    </td>
+                        {header}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {sortedAndFilteredLeads.map((lead) => (
+                    <tr key={lead.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        <div className="text-sm font-medium text-gray-900">
+                          {lead.name}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {lead.email}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {lead.phone}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span
+                          className={`px-2 py-1 text-xs rounded-full ${
+                            lead.status === "NEW"
+                              ? "bg-blue-100 text-blue-800"
+                              : lead.status === "CONTACTED"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : lead.status === "QUALIFIED"
+                              ? "bg-green-100 text-green-800"
+                              : lead.status === "CLOSED"
+                              ? "bg-gray-100 text-gray-800"
+                              : "bg-red-100 text-red-800"
+                          }`}
+                        >
+                          {lead.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {lead.interested_property}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {new Date(lead.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => setEditingLead(lead)}
+                            className="text-blue-600 hover:text-blue-800"
+                            title="Edit"
+                          >
+                            <FiEdit2 />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteLead(lead.id)}
+                            className="text-red-600 hover:text-red-800"
+                            title="Delete"
+                          >
+                            <FiTrash2 />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+
+          {/* Edit Lead Modal */}
+          {editingLead && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+                <h2 className="text-xl font-semibold mb-4">Edit Lead</h2>
+                <LeadForm
+                  lead={editingLead}
+                  setLead={setEditingLead}
+                  onSubmit={handleEditLead}
+                  onCancel={() => setEditingLead(null)}
+                  title="Edit Lead"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Add Lead Modal */}
+          {isAddingLead && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+                <h2 className="text-xl font-semibold mb-4">Add New Lead</h2>
+                <LeadForm
+                  lead={newLead}
+                  setLead={setNewLead}
+                  onSubmit={handleAddLead}
+                  onCancel={() => {
+                    setIsAddingLead(false);
+                    setNewLead(initialLeadState);
+                  }}
+                  title="Add Lead"
+                />
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Edit Lead Modal */}
-        {editingLead && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-xl font-semibold mb-4">Edit Lead</h2>
-              <LeadForm
-                lead={editingLead}
-                setLead={setEditingLead}
-                onSubmit={handleEditLead}
-                onCancel={() => setEditingLead(null)}
-                title="Edit Lead"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Add Lead Modal */}
-        {isAddingLead && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
-              <h2 className="text-xl font-semibold mb-4">Add New Lead</h2>
-              <LeadForm
-                lead={newLead}
-                setLead={setNewLead}
-                onSubmit={handleAddLead}
-                onCancel={() => {
-                  setIsAddingLead(false);
-                  setNewLead(initialLeadState);
-                }}
-                title="Add Lead"
-              />
-            </div>
-          </div>
-        )}
       </div>
-    </div>
+    </DashboardLayout>
   );
 }
