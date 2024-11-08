@@ -60,20 +60,20 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 transform transition-transform duration-200 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:static`}
+        } lg:translate-x-0 lg:static lg:inset-0`}
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
           <div className="flex items-center justify-between h-16 px-4 bg-gray-800">
             <div className="flex items-center">
-              <span className="text-white text-xl font-semibold">
+              <Link href="/" className="text-white text-xl font-semibold">
                 Dashboard
-              </span>
+              </Link>
             </div>
             <button
               className="lg:hidden text-gray-400 hover:text-white"
@@ -84,7 +84,7 @@ export default function DashboardLayout({ children }) {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex-1 px-2 py-4 space-y-1">
+          <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -119,13 +119,9 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Main Content */}
-      <div
-        className={`flex-1 ${
-          isSidebarOpen ? "lg:ml-64" : ""
-        } transition-margin duration-200 ease-in-out`}
-      >
+      <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden">
         {/* Mobile Header */}
-        <div className="lg:hidden bg-white shadow-sm">
+        <div className="lg:hidden bg-white shadow-sm sticky top-0 z-40">
           <div className="flex items-center justify-between h-16 px-4">
             <button
               className="text-gray-500 hover:text-gray-700"
@@ -139,8 +135,22 @@ export default function DashboardLayout({ children }) {
         </div>
 
         {/* Page Content */}
-        <main className="p-4">{children}</main>
+        <main className="flex-1 relative">
+          <div className="py-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+              {children}
+            </div>
+          </div>
+        </main>
       </div>
+
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-gray-600 bg-opacity-75 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 }
