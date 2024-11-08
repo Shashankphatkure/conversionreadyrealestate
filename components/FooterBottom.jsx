@@ -95,12 +95,6 @@ export default function FooterBottom() {
                     alt="RERA Registered"
                   />
                 </li>
-                <li>
-                  <img
-                    src="https://newprojectsonline.com/assets/newprojectonline/97811066Small%20TNRECA.jpg"
-                    alt="TNRECA"
-                  />
-                </li>
               </ul>
             </div>
             <div className="contact-cta">
