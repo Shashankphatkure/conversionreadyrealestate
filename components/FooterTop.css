@@ -1,304 +1,285 @@
-@font-face { 
-    font-family:'FontAwesome';
-    src:url('https://newprojectsonline.com/assets/fonts/fontawesome-webfont.eot?v=4.7.0');
-    src:url('https://newprojectsonline.com/assets/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),url('https://newprojectsonline.com/assets/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),url('https://newprojectsonline.com/assets/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),url('https://newprojectsonline.com/assets/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),url('https://newprojectsonline.com/assets/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
-    font-weight:normal;
-    font-style:normal;
-  } 
-  @font-face { 
-    font-family:"Font Awesome 5 Free";
-    font-style:normal;
-    font-weight:400;
-    font-display:block;
-    src:url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.eot);
-    src:url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.woff2) format("woff2"),url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.woff) format("woff"),url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.ttf) format("truetype"),url(https://newprojectsonline.com/assets/webfonts/fa-regular-400.svg#fontawesome) format("svg");
-  } 
-  @font-face { 
-    font-family:"Font Awesome 5 Free";
-    font-style:normal;
-    font-weight:900;
-    font-display:block;
-    src:url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.eot);
-    src:url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.woff2) format("woff2"),url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.woff) format("woff"),url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.ttf) format("truetype"),url(https://newprojectsonline.com/assets/webfonts/fa-solid-900.svg#fontawesome) format("svg");
-  } 
-    body {  
-      font-size:100%;
-      font:inherit;
-      background:linear-gradient(#f2fafb 0%, #fbfdfe 100%);
-      font-family:sans-serif;
-      font-weight:400;
-      line-height:1.15;
-      color:#212529;
-      text-align:left;
-    }  
-  * { 
-      outline: none!important; 
-      margin: 0; 
-      padding: 0;
-  } 
-  
-  * { 
-      box-sizing: border-box;
-  } 
-  
-  div { 
-      margin: 0; 
-      padding: 0; 
-      border: 0; 
-      font-size: 100%; 
-      font: inherit; 
-      vertical-align: baseline;
-  } 
-  
-  .row-cf2 { 
-      display: -ms-flexbox; 
-      display: flex; 
-      -ms-flex-wrap: wrap; 
-      flex-wrap: wrap; 
-      margin-right: -15px; 
-      margin-left: -15px;
-  } 
-  
-  @media (min-width: 768px){ 
-    .container-f4h { 
-      width: 750px!important;
-    } 
-  }     
-  
-  @media (min-width: 992px){ 
-    .container-f4h { 
-      width: 970px!important;
-    } 
-  }     
-  
-  @media (min-width: 1200px){ 
-    .container-f4h { 
-      width: 1170px!important;
-    } 
-  }     
-  
-  @media (min-width: 1280px){ 
-    .container-f4h { 
-      width: 1250px !important;
-    } 
-  }     
-  
-  .container-f4h { 
-      width: 100% !important; 
-      max-width: 1250px!important; 
-      position: relative;
-  } 
-  
-  .container-f4h { 
-      width: 100%; 
-      padding-right: 15px; 
-      padding-left: 15px; 
-      margin-right: auto; 
-      margin-left: auto;
-  } 
-  
-  @media (min-width: 576px){ 
-    .container-f4h { 
-      max-width: 540px;
-    } 
-  }     
-  
-  @media (min-width: 768px){ 
-    .container-f4h { 
-      max-width: 720px;
-    } 
-  }     
-  
-  @media (min-width: 992px){ 
-    .container-f4h { 
-      max-width: 960px;
-    } 
-  }     
-  
-  @media (min-width: 1200px){ 
-    .container-f4h { 
-      max-width: 1140px;
-    } 
-  }     
-  
-  body { 
-      margin: 0; 
-      padding: 0; 
-      border: 0; 
-      font-size: 100%; 
-      font: inherit; 
-      vertical-align: baseline;
-  } 
-  
-  body { 
-      height: 100%;
-  } 
-  
-  body { 
-      font-family: 'Poppins', sans-serif !important; 
-      font-weight: 400!important; 
-      line-height: 26px!important; 
-      font-size: 14px!important; 
-      color: #222!important; 
-      text-decoration: none; 
-      height: 100%; 
-      overflow-x: hidden; 
-      background-color: #fff; 
-      position: relative;
-  } 
-  
-  body { 
-      margin: 0; 
-      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"; 
-      font-size: 1rem; 
-      font-weight: 400; 
-      line-height: 1.5; 
-      color: #212529; 
-      text-align: left; 
-      background-color: #fff;
-  } 
-  
-  html { 
-      margin: 0; 
-      padding: 0; 
-      border: 0; 
-      font-size: 100%; 
-      font: inherit; 
-      vertical-align: baseline;
-  } 
-  
-  html { 
-      scroll-behavior: smooth!important;
-  } 
-  
-  html { 
-      height: 100%;
-  } 
-  
-  html { 
-      font-family: sans-serif; 
-      line-height: 1.15; 
-      -webkit-text-size-adjust: 100%; 
-      -webkit-tap-highlight-color: transparent;
-  } 
-  
-  *,:before,:after { 
-      box-sizing: border-box;
-  } 
-  
-  *,:after,:before { 
-      box-sizing: border-box;
-  } 
-  
-  .fa-handshake-o:before { 
-      content: "\f2b5";
-  } 
-  
-  .cou-4gh { 
-      text-align: center; 
-      background-color: #f2fafb; 
-      padding: 1rem 0; 
-      border-bottom: solid 1px rgba(0,0,0,.04);
-  } 
-  
-  .col-46k,.col-dsl { 
-      position: relative; 
-      width: 100%; 
-      padding-right: 15px; 
-      padding-left: 15px;
-  } 
-  
-  .col-46k { 
-      -ms-flex: 0 0 50%; 
-      flex: 0 0 50%; 
-      max-width: 50%;
-  } 
-  
-  @media (min-width: 992px){ 
-    .col-dsl { 
-      -ms-flex: 0 0 25%; 
-      flex: 0 0 25%; 
-      max-width: 25%;
-    } 
-  }     
-  
-  img { 
-      margin: 0; 
-      padding: 0; 
-      border: 0; 
-      font-size: 100%; 
-      font: inherit; 
-      vertical-align: baseline;
-  } 
-  
-  img { 
-      vertical-align: middle; 
-      border-style: none;
-  } 
-  
-  .cou-4gh img  { 
-      width: 3rem; 
-      height: auto; 
-      clear: both; 
-      display: block; 
-      margin: 0 auto .5rem auto;
-  } 
-  
-  .cou-4gh .counter-1h8  { 
-      display: inline-block; 
-      font-size: 3rem; 
-      line-height: 3rem; 
-      font-weight: 600; 
-      color: #666;
-  } 
-  
-  .cou-4gh .plu-1hk  { 
-      display: inline-block; 
-      font-size: 3rem; 
-      line-height: 3rem; 
-      font-weight: 600; 
-      color: #666;
-  } 
-  
-  h5 { 
-      margin: 0; 
-      padding: 0; 
-      border: 0; 
-      font-size: 100%; 
-      font: inherit; 
-      vertical-align: baseline;
-  } 
-  
-  h5 { 
-      font-weight: 600!important; 
-      font-size: 18px!important; 
-      color: #333!important; 
-      padding: 0!important; 
-      margin: 10px 0!important;
-  } 
-  
-  h5 { 
-      margin-top: 0; 
-      margin-bottom: .5rem;
-  } 
-  
-  h5 { 
-      margin-bottom: .5rem; 
-      font-weight: 500; 
-      line-height: 1.2;
-  } 
-  
-  h5 { 
-      font-size: 1.25rem;
-  } 
-  
-  .cou-4gh h5  { 
-      font-size: 10px !important; 
-      margin: 0 0 0 0 !important; 
-      color: #f64d0d!important; 
-      letter-spacing: 3px; 
-      text-transform: uppercase;
-  } 
-  
-  
-  
+body {
+  font-size: 100%;
+  font: inherit;
+  background: linear-gradient(#f2fafb 0%, #fbfdfe 100%);
+  font-family: sans-serif;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #212529;
+  text-align: left;
+}
+* {
+  outline: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.row-cf2 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@media (min-width: 768px) {
+  .container-f4h {
+    width: 750px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-f4h {
+    width: 970px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-f4h {
+    width: 1170px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-f4h {
+    width: 1250px !important;
+  }
+}
+
+.container-f4h {
+  width: 100% !important;
+  max-width: 1250px !important;
+  position: relative;
+}
+
+.container-f4h {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container-f4h {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-f4h {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-f4h {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-f4h {
+    max-width: 1140px;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 400 !important;
+  line-height: 26px !important;
+  font-size: 14px !important;
+  color: #222 !important;
+  text-decoration: none;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #fff;
+  position: relative;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+html {
+  height: 100%;
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.fa-handshake-o:before {
+  content: "\f2b5";
+}
+
+.cou-4gh {
+  text-align: center;
+  background-color: #f2fafb;
+  padding: 1rem 0;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.04);
+}
+
+.col-46k,
+.col-dsl {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-46k {
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+@media (min-width: 992px) {
+  .col-dsl {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+img {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.cou-4gh img {
+  width: 3rem;
+  height: auto;
+  clear: both;
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
+
+.cou-4gh .counter-1h8 {
+  display: inline-block;
+  font-size: 3rem;
+  line-height: 3rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.cou-4gh .plu-1hk {
+  display: inline-block;
+  font-size: 3rem;
+  line-height: 3rem;
+  font-weight: 600;
+  color: #666;
+}
+
+h5 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+h5 {
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  color: #333 !important;
+  padding: 0 !important;
+  margin: 10px 0 !important;
+}
+
+h5 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+.cou-4gh h5 {
+  font-size: 10px !important;
+  margin: 0 0 0 0 !important;
+  color: #f64d0d !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
