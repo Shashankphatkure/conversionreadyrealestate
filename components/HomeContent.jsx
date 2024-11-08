@@ -49,10 +49,6 @@ export default function HomeContent({ properties }) {
         <Localities />
       </div>
 
-      <h1 className="text-2xl md:text-3xl font-bold mt-4 mb-4 text-center px-4">
-        Our Services
-      </h1>
-      <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <Services />
 
       <h1 className="text-2xl md:text-3xl font-bold mb-4 text-center px-4">

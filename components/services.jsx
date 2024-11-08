@@ -1,17 +1,23 @@
-import "./services.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandshake, faHome, faCar } from "@fortawesome/free-solid-svg-icons";
 
 const ServiceItem = ({ icon, title, description, id }) => (
-  <div className="col-awg col-c2g" id={id}>
-    <div className="info-mr4">
-      <div className="icon-container">
-        <FontAwesomeIcon icon={icon} className="service-icon" />
+  <div className="w-full md:w-1/3 p-4" id={id}>
+    <div className="bg-white rounded-lg p-6 h-full shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+      <div className="flex flex-col items-center text-center">
+        <div className="w-16 h-16 flex items-center justify-center rounded-full bg-blue-50 mb-4">
+          <FontAwesomeIcon icon={icon} className="text-blue-600 text-2xl" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-3">
+          <a
+            href={`#${id}`}
+            className="hover:text-blue-600 transition-colors duration-300"
+          >
+            {title}
+          </a>
+        </h3>
+        <p className="text-gray-600 leading-relaxed">{description}</p>
       </div>
-      <h3>
-        <a href={`#${id}`}>{title}</a>
-      </h3>
-      <p>{description}</p>
     </div>
   </div>
 );
@@ -42,10 +48,17 @@ export default function Services() {
   ];
 
   return (
-    <div className="services-container" id="services">
-      {services.map((service, index) => (
-        <ServiceItem key={index} {...service} />
-      ))}
-    </div>
+    <section className="py-16 bg-gray-50" id="services">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+          Our Services
+        </h2>
+        <div className="flex flex-wrap -mx-4">
+          {services.map((service, index) => (
+            <ServiceItem key={index} {...service} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
