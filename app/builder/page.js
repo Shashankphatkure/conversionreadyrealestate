@@ -57,40 +57,40 @@ export default function BuilderPage({ params }) {
   ];
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <HeaderTop />
       <Header />
       <HeaderSearch />
 
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 py-3 border-b">
-        <div className="px-4 md:px-20">
+      {/* Breadcrumb - Made more compact */}
+      <div className="bg-white py-2 border-b shadow-sm">
+        <div className="container mx-auto px-4 md:px-8 lg:px-20">
           <nav className="flex" aria-label="Breadcrumb">
-            <ol className="inline-flex items-center space-x-1 md:space-x-3">
+            <ol className="inline-flex items-center space-x-1 md:space-x-2">
               <li className="inline-flex items-center">
                 <a
                   href="/"
-                  className="inline-flex items-center text-sm text-gray-700 hover:text-red-500"
+                  className="text-sm text-gray-700 hover:text-red-500 flex items-center"
                 >
-                  <HomeIcon className="w-4 h-4 mr-2" />
+                  <HomeIcon className="w-4 h-4 mr-1" />
                   Home
                 </a>
               </li>
               <li>
                 <div className="flex items-center">
-                  <ChevronRightIcon className="w-4 h-4 text-gray-400" />
+                  <ChevronRightIcon className="w-3 h-3 text-gray-400 mx-1" />
                   <a
                     href="/builders"
-                    className="ml-1 text-sm text-gray-700 hover:text-red-500 md:ml-2"
+                    className="text-sm text-gray-700 hover:text-red-500"
                   >
                     Builders
                   </a>
                 </div>
               </li>
-              <li aria-current="page">
+              <li>
                 <div className="flex items-center">
-                  <ChevronRightIcon className="w-4 h-4 text-gray-400" />
-                  <span className="ml-1 text-sm text-red-500 md:ml-2">
+                  <ChevronRightIcon className="w-3 h-3 text-gray-400 mx-1" />
+                  <span className="text-sm text-red-500">
                     {builderData.name}
                   </span>
                 </div>
@@ -100,100 +100,119 @@ export default function BuilderPage({ params }) {
         </div>
       </div>
 
-      {/* Builder Profile Section */}
-      <div className="px-4 md:px-20 py-8">
-        <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-            <div className="w-48 h-48 flex-shrink-0">
-              <img
-                src={builderData.logo}
-                alt={builderData.name}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="flex-grow">
-              <h1 className="text-2xl md:text-3xl font-bold mb-4">
-                {builderData.name}
-              </h1>
-              <p className="text-gray-600 mb-6">{builderData.description}</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-gray-600">Established</p>
-                  <p className="text-lg font-semibold">
-                    {builderData.established}
-                  </p>
+      {/* Main Content Container */}
+      <div className="container mx-auto px-4 md:px-8 lg:px-20">
+        {/* Builder Profile Section - Improved spacing and shadows */}
+        <div className="my-8 md:my-12">
+          <div className="bg-white rounded-xl shadow-md overflow-hidden">
+            <div className="p-6 md:p-8 lg:p-10">
+              <div className="flex flex-col md:flex-row gap-8">
+                <div className="w-full md:w-48 h-48 mx-auto md:mx-0">
+                  <img
+                    src={builderData.logo}
+                    alt={builderData.name}
+                    className="w-full h-full object-contain rounded-lg"
+                  />
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-gray-600">Total Projects</p>
-                  <p className="text-lg font-semibold">
-                    {builderData.totalProjects}
+                <div className="flex-grow">
+                  <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                    {builderData.name}
+                  </h1>
+                  <p className="text-gray-600 leading-relaxed mb-8">
+                    {builderData.description}
                   </p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-gray-600">Ongoing</p>
-                  <p className="text-lg font-semibold">
-                    {builderData.ongoingProjects}
-                  </p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-gray-600">Completed</p>
-                  <p className="text-lg font-semibold">
-                    {builderData.completedProjects}
-                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+                    {[
+                      { label: "Established", value: builderData.established },
+                      {
+                        label: "Total Projects",
+                        value: builderData.totalProjects,
+                      },
+                      { label: "Ongoing", value: builderData.ongoingProjects },
+                      {
+                        label: "Completed",
+                        value: builderData.completedProjects,
+                      },
+                    ].map((stat) => (
+                      <div
+                        key={stat.label}
+                        className="bg-gray-50 p-4 rounded-lg text-center hover:bg-gray-100 transition-colors"
+                      >
+                        <p className="text-gray-600 text-sm mb-1">
+                          {stat.label}
+                        </p>
+                        <p className="text-xl font-semibold text-gray-900">
+                          {stat.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Projects Section */}
-      <div className="px-4 md:px-20 py-8">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-          Projects by {builderData.name}
-        </h2>
-        <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
-        <div className="mb-12">
+        {/* Projects Section - Added container styling */}
+        <div className="my-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Projects by {builderData.name}
+            </h2>
+            <div className="w-16 h-1 bg-red-500 mx-auto"></div>
+          </div>
           <Properties properties={properties} />
         </div>
-      </div>
 
-      {/* Locations Section */}
-      <div className="px-4 md:px-20 py-12 bg-gray-50">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-          Popular Locations
-        </h2>
-        <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {["Thane West", "Kalyan", "Dombivli"].map((location) => (
-            <div key={location} className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center gap-3">
-                <MapPinIcon className="h-6 w-6 text-red-500" />
-                <h3 className="text-lg font-semibold">{location}</h3>
+        {/* Locations Section - Improved card design */}
+        <div className="my-16 bg-white rounded-xl shadow-md p-8 lg:p-10">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Popular Locations
+            </h2>
+            <div className="w-16 h-1 bg-red-500 mx-auto"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {["Thane West", "Kalyan", "Dombivli"].map((location) => (
+              <div
+                key={location}
+                className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow cursor-pointer"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <MapPinIcon className="h-6 w-6 text-red-500" />
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {location}
+                  </h3>
+                </div>
+                <p className="text-gray-600">
+                  {Math.floor(Math.random() * 5) + 1} Projects Available
+                </p>
               </div>
-              <p className="mt-2 text-gray-600">
-                {Math.floor(Math.random() * 5) + 1} Projects Available
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="px-4 md:px-20 py-12">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-          Browse by Builders
-        </h2>
-        <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-        <Builders />
-      </div>
+        {/* Other Builders Section */}
+        <div className="my-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Other Popular Builders
+            </h2>
+            <div className="w-16 h-1 bg-red-500 mx-auto"></div>
+          </div>
+          <Builders />
+        </div>
 
-      {/* Contact Section */}
-      <div className="mt-12">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-          Contact Us
-        </h2>
-        <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-        <ContactUs />
+        {/* Contact Section */}
+        <div className="my-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Contact Us
+            </h2>
+            <div className="w-16 h-1 bg-red-500 mx-auto"></div>
+          </div>
+          <ContactUs />
+        </div>
       </div>
 
       <FooterTop />
