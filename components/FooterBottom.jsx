@@ -15,7 +15,7 @@ import {
 
 export default function FooterBottom() {
   return (
-    <footer className="footer-bottom">
+    <footer className="footer-bottom px-10">
       <div className="footer-main">
         <div className="footer-container">
           <div className="footer-content">
@@ -85,7 +85,7 @@ export default function FooterBottom() {
       </div>
 
       <div className="footer-middle">
-        <div className="footer-container">
+        <div className="footer-container" style={{ padding: "20px" }}>
           <div className="footer-middle-content">
             <div className="certifications">
               <ul>
