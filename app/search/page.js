@@ -15,22 +15,34 @@ import {
   MapPinIcon,
   BuildingOfficeIcon,
   CurrencyRupeeIcon,
+  ClockIcon,
+  TrashIcon,
+  SearchIcon,
 } from "@heroicons/react/24/solid";
 import { supabase } from "@/utils/supabase";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// Add Skeleton Loading Component
+// Enhanced PropertySkeleton with better animation
 const PropertySkeleton = () => (
   <div className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
-    <div className="h-48 bg-gray-200"></div>
-    <div className="p-4">
-      <div className="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
+    <div className="h-48 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-shimmer"></div>
+    <div className="p-6">
+      <div className="h-6 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-3/4 mb-4"></div>
       <div className="space-y-3">
-        <div className="h-4 bg-gray-200 rounded w-2/3"></div>
-        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 bg-gray-200 rounded"></div>
+          <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 bg-gray-200 rounded"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 bg-gray-200 rounded"></div>
+          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+        </div>
       </div>
-      <div className="mt-4 pt-4 border-t">
+      <div className="mt-6 pt-4 border-t">
         <div className="flex justify-between">
           <div className="h-5 bg-gray-200 rounded w-1/3"></div>
           <div className="h-5 bg-gray-200 rounded w-1/4"></div>
@@ -40,41 +52,120 @@ const PropertySkeleton = () => (
   </div>
 );
 
-// Add new component for filter tags
+// Enhanced FilterTag with animation
 const FilterTag = ({ label, value, onRemove }) => (
-  <span className="inline-flex items-center gap-1 px-3 py-1 bg-red-50 text-red-600 rounded-full text-sm">
+  <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-50 to-red-100 text-red-600 rounded-full text-sm font-medium shadow-sm hover:shadow transition-all duration-200">
     {label}: {value}
-    <button onClick={onRemove} className="hover:text-red-800">
+    <button
+      onClick={onRemove}
+      className="hover:bg-red-200 p-1 rounded-full transition-colors"
+      aria-label={`Remove ${label} filter`}
+    >
       <XMarkIcon className="w-4 h-4" />
     </button>
   </span>
 );
 
-// Add new component for search history
+// Enhanced SearchHistory with better styling
 const SearchHistory = ({ searches, onSelect, onClear }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-    <div className="flex justify-between items-center mb-4">
-      <h3 className="font-semibold text-gray-900">Recent Searches</h3>
+  <div className="bg-white rounded-xl shadow-md p-6 mb-8 transform transition-all duration-300 hover:shadow-lg">
+    <div className="flex justify-between items-center mb-6">
+      <div className="flex items-center gap-2">
+        <ClockIcon className="w-5 h-5 text-gray-400" />
+        <h3 className="font-semibold text-gray-900">Recent Searches</h3>
+      </div>
       <button
         onClick={onClear}
-        className="text-sm text-red-500 hover:text-red-600"
+        className="text-sm text-red-500 hover:text-red-600 transition-colors flex items-center gap-1"
       >
+        <TrashIcon className="w-4 h-4" />
         Clear History
       </button>
     </div>
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-3">
       {searches.map((search, index) => (
         <button
           key={index}
           onClick={() => onSelect(search)}
-          className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm text-gray-600"
+          className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full text-sm text-gray-600 transition-colors duration-200 flex items-center gap-2"
         >
+          <SearchIcon className="w-4 h-4 text-gray-400" />
           {search.projectName || search.city || search.builder}
         </button>
       ))}
     </div>
   </div>
 );
+
+// Enhanced Property Card Component
+const PropertyCard = ({ property }) => (
+  <a
+    href={property.link}
+    className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+  >
+    <div className="relative">
+      <img
+        src={property.image}
+        alt={property.name}
+        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+      />
+      <div className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+        {property.status}
+      </div>
+    </div>
+    <div className="p-6">
+      <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-red-500 transition-colors">
+        {property.name}
+      </h3>
+      <div className="space-y-3">
+        <p className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
+          <MapPinIcon className="w-4 h-4 mr-2 text-red-500" />
+          {property.location}
+        </p>
+        <p className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
+          <BuildingOfficeIcon className="w-4 h-4 mr-2 text-red-500" />
+          {property.developer}
+        </p>
+        <p className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
+          <HomeIcon className="w-4 h-4 mr-2 text-red-500" />
+          {property.configurations}
+        </p>
+      </div>
+      <div className="mt-6 pt-4 border-t border-gray-100">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center text-red-500 font-semibold">
+            <CurrencyRupeeIcon className="w-4 h-4 mr-1" />
+            {property.price}
+          </div>
+          <span className="text-sm text-gray-500 bg-gray-50 px-3 py-1 rounded-full">
+            Possession: {property.possession}
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+);
+
+// Enhanced Filter Section
+const FilterSection = ({ title, children }) => (
+  <div className="space-y-2">
+    <label className="block text-sm font-medium text-gray-700">{title}</label>
+    {children}
+  </div>
+);
+
+// Add to your CSS (globals.css or similar)
+const styles = `
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background-size: 1000px 100%;
+  }
+`;
 
 export default function SearchResults() {
   const router = useRouter();
@@ -431,39 +522,36 @@ export default function SearchResults() {
           {/* Filters Panel */}
           {showFilters && (
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-md p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold">Filters</h2>
+              <div className="bg-white rounded-xl shadow-md p-6 sticky top-4 transition-shadow hover:shadow-lg">
+                <div className="flex justify-between items-center mb-8">
+                  <div className="flex items-center gap-2">
+                    <FunnelIcon className="w-5 h-5 text-red-500" />
+                    <h2 className="text-xl font-bold text-gray-900">Filters</h2>
+                  </div>
                   <button
                     onClick={clearFilters}
-                    className="text-red-500 text-sm hover:text-red-600"
+                    className="text-red-500 text-sm hover:text-red-600 transition-colors flex items-center gap-1"
                   >
+                    <XMarkIcon className="w-4 h-4" />
                     Clear All
                   </button>
                 </div>
 
-                {/* Filter Fields */}
                 <div className="space-y-6">
-                  {/* Project Name Search */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Project Name
-                    </label>
+                  {/* Use FilterSection component for each filter */}
+                  <FilterSection title="Project Name">
                     <input
                       type="text"
                       name="projectName"
                       value={filters.projectName}
                       onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
                       placeholder="Search projects..."
                     />
-                  </div>
+                  </FilterSection>
 
                   {/* Project Type */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Project Type
-                    </label>
+                  <FilterSection title="Project Type">
                     <select
                       name="projectType"
                       value={filters.projectType}
@@ -477,13 +565,10 @@ export default function SearchResults() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </FilterSection>
 
                   {/* Builder */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Builder
-                    </label>
+                  <FilterSection title="Builder">
                     <select
                       name="builder"
                       value={filters.builder}
@@ -497,13 +582,10 @@ export default function SearchResults() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </FilterSection>
 
                   {/* Configuration */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Configuration
-                    </label>
+                  <FilterSection title="Configuration">
                     <select
                       name="configuration"
                       value={filters.configuration}
@@ -517,13 +599,10 @@ export default function SearchResults() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </FilterSection>
 
                   {/* Min Budget */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Min Budget
-                    </label>
+                  <FilterSection title="Min Budget">
                     <select
                       name="minBudget"
                       value={filters.minBudget}
@@ -537,13 +616,10 @@ export default function SearchResults() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </FilterSection>
 
                   {/* Max Budget */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Max Budget
-                    </label>
+                  <FilterSection title="Max Budget">
                     <select
                       name="maxBudget"
                       value={filters.maxBudget}
@@ -557,13 +633,10 @@ export default function SearchResults() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </FilterSection>
 
                   {/* City */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      City
-                    </label>
+                  <FilterSection title="City">
                     <select
                       name="city"
                       value={filters.city}
@@ -577,14 +650,39 @@ export default function SearchResults() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </FilterSection>
 
                   <button
                     onClick={handleSearch}
                     disabled={loading}
-                    className="w-full bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors disabled:bg-gray-400"
+                    className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5 active:translate-y-0"
                   >
-                    {loading ? "Searching..." : "Apply Filters"}
+                    {loading ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <svg
+                          className="animate-spin h-5 w-5"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            fill="none"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        Searching...
+                      </div>
+                    ) : (
+                      "Apply Filters"
+                    )}
                   </button>
                 </div>
               </div>
@@ -603,52 +701,7 @@ export default function SearchResults() {
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {properties.map((property, index) => (
-                    <a
-                      href={property.link}
-                      key={index}
-                      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-                    >
-                      <div className="relative">
-                        <img
-                          src={property.image}
-                          alt={property.name}
-                          className="w-full h-48 object-cover"
-                        />
-                        <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm">
-                          {property.status}
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                          {property.name}
-                        </h3>
-                        <div className="space-y-2">
-                          <p className="flex items-center text-gray-600">
-                            <MapPinIcon className="w-4 h-4 mr-2" />
-                            {property.location}
-                          </p>
-                          <p className="flex items-center text-gray-600">
-                            <BuildingOfficeIcon className="w-4 h-4 mr-2" />
-                            {property.developer}
-                          </p>
-                          <p className="flex items-center text-gray-600">
-                            <HomeIcon className="w-4 h-4 mr-2" />
-                            {property.configurations}
-                          </p>
-                        </div>
-                        <div className="mt-4 pt-4 border-t">
-                          <div className="flex justify-between items-center">
-                            <div className="flex items-center text-red-500 font-semibold">
-                              <CurrencyRupeeIcon className="w-4 h-4 mr-1" />
-                              {property.price}
-                            </div>
-                            <span className="text-sm text-gray-500">
-                              Possession: {property.possession}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
+                    <PropertyCard key={index} property={property} />
                   ))}
                 </div>
 
