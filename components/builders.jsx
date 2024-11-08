@@ -9,17 +9,22 @@ import { supabase } from "@/utils/supabase";
 const BuilderCard = ({ builder }) => {
   if (!builder) return null;
 
-  const { name, logo, link, projects } = builder;
+  const { name, logo, total_projects, website_url } = builder;
 
   return (
     <div className="item-cim">
       <div className="item-5t2">
         <div className="pro-oph">
-          <a href={link} className="block">
+          <a
+            href={website_url || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
             <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
               <div className="relative h-32 flex items-center justify-center mb-4">
                 <img
-                  src={logo}
+                  src={logo || "/placeholder-builder-logo.jpg"}
                   alt={name}
                   className="max-h-full max-w-full object-contain"
                   loading="lazy"
@@ -35,7 +40,7 @@ const BuilderCard = ({ builder }) => {
                 </h3>
                 <p className="text-gray-600 flex items-center justify-center gap-2">
                   <BuildingOfficeIcon className="h-5 w-5" />
-                  {projects} Projects
+                  {total_projects || 0} Projects
                 </p>
               </div>
             </div>
@@ -47,36 +52,34 @@ const BuilderCard = ({ builder }) => {
 };
 
 const Builders = () => {
-  const [builders, setBuilders] = useState([
-    {
-      id: 1,
-      name: "Lodha Group",
-      logo: "https://newprojectsonline.com/assets/newprojectonline/lodha-logo.png",
-      projects: 15,
-      link: "/builder/lodha-group",
-    },
-    {
-      id: 2,
-      name: "Godrej Properties",
-      logo: "https://newprojectsonline.com/assets/newprojectonline/godrej-logo.png",
-      projects: 12,
-      link: "/builder/godrej-properties",
-    },
-    {
-      id: 3,
-      name: "Runwal Group",
-      logo: "https://newprojectsonline.com/assets/newprojectonline/runwal-logo.png",
-      projects: 8,
-      link: "/builder/runwal-group",
-    },
-    {
-      id: 4,
-      name: "Piramal Realty",
-      logo: "https://newprojectsonline.com/assets/newprojectonline/piramal-logo.png",
-      projects: 6,
-      link: "/builder/piramal-realty",
-    },
-  ]);
+  const [builders, setBuilders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchBuilders();
+  }, []);
+
+  const fetchBuilders = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("builders")
+        .select("*")
+        .order("name")
+        .eq("featured", true); // Only fetch featured builders
+
+      if (error) {
+        throw error;
+      }
+
+      setBuilders(data);
+      setIsLoading(false);
+    } catch (err) {
+      console.error("Error fetching builders:", err);
+      setError(err.message);
+      setIsLoading(false);
+    }
+  };
 
   const settings = {
     dots: true,
@@ -111,6 +114,30 @@ const Builders = () => {
       },
     ],
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-48">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-red-600 py-8">
+        Error loading builders: {error}
+      </div>
+    );
+  }
+
+  if (!builders.length) {
+    return (
+      <div className="text-center text-gray-600 py-8">
+        No featured builders available.
+      </div>
+    );
+  }
 
   return (
     <div className="content-5j6" style={{ paddingTop: "0px" }}>

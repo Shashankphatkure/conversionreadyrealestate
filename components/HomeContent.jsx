@@ -9,6 +9,7 @@ import Localities from "@/components/localities";
 import Properties from "@/components/properties";
 import Services from "@/components/services";
 import Welcome from "@/components/Welcome";
+import Builders from "./builders";
 
 export default function HomeContent({ properties }) {
   return (
@@ -115,6 +116,14 @@ export default function HomeContent({ properties }) {
           </div>
         </div>
       </section>
+
+      <div className="px-4 md:px-20 py-12">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+          Browse by Builders
+        </h2>
+        <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
+        <Builders />
+      </div>
 
       <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center px-4">
         Contact Us
