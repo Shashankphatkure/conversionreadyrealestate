@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 export default function Navigation() {
   const router = useRouter();
