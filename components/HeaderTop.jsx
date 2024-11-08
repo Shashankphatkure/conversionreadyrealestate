@@ -31,7 +31,7 @@ export default function HeaderTop() {
             <ul className="flex border-l border-white border-opacity-20">
               <li className="border-r border-white border-opacity-20">
                 <a
-                  href="https://www.facebook.com/NewProjectsOnline"
+                  href="https://www.facebook.com/GSrealtys/"
                   className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
                 >
                   <FontAwesomeIcon icon={faFacebookF} className="text-lg" />
@@ -39,18 +39,10 @@ export default function HeaderTop() {
               </li>
               <li className="border-r border-white border-opacity-20">
                 <a
-                  href="https://www.instagram.com/newprojectsonline/"
+                  href="https://www.instagram.com/shree_ganesh_realty/?hl=en"
                   className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
                 >
                   <FontAwesomeIcon icon={faInstagram} className="text-lg" />
-                </a>
-              </li>
-              <li className="border-r border-white border-opacity-20">
-                <a
-                  href="https://twitter.com/launches_new"
-                  className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
-                >
-                  <FontAwesomeIcon icon={faTwitter} className="text-lg" />
                 </a>
               </li>
             </ul>

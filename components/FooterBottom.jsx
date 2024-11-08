@@ -35,7 +35,7 @@ export default function FooterBottom() {
                 <ul>
                   <li>
                     <a
-                      href="https://www.facebook.com/NewProjectsOnline"
+                      href="https://www.facebook.com/GSrealtys/"
                       aria-label="Facebook"
                     >
                       <FontAwesomeIcon icon={faFacebookF} />
@@ -43,18 +43,10 @@ export default function FooterBottom() {
                   </li>
                   <li>
                     <a
-                      href="https://www.instagram.com/newprojectsonline/"
+                      href="https://www.instagram.com/shree_ganesh_realty/?hl=en"
                       aria-label="Instagram"
                     >
                       <FontAwesomeIcon icon={faInstagram} />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://twitter.com/launches_new"
-                      aria-label="Twitter"
-                    >
-                      <FontAwesomeIcon icon={faTwitter} />
                     </a>
                   </li>
                 </ul>
