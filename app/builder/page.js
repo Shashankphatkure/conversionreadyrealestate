@@ -1,4 +1,5 @@
 "use client";
+import Builders from "@/components/builders";
 import ContactUs from "@/components/ContactUs";
 import FooterBottom from "@/components/FooterBottom";
 import FooterTop from "@/components/FooterTop";
@@ -7,105 +8,26 @@ import HeaderSearch from "@/components/HeaderSearch";
 import HeaderTop from "@/components/HeaderTop";
 import Properties from "@/components/properties";
 import {
-  MapPinIcon,
-  BuildingOfficeIcon,
   HomeIcon,
   ChevronRightIcon,
+  BuildingOfficeIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/solid";
-import Slider from "react-slick";
-import Builders from "@/components/builders";
 
-// Add this new component for related localities
-const RelatedLocalities = () => {
-  const relatedLocalities = [
-    {
-      name: "Thane West",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/thane-west.jpg",
-      properties: 25,
-      link: "/localitylistings/thane-west",
-    },
-    {
-      name: "Ghodbunder Road",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/ghodbunder-road.jpg",
-      properties: 18,
-      link: "/localitylistings/ghodbunder-road",
-    },
-    {
-      name: "Kalyan",
-      image: "https://newprojectsonline.com/assets/newprojectonline/kalyan.jpg",
-      properties: 15,
-      link: "/localitylistings/kalyan",
-    },
-  ];
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+export default function BuilderPage({ params }) {
+  // Sample builder data - replace with actual data fetch
+  const builderData = {
+    name: "Lodha Group",
+    logo: "https://newprojectsonline.com/assets/newprojectonline/lodha-logo.png",
+    description:
+      "Lodha Group is India's largest residential real estate developer by sales and construction area. The company has been involved in the real estate business since 1980 and is known for its innovative and high-quality projects.",
+    established: "1980",
+    totalProjects: "15",
+    ongoingProjects: "8",
+    completedProjects: "7",
   };
 
-  return (
-    <div className="px-4 md:px-20 py-12 bg-gray-50">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-        Explore Nearby Localities
-      </h2>
-      <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
-
-      <div className="localities-slider">
-        <Slider {...settings}>
-          {relatedLocalities.map((locality, index) => (
-            <div key={index} className="px-2">
-              <div className="bg-white rounded-lg overflow-hidden shadow-md">
-                <a href={locality.link} className="block relative">
-                  <img
-                    src={locality.image}
-                    alt={locality.name}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                    <h3 className="text-white font-semibold flex items-center gap-2">
-                      <MapPinIcon className="h-5 w-5" />
-                      {locality.name}
-                    </h3>
-                    <p className="text-white flex items-center gap-2 mt-1">
-                      <BuildingOfficeIcon className="h-5 w-5" />
-                      {locality.properties} Properties
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
-    </div>
-  );
-};
-
-export default function LocalityListings({ params }) {
-  // Sample property data
+  // Sample properties data for this builder
   const properties = [
     {
       name: "Lodha Crown Thane",
@@ -120,41 +42,18 @@ export default function LocalityListings({ params }) {
       link: "/project/lodha-crown-thane",
     },
     {
-      name: "Runwal My City",
-      location: "Dombivli East",
-      type: "Residential",
-      status: "Ready to Move",
-      developer: "Runwal Group",
-      configurations: "1, 2 BHK",
-      price: "45 Lac* Onwards",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/runwal-my-city.jpg",
-      link: "/project/runwal-my-city",
-    },
-    {
-      name: "Godrej Ascend",
-      location: "Kolshet Road, Thane",
+      name: "Lodha Sterling",
+      location: "Thane",
       type: "Residential",
       status: "New Launch",
-      developer: "Godrej Properties",
+      developer: "Lodha Group",
       configurations: "2, 3 BHK",
       price: "1.5 Cr* Onwards",
       image:
-        "https://newprojectsonline.com/assets/newprojectonline/godrej-ascend.jpg",
-      link: "/project/godrej-ascend",
+        "https://newprojectsonline.com/assets/newprojectonline/lodha-sterling.jpg",
+      link: "/project/lodha-sterling",
     },
-    {
-      name: "Piramal Vaikunth",
-      location: "Thane West",
-      type: "Residential",
-      status: "Ready to Move",
-      developer: "Piramal Realty",
-      configurations: "2, 3, 4 BHK",
-      price: "1.8 Cr* Onwards",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/piramal-vaikunth.jpg",
-      link: "/project/piramal-vaikunth",
-    },
+    // Add more properties...
   ];
 
   return (
@@ -163,6 +62,7 @@ export default function LocalityListings({ params }) {
       <Header />
       <HeaderSearch />
 
+      {/* Breadcrumb */}
       <div className="bg-gray-50 py-3 border-b">
         <div className="px-4 md:px-20">
           <nav className="flex" aria-label="Breadcrumb">
@@ -180,10 +80,10 @@ export default function LocalityListings({ params }) {
                 <div className="flex items-center">
                   <ChevronRightIcon className="w-4 h-4 text-gray-400" />
                   <a
-                    href="/localities"
+                    href="/builders"
                     className="ml-1 text-sm text-gray-700 hover:text-red-500 md:ml-2"
                   >
-                    Localities
+                    Builders
                   </a>
                 </div>
               </li>
@@ -191,7 +91,7 @@ export default function LocalityListings({ params }) {
                 <div className="flex items-center">
                   <ChevronRightIcon className="w-4 h-4 text-gray-400" />
                   <span className="ml-1 text-sm text-red-500 md:ml-2">
-                    {params?.locality || "Selected Locality"}
+                    {builderData.name}
                   </span>
                 </div>
               </li>
@@ -200,18 +100,84 @@ export default function LocalityListings({ params }) {
         </div>
       </div>
 
+      {/* Builder Profile Section */}
       <div className="px-4 md:px-20 py-8">
-        <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center">
-          Properties in {params?.locality || "Selected Locality"}
-        </h1>
-        <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
+        <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+            <div className="w-48 h-48 flex-shrink-0">
+              <img
+                src={builderData.logo}
+                alt={builderData.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="flex-grow">
+              <h1 className="text-2xl md:text-3xl font-bold mb-4">
+                {builderData.name}
+              </h1>
+              <p className="text-gray-600 mb-6">{builderData.description}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="text-gray-600">Established</p>
+                  <p className="text-lg font-semibold">
+                    {builderData.established}
+                  </p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="text-gray-600">Total Projects</p>
+                  <p className="text-lg font-semibold">
+                    {builderData.totalProjects}
+                  </p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="text-gray-600">Ongoing</p>
+                  <p className="text-lg font-semibold">
+                    {builderData.ongoingProjects}
+                  </p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="text-gray-600">Completed</p>
+                  <p className="text-lg font-semibold">
+                    {builderData.completedProjects}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      {/* Projects Section */}
+      <div className="px-4 md:px-20 py-8">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+          Projects by {builderData.name}
+        </h2>
+        <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
         <div className="mb-12">
           <Properties properties={properties} />
         </div>
       </div>
 
-      <RelatedLocalities />
+      {/* Locations Section */}
+      <div className="px-4 md:px-20 py-12 bg-gray-50">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+          Popular Locations
+        </h2>
+        <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {["Thane West", "Kalyan", "Dombivli"].map((location) => (
+            <div key={location} className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center gap-3">
+                <MapPinIcon className="h-6 w-6 text-red-500" />
+                <h3 className="text-lg font-semibold">{location}</h3>
+              </div>
+              <p className="mt-2 text-gray-600">
+                {Math.floor(Math.random() * 5) + 1} Projects Available
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="px-4 md:px-20 py-12">
         <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
@@ -221,7 +187,12 @@ export default function LocalityListings({ params }) {
         <Builders />
       </div>
 
-      <div className="mt-4">
+      {/* Contact Section */}
+      <div className="mt-12">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+          Contact Us
+        </h2>
+        <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
         <ContactUs />
       </div>
 
