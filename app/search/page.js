@@ -280,6 +280,17 @@ export default function SearchResults() {
     configuration: searchParams.get("config") || "",
   });
 
+  // Add this useEffect to handle URL parameter changes
+  useEffect(() => {
+    const searchName = searchParams.get("name");
+    if (searchName) {
+      setFilters((prev) => ({
+        ...prev,
+        projectName: searchName,
+      }));
+    }
+  }, [searchParams]);
+
   const [showFilters, setShowFilters] = useState(true);
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("relevance");
@@ -288,9 +299,10 @@ export default function SearchResults() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
+  // Add this useEffect to trigger search when filters change
   useEffect(() => {
     fetchProperties();
-  }, [currentPage, sortBy]);
+  }, [filters]);
 
   const fetchProperties = async () => {
     try {
