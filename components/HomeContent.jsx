@@ -10,10 +10,12 @@ import Properties from "@/components/properties";
 import Services from "@/components/services";
 import Welcome from "@/components/Welcome";
 import Builders from "./builders";
+import RequirementPopup from "@/components/RequirementPopup";
 
 export default function HomeContent({ properties }) {
   return (
     <div>
+      <RequirementPopup />
       <HeaderTop />
       <Header />
       <HeaderSearch />
