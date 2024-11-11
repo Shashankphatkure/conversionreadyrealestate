@@ -108,6 +108,118 @@ const LeadForm = ({ lead, setLead, onSubmit, onCancel, title }) => {
           </div>
         </div>
 
+        {/* Additional Details */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Additional Details
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Location
+              </label>
+              <input
+                type="text"
+                value={lead.location}
+                onChange={(e) => setLead({ ...lead, location: e.target.value })}
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Preferred Contact Time
+              </label>
+              <input
+                type="text"
+                value={lead.preferred_contact_time}
+                onChange={(e) =>
+                  setLead({ ...lead, preferred_contact_time: e.target.value })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Source
+              </label>
+              <select
+                value={lead.source}
+                onChange={(e) => setLead({ ...lead, source: e.target.value })}
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="website">Website</option>
+                <option value="referral">Referral</option>
+                <option value="social">Social Media</option>
+                <option value="direct">Direct</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Property Type
+              </label>
+              <select
+                value={lead.property_type}
+                onChange={(e) =>
+                  setLead({ ...lead, property_type: e.target.value })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select Type</option>
+                <option value="apartment">Apartment</option>
+                <option value="house">House</option>
+                <option value="villa">Villa</option>
+                <option value="plot">Plot</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Transaction Type
+              </label>
+              <select
+                value={lead.transaction_type}
+                onChange={(e) =>
+                  setLead({ ...lead, transaction_type: e.target.value })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select Type</option>
+                <option value="buy">Buy</option>
+                <option value="rent">Rent</option>
+                <option value="sell">Sell</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Follow-up Date
+              </label>
+              <input
+                type="datetime-local"
+                value={lead.follow_up_date}
+                onChange={(e) =>
+                  setLead({ ...lead, follow_up_date: e.target.value })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Lead Score (0-100)
+              </label>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={lead.lead_score}
+                onChange={(e) =>
+                  setLead({ ...lead, lead_score: parseInt(e.target.value) })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Additional Information */}
         <div className="col-span-2">
           <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -169,6 +281,13 @@ export default function Leads() {
     interested_property: "",
     budget_range: "",
     notes: "",
+    location: "",
+    preferred_contact_time: "",
+    source: "website",
+    property_type: "",
+    transaction_type: "",
+    follow_up_date: "",
+    lead_score: 0,
   };
 
   const [newLead, setNewLead] = useState(initialLeadState);
@@ -273,6 +392,19 @@ export default function Leads() {
     return aValue < bValue ? 1 : -1;
   });
 
+  const getStatusColor = (status) => {
+    const colors = {
+      NEW: "bg-blue-100 text-blue-800",
+      CONTACTED: "bg-yellow-100 text-yellow-800",
+      QUALIFIED: "bg-green-100 text-green-800",
+      PROPOSAL: "bg-purple-100 text-purple-800",
+      NEGOTIATION: "bg-orange-100 text-orange-800",
+      CLOSED: "bg-gray-100 text-gray-800",
+      LOST: "bg-red-100 text-red-800",
+    };
+    return colors[status] || "bg-gray-100 text-gray-800";
+  };
+
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-gray-50">
@@ -348,8 +480,8 @@ export default function Leads() {
                       "Email",
                       "Phone",
                       "Status",
-                      "Interested Property",
-                      "Created At",
+                      "Location",
+                      "Follow-up",
                       "Actions",
                     ].map((header) => (
                       <th
@@ -378,26 +510,20 @@ export default function Leads() {
                       </td>
                       <td className="px-6 py-4">
                         <span
-                          className={`px-2 py-1 text-xs rounded-full ${
-                            lead.status === "NEW"
-                              ? "bg-blue-100 text-blue-800"
-                              : lead.status === "CONTACTED"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : lead.status === "QUALIFIED"
-                              ? "bg-green-100 text-green-800"
-                              : lead.status === "CLOSED"
-                              ? "bg-gray-100 text-gray-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
+                          className={`px-2 py-1 text-xs rounded-full ${getStatusColor(
+                            lead.status
+                          )}`}
                         >
                           {lead.status}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-500">
-                        {lead.interested_property}
+                        {lead.location}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-500">
-                        {new Date(lead.created_at).toLocaleDateString()}
+                        {lead.follow_up_date
+                          ? new Date(lead.follow_up_date).toLocaleDateString()
+                          : "-"}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2">
