@@ -18,6 +18,7 @@ import {
   ClockIcon,
   TrashIcon,
   SearchIcon,
+  ArrowRightIcon,
 } from "@heroicons/react/24/solid";
 import { supabase } from "@/utils/supabase";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -101,47 +102,118 @@ const SearchHistory = ({ searches, onSelect, onClear }) => (
 const PropertyCard = ({ property }) => (
   <a
     href={property.link}
-    className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+    className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
   >
+    {/* Image Container with Overlay */}
     <div className="relative">
-      <img
-        src={property.image}
-        alt={property.name}
-        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-      />
-      <div className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
-        {property.status}
+      {/* Main Image */}
+      <div className="relative h-64 overflow-hidden">
+        <img
+          src={property.image || "/placeholder-property.jpg"}
+          alt={property.name}
+          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+        />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
-    </div>
-    <div className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-red-500 transition-colors">
-        {property.name}
-      </h3>
-      <div className="space-y-3">
-        <p className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
-          <MapPinIcon className="w-4 h-4 mr-2 text-red-500" />
-          {property.location}
-        </p>
-        <p className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
-          <BuildingOfficeIcon className="w-4 h-4 mr-2 text-red-500" />
-          {property.developer}
-        </p>
-        <p className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
-          <HomeIcon className="w-4 h-4 mr-2 text-red-500" />
-          {property.configurations}
-        </p>
+
+      {/* Status Badge */}
+      <div className="absolute top-4 right-4 z-10">
+        <span
+          className={`
+          px-3 py-1.5 rounded-full text-sm font-medium shadow-lg
+          ${
+            property.status === "READY TO MOVE"
+              ? "bg-gradient-to-r from-green-500 to-green-600 text-white"
+              : property.status === "UNDER CONSTRUCTION"
+              ? "bg-gradient-to-r from-yellow-500 to-yellow-600 text-white"
+              : "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
+          }
+        `}
+        >
+          {property.status}
+        </span>
       </div>
-      <div className="mt-6 pt-4 border-t border-gray-100">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center text-red-500 font-semibold">
-            <CurrencyRupeeIcon className="w-4 h-4 mr-1" />
-            {property.price}
-          </div>
-          <span className="text-sm text-gray-500 bg-gray-50 px-3 py-1 rounded-full">
-            Possession: {property.possession}
+
+      {/* Developer Logo */}
+      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+        <div className="flex items-center gap-2">
+          <BuildingOfficeIcon className="w-5 h-5 text-gray-600" />
+          <span className="text-sm font-medium text-gray-800">
+            {property.developer}
           </span>
         </div>
       </div>
+
+      {/* Price Tag */}
+      <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg py-1.5 px-3 shadow-lg">
+        <div className="flex items-center gap-1">
+          <CurrencyRupeeIcon className="w-4 h-4 text-red-500" />
+          <span className="font-semibold text-gray-900">{property.price}</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Content Section */}
+    <div className="p-6">
+      {/* Property Title - updated size from text-xl to text-lg and adjusted spacing */}
+      <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-red-500 transition-colors line-clamp-2">
+        {property.name}
+      </h3>
+
+      {/* Property Details */}
+      <div className="space-y-3 mb-4">
+        <div className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
+          <MapPinIcon className="w-5 h-5 mr-2 text-red-500 flex-shrink-0" />
+          <span className="text-sm line-clamp-1">{property.location}</span>
+        </div>
+
+        <div className="flex items-center text-gray-600 group-hover:text-gray-900 transition-colors">
+          <HomeIcon className="w-5 h-5 mr-2 text-red-500 flex-shrink-0" />
+          <span className="text-sm">{property.configurations}</span>
+        </div>
+
+        {/* Amenities Preview */}
+        {property.amenities && property.amenities.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {property.amenities.slice(0, 3).map((amenity, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+              >
+                {amenity}
+              </span>
+            ))}
+            {property.amenities.length > 3 && (
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                +{property.amenities.length - 3} more
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Footer Section */}
+      <div className="pt-4 border-t border-gray-100">
+        <div className="flex justify-between items-center">
+          {/* Possession Date */}
+          <div className="flex items-center gap-1.5">
+            <ClockIcon className="w-4 h-4 text-gray-400" />
+            <span className="text-sm text-gray-500">
+              Possession: {property.possession}
+            </span>
+          </div>
+
+          {/* View Details Button */}
+          <span className="inline-flex items-center gap-1 text-sm font-medium text-red-500 group-hover:text-red-600 transition-colors">
+            View Details
+            <ArrowRightIcon className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+          </span>
+        </div>
+      </div>
+
+      {/* Hover Overlay for Touch Devices */}
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors pointer-events-none md:hidden" />
     </div>
   </a>
 );
@@ -252,32 +324,72 @@ export default function SearchResults() {
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      let query = supabase.from("properties").select("*", { count: "exact" });
+      let query = supabase.from("properties").select(
+        `
+          id,
+          name,
+          link,
+          image,
+          location,
+          type,
+          status,
+          developer,
+          configurations,
+          price,
+          description,
+          amenities,
+          completion_date,
+          total_units,
+          overview,
+          price_details,
+          location_details
+        `,
+        { count: "exact" }
+      );
 
       // Apply filters
       if (filters.projectName) {
         query = query.ilike("name", `%${filters.projectName}%`);
       }
+
       if (filters.projectType) {
-        query = query.eq("type", filters.projectType);
+        query = query.eq("type", filters.projectType.toLowerCase());
       }
+
       if (filters.builder) {
-        query = query.eq("developer", filters.builder);
+        query = query.ilike("developer", `%${filters.builder}%`);
       }
+
       if (filters.city) {
-        query = query.eq("city", filters.city);
+        query = query.ilike("location", `%${filters.city}%`);
       }
+
       if (filters.configuration) {
         query = query.ilike("configurations", `%${filters.configuration}%`);
+      }
+
+      // Price range filtering (assuming price is stored as text)
+      if (filters.minBudget) {
+        const minPrice = filters.minBudget.replace(/[^0-9.]/g, "");
+        query = query.gte("price_details->>'Starting Price'", minPrice);
+      }
+
+      if (filters.maxBudget) {
+        const maxPrice = filters.maxBudget.replace(/[^0-9.]/g, "");
+        query = query.lte("price_details->>'Starting Price'", maxPrice);
       }
 
       // Apply sorting
       switch (sortBy) {
         case "price_low":
-          query = query.order("price", { ascending: true });
+          query = query.order("price_details->>'Starting Price'", {
+            ascending: true,
+          });
           break;
         case "price_high":
-          query = query.order("price", { ascending: false });
+          query = query.order("price_details->>'Starting Price'", {
+            ascending: false,
+          });
           break;
         case "newest":
           query = query.order("created_at", { ascending: false });
@@ -294,7 +406,29 @@ export default function SearchResults() {
 
       if (error) throw error;
 
-      setProperties(data || []);
+      // Transform the data to match the PropertyCard component expectations
+      const transformedProperties = data.map((property) => ({
+        id: property.id,
+        name: property.name,
+        link: property.link,
+        image: property.image,
+        location: property.location,
+        developer: property.developer,
+        configurations: property.configurations,
+        price: property.price_details?.["Starting Price"] || property.price,
+        status: property.status.replace("_", " "),
+        possession: property.completion_date
+          ? new Date(property.completion_date).toLocaleDateString("en-US", {
+              month: "short",
+              year: "numeric",
+            })
+          : "Not Available",
+        amenities: property.amenities || [],
+        overview: property.overview || {},
+        location_details: property.location_details || {},
+      }));
+
+      setProperties(transformedProperties);
       setTotalCount(count || 0);
     } catch (error) {
       console.error("Error fetching properties:", error);
@@ -692,14 +826,14 @@ export default function SearchResults() {
           {/* Search Results with Skeleton Loading */}
           <div className={showFilters ? "lg:col-span-3" : "lg:col-span-4"}>
             {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[1, 2, 3, 4].map((n) => (
                   <PropertySkeleton key={n} />
                 ))}
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {properties.map((property, index) => (
                     <PropertyCard key={index} property={property} />
                   ))}
