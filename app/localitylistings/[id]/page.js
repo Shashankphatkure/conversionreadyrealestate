@@ -1,4 +1,6 @@
 "use client";
+import { useEffect, useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import ContactUs from "@/components/ContactUs";
 import FooterBottom from "@/components/FooterBottom";
 import FooterTop from "@/components/FooterTop";
@@ -14,31 +16,33 @@ import {
 } from "@heroicons/react/24/solid";
 import Slider from "react-slick";
 import Builders from "@/components/builders";
+import Localities from "@/components/localities";
 
-// Add this new component for related localities
-const RelatedLocalities = () => {
-  const relatedLocalities = [
-    {
-      name: "Thane West",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/thane-west.jpg",
-      properties: 25,
-      link: "/localitylistings/thane-west",
-    },
-    {
-      name: "Ghodbunder Road",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/ghodbunder-road.jpg",
-      properties: 18,
-      link: "/localitylistings/ghodbunder-road",
-    },
-    {
-      name: "Kalyan",
-      image: "https://newprojectsonline.com/assets/newprojectonline/kalyan.jpg",
-      properties: 15,
-      link: "/localitylistings/kalyan",
-    },
-  ];
+// RelatedLocalities component updated to use real data
+const RelatedLocalities = ({ currentLocalityId }) => {
+  const [localities, setLocalities] = useState([]);
+  const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    async function fetchRelatedLocalities() {
+      const { data } = await supabase
+        .from("localities")
+        .select(
+          `
+          *,
+          properties:properties(count)
+        `
+        )
+        .neq("id", currentLocalityId)
+        .limit(5);
+
+      if (data) {
+        setLocalities(data);
+      }
+    }
+
+    fetchRelatedLocalities();
+  }, [currentLocalityId]);
 
   const settings = {
     dots: true,
@@ -68,94 +72,96 @@ const RelatedLocalities = () => {
 
   return (
     <div className="px-4 md:px-20 py-12 bg-gray-50">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-        Explore Nearby Localities
-      </h2>
-      <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
-
-      <div className="localities-slider">
-        <Slider {...settings}>
-          {relatedLocalities.map((locality, index) => (
-            <div key={index} className="px-2">
-              <div className="bg-white rounded-lg overflow-hidden shadow-md">
-                <a href={locality.link} className="block relative">
-                  <img
-                    src={locality.image}
-                    alt={locality.name}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                    <h3 className="text-white font-semibold flex items-center gap-2">
-                      <MapPinIcon className="h-5 w-5" />
-                      {locality.name}
-                    </h3>
-                    <p className="text-white flex items-center gap-2 mt-1">
-                      <BuildingOfficeIcon className="h-5 w-5" />
-                      {locality.properties} Properties
-                    </p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          ))}
-        </Slider>
+      <h1 className="text-2xl md:text-3xl font-bold mt-20 mb-4 text-center px-4">
+        Browse nearby localities
+      </h1>
+      <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
+      <div className="px-4 md:px-20">
+        <Localities />
       </div>
     </div>
   );
 };
 
 export default function LocalityListings({ params }) {
-  // Sample property data
-  const properties = [
-    {
-      name: "Lodha Crown Thane",
-      location: "Thane West",
-      type: "Residential",
-      status: "Under Construction",
-      developer: "Lodha Group",
-      configurations: "1, 2, 3 BHK",
-      price: "1.25 Cr* Onwards",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/lodha-crown-thane.jpg",
-      link: "/project/lodha-crown-thane",
-    },
-    {
-      name: "Runwal My City",
-      location: "Dombivli East",
-      type: "Residential",
-      status: "Ready to Move",
-      developer: "Runwal Group",
-      configurations: "1, 2 BHK",
-      price: "45 Lac* Onwards",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/runwal-my-city.jpg",
-      link: "/project/runwal-my-city",
-    },
-    {
-      name: "Godrej Ascend",
-      location: "Kolshet Road, Thane",
-      type: "Residential",
-      status: "New Launch",
-      developer: "Godrej Properties",
-      configurations: "2, 3 BHK",
-      price: "1.5 Cr* Onwards",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/godrej-ascend.jpg",
-      link: "/project/godrej-ascend",
-    },
-    {
-      name: "Piramal Vaikunth",
-      location: "Thane West",
-      type: "Residential",
-      status: "Ready to Move",
-      developer: "Piramal Realty",
-      configurations: "2, 3, 4 BHK",
-      price: "1.8 Cr* Onwards",
-      image:
-        "https://newprojectsonline.com/assets/newprojectonline/piramal-vaikunth.jpg",
-      link: "/project/piramal-vaikunth",
-    },
-  ];
+  const [locality, setLocality] = useState(null);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    async function fetchLocalityData() {
+      try {
+        // Fetch locality details with count of properties
+        const { data: localityData, error: localityError } = await supabase
+          .from("localities")
+          .select(
+            `
+            *,
+            properties:properties(count)
+          `
+          )
+          .eq("id", params.id)
+          .single();
+
+        if (localityError) throw localityError;
+        setLocality(localityData);
+
+        // Fetch properties with builder details using the new locality foreign key
+        const { data: propertiesData, error: propertiesError } = await supabase
+          .from("properties")
+          .select(
+            `
+            id,
+            name,
+            location,
+            type,
+            status,
+            configurations,
+            price,
+            image,
+            price_details,
+            overview,
+            builders:builder (
+              id,
+              name,
+              logo
+            )
+          `
+          )
+          .eq("locality", params.id);
+
+        if (propertiesError) throw propertiesError;
+        setProperties(propertiesData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchLocalityData();
+  }, [params.id]);
+
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Error: {error}
+      </div>
+    );
+  if (!locality)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Locality not found
+      </div>
+    );
 
   return (
     <div>
@@ -191,7 +197,7 @@ export default function LocalityListings({ params }) {
                 <div className="flex items-center">
                   <ChevronRightIcon className="w-4 h-4 text-gray-400" />
                   <span className="ml-1 text-sm text-red-500 md:ml-2">
-                    {params?.locality || "Selected Locality"}
+                    {locality.name}
                   </span>
                 </div>
               </li>
@@ -202,20 +208,40 @@ export default function LocalityListings({ params }) {
 
       <div className="px-4 md:px-20 py-8">
         <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center">
-          Properties in {params?.locality || "Selected Locality"}
+          Properties in {locality.name}
         </h1>
         <div className="w-16 h-1 bg-red-500 mx-auto mb-8"></div>
 
         <div className="mb-12">
-          <Properties properties={properties} />
+          {properties.length > 0 ? (
+            <Properties
+              properties={properties.map((property) => ({
+                name: property.name,
+                location: property.location,
+                type: property.type,
+                status: property.status,
+                developer: property.builders?.name || "Unknown Developer",
+                configurations: property.configurations,
+                price:
+                  property.price_details?.["Starting Price"] || property.price,
+                image: property.image,
+                link: `/property/${property.id}`,
+                builderLogo: property.builders?.logo, // Add builder logo if needed in your Properties component
+              }))}
+            />
+          ) : (
+            <div className="text-center text-gray-600 py-8">
+              No properties available in this locality at the moment.
+            </div>
+          )}
         </div>
       </div>
 
-      <RelatedLocalities />
+      <RelatedLocalities currentLocalityId={params.id} />
 
       <div className="px-4 md:px-20 py-12">
         <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-          Browse by Builders
+          Browse nearby builders
         </h2>
         <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
         <Builders />
