@@ -1,5 +1,6 @@
 import "./ContactUs.css";
-
+import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPhone,
@@ -9,6 +10,52 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function ContactUs() {
+  const supabase = createClientComponentClient();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+  const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Insert into leads table
+      const { data, error } = await supabase.from("leads").insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          notes: `Subject: ${formData.subject}\nMessage: ${formData.message}`,
+          status: "NEW",
+        },
+      ]);
+
+      if (error) throw error;
+
+      setSubmitStatus({
+        type: "success",
+        message:
+          "Thank you for contacting us! We'll get back to you soon within few hours",
+      });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          "There was an error submitting your message. Please try again.",
+      });
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-6" id="contact">
       <div className="grid md:grid-cols-2 gap-6">
@@ -85,7 +132,19 @@ export default function ContactUs() {
 
         {/* Contact Form Section */}
         <div className="bg-white rounded-lg shadow-lg p-5">
-          <form className="">
+          <form onSubmit={handleSubmit}>
+            {submitStatus.message && (
+              <div
+                className={`mb-4 p-3 rounded ${
+                  submitStatus.type === "success"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {submitStatus.message}
+              </div>
+            )}
+
             <div className="grid md:grid-cols-2 gap-3">
               <div>
                 <label
@@ -97,6 +156,8 @@ export default function ContactUs() {
                 <input
                   type="text"
                   id="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                   required
                 />
@@ -111,6 +172,8 @@ export default function ContactUs() {
                 <input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                   required
                 />
@@ -128,6 +191,8 @@ export default function ContactUs() {
                 <input
                   type="tel"
                   id="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                   required
                 />
@@ -142,6 +207,8 @@ export default function ContactUs() {
                 <input
                   type="text"
                   id="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
                   required
                 />
@@ -157,6 +224,8 @@ export default function ContactUs() {
               </label>
               <textarea
                 id="message"
+                value={formData.message}
+                onChange={handleChange}
                 rows="2"
                 className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all resize-none"
                 required
