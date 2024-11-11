@@ -11,22 +11,21 @@ import { MapPinIcon, BuildingOfficeIcon } from "@heroicons/react/24/solid";
 const LocalityCard = ({ locality }) => {
   if (!locality) return null;
 
-  const { name, image, link, properties } = locality;
+  const { id, name, image, properties } = locality;
 
   return (
     <div className="item-cim">
       <div className="item-5t2">
         <div className="pro-oph">
-          <a href={link}>
+          <a href={`/localitylistings/${id}`}>
             <div className="pt-noq">
-              {/* Add loading="lazy" for better performance */}
               <img
                 src={image}
                 alt={name}
                 loading="lazy"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "/placeholder-image.jpg"; // Add a placeholder image
+                  e.target.src = "/placeholder-image.jpg";
                 }}
               />
               <div className="pti-mk5">
