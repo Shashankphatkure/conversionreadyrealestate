@@ -554,3 +554,15 @@ i {
 .search-48v:before {
   content: "\f52a";
 }
+
+.text-i2x {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-i2x p {
+  color: white;
+  margin-bottom: 1rem;
+  text-align: center;
+}

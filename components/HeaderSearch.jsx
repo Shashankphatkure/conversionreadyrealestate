@@ -8,9 +8,11 @@ export default function HeaderSearch() {
       <div className="search-oyt">
         <div className="container-ssc">
           <div className="content-zed">
-            <div className="row-etd content-nj1 text-i2x">
-              <div>
-                <h2>Find Your Dream Home With Us</h2>
+            <div className="row-etd content-nj1 text-i2x flex-column">
+              <div className="text-center mb-3">
+                <p style={{ color: "white", fontSize: "36px" }}>
+                  Find Your Dream Home With Us
+                </p>
               </div>
               <div className="col-8nj">
                 <div className="search-vvo">
