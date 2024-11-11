@@ -1,4 +1,6 @@
 "use client";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useState } from "react";
 import ContactUs from "@/components/ContactUs";
 import FooterBottom from "@/components/FooterBottom";
 import FooterTop from "@/components/FooterTop";
@@ -7,6 +9,83 @@ import HeaderSearch from "@/components/HeaderSearch";
 import HeaderTop from "@/components/HeaderTop";
 
 export default function HomeContent() {
+  const supabase = createClientComponentClient();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    location: "",
+    property_type: "",
+    transaction_type: "",
+    budget_range: "",
+    notes: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleRadioChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage("");
+
+    try {
+      const { data, error } = await supabase
+        .from("leads")
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            location: formData.location,
+            property_type: formData.property_type,
+            transaction_type: formData.transaction_type,
+            budget_range: formData.budget_range,
+            notes: formData.notes,
+            source: "website",
+            status: "NEW",
+          },
+        ])
+        .select();
+
+      if (error) throw error;
+
+      setSubmitMessage(
+        "Thank you! Your requirement has been submitted successfully."
+      );
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        location: "",
+        property_type: "",
+        transaction_type: "",
+        budget_range: "",
+        notes: "",
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      setSubmitMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div>
       <HeaderTop />
@@ -17,7 +96,18 @@ export default function HomeContent() {
         <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
           Post Your Requirement
         </h2>
-        <form className="max-w-3xl mx-auto mt-8">
+        {submitMessage && (
+          <div
+            className={`p-4 rounded-lg mb-4 text-center ${
+              submitMessage.includes("error")
+                ? "bg-red-100 text-red-700"
+                : "bg-green-100 text-green-700"
+            }`}
+          >
+            {submitMessage}
+          </div>
+        )}
+        <form className="max-w-3xl mx-auto mt-8" onSubmit={handleSubmit}>
           {/* Personal Information Section */}
           <div className="mb-8">
             <h3 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
@@ -34,8 +124,12 @@ export default function HomeContent() {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="name"
+                  name="name"
                   type="text"
                   placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
               <div>
@@ -48,8 +142,12 @@ export default function HomeContent() {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
               <div>
@@ -62,8 +160,12 @@ export default function HomeContent() {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="phone"
+                  name="phone"
                   type="tel"
                   placeholder="Your Phone Number"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
               <div>
@@ -76,8 +178,12 @@ export default function HomeContent() {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="location"
+                  name="location"
                   type="text"
                   placeholder="Location"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
@@ -97,18 +203,22 @@ export default function HomeContent() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      name="propertyType"
+                      name="property_type"
                       value="residential"
                       className="form-radio h-4 w-4 text-orange-500"
+                      checked={formData.property_type === "residential"}
+                      onChange={handleRadioChange}
                     />
                     <span className="ml-2">Residential</span>
                   </label>
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      name="propertyType"
+                      name="property_type"
                       value="commercial"
                       className="form-radio h-4 w-4 text-orange-500"
+                      checked={formData.property_type === "commercial"}
+                      onChange={handleRadioChange}
                     />
                     <span className="ml-2">Commercial</span>
                   </label>
@@ -122,18 +232,22 @@ export default function HomeContent() {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      name="transactionType"
+                      name="transaction_type"
                       value="buy"
                       className="form-radio h-4 w-4 text-orange-500"
+                      checked={formData.transaction_type === "buy"}
+                      onChange={handleRadioChange}
                     />
                     <span className="ml-2">Buy</span>
                   </label>
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      name="transactionType"
+                      name="transaction_type"
                       value="sell"
                       className="form-radio h-4 w-4 text-orange-500"
+                      checked={formData.transaction_type === "sell"}
+                      onChange={handleRadioChange}
                     />
                     <span className="ml-2">Sell</span>
                   </label>
@@ -142,15 +256,19 @@ export default function HomeContent() {
               <div>
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="price"
+                  htmlFor="budget_range"
                 >
                   Budget/Expected Price
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="price"
+                  id="budget_range"
+                  name="budget_range"
                   type="text"
                   placeholder="Enter amount in INR"
+                  value={formData.budget_range}
+                  onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
@@ -159,23 +277,28 @@ export default function HomeContent() {
           <div className="mb-8">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="requirements"
+              htmlFor="notes"
             >
               Additional Requirements
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
-              id="requirements"
+              id="notes"
+              name="notes"
               placeholder="Describe your specific requirements, preferences, or any other details..."
+              value={formData.notes}
+              onChange={handleInputChange}
+              required
             ></textarea>
           </div>
 
           <div className="mt-6 text-center">
             <button
-              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 disabled:opacity-50"
               type="submit"
+              disabled={isSubmitting}
             >
-              Submit Requirements
+              {isSubmitting ? "Submitting..." : "Submit Requirements"}
             </button>
           </div>
         </form>
