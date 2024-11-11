@@ -1,111 +1,87 @@
+"use client";
+
 import "./PropertyAmenities.css";
+import { useState } from "react";
 
 export default function PropertyAmenities() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const amenitiesList = [
+    ["24*7 Water Supply", "Box Cricket", "Car Parking", "Clubhouse"],
+    [
+      "Fire fighting system",
+      "Gymnasium",
+      "High Speed Elevators",
+      "Intercom Facility",
+    ],
+    [
+      "Rain Water Harvesting",
+      "Swimming Pool",
+      "Vastu Compliant",
+      "Video/CCTV Security",
+    ],
+  ];
+
+  const maxSlides = amenitiesList.length - 1;
+
+  const carouselStyles = {
+    transform: `translate3d(${currentSlide * -532.245}px, 0px, 0px)`,
+    transition: "all 0.5s ease",
+    width: "1597px",
+  };
+
+  const itemStyles = {
+    width: "512.245px",
+    marginRight: "20px",
+  };
+
+  const amenityStyle = {
+    borderBottom: "2px dashed #c9b06b",
+  };
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => Math.min(maxSlides, prev + 1));
+  };
+
   return (
     <section className="section-jhc shadow-7y3">
       <span className="section-ihs" />
       <span className="hea-jgp text-x9d pr-5">Amenities</span>
       <div id="ami-lem" className="carousel-opg owl-is3 owl-mmz">
         <div className="tag-2wa">
-          <div
-            className="tag-hlx"
-            style={{
-              "-webkit-transform": "translate3d(0px, 0px, 0px)",
-              "-ms-transform": "translate3d(0px, 0px, 0px)",
-              transform: "translate3d(0px, 0px, 0px)",
-              "-webkit-transition": "1s",
-              transition: "1s",
-              width: "1597px",
-            }}
-          >
-            <div
-              className="item-vc5"
-              style={{ width: "512.245px", "margin-right": "20px" }}
-            >
-              <div className="item-6b9">
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ 24*7 Water Supply
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Box Cricket
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Car Parking
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Clubhouse
-                  </p>
+          <div className="tag-hlx" style={carouselStyles}>
+            {amenitiesList.map((group, groupIndex) => (
+              <div key={groupIndex} className="item-vc5" style={itemStyles}>
+                <div className="item-6b9">
+                  {group.map((amenity, index) => (
+                    <div key={index}>
+                      <p style={amenityStyle}>✓ {amenity}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-            <div
-              className="item-vc5"
-              style={{ width: "512.245px", "margin-right": "20px" }}
-            >
-              <div className="item-6b9">
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Fire fighting system
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Gymnasium
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ High Speed Elevators
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Intercom Facility
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              className="item-vc5"
-              style={{ width: "512.245px", "margin-right": "20px" }}
-            >
-              <div className="item-6b9">
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Rain Water Harvesting
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Swimming Pool
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Vastu Compliant
-                  </p>
-                </div>
-                <div>
-                  <p style={{ "border-bottom": "2px dashed #c9b06b" }}>
-                    ✓ Video/CCTV Security
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="nav-yme">
-          <button type="button" className="owl-k2r">
+          <button
+            type="button"
+            className="owl-k2r"
+            onClick={handlePrevSlide}
+            disabled={currentSlide === 0}
+          >
             <span>‹</span>
           </button>
-          <button type="button" className="owl-cpr">
+          <button
+            type="button"
+            className="owl-cpr"
+            onClick={handleNextSlide}
+            disabled={currentSlide === maxSlides}
+          >
             <span>›</span>
           </button>
         </div>
