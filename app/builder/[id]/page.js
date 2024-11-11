@@ -27,17 +27,22 @@ export default function BuilderPage({ params }) {
   useEffect(() => {
     async function fetchBuilderData() {
       try {
-        // Fetch builder details
+        // Fetch builder details with property count
         const { data: builderData, error: builderError } = await supabase
           .from("builders")
-          .select("*")
+          .select(
+            `
+            *,
+            properties:properties(count)
+          `
+          )
           .eq("id", params.id)
           .single();
 
         if (builderError) throw builderError;
         setBuilder(builderData);
 
-        // Fetch properties by this builder
+        // Fetch properties using the builder foreign key
         const { data: propertiesData, error: propertiesError } = await supabase
           .from("properties")
           .select(
@@ -54,10 +59,15 @@ export default function BuilderPage({ params }) {
             overview,
             price_details,
             description,
-            amenities
+            amenities,
+            localities:locality (
+              id,
+              name,
+              image
+            )
           `
           )
-          .eq("developer", builderData.name); // Assuming the developer field matches builder name
+          .eq("builder", params.id); // Using the builder foreign key
 
         if (propertiesError) throw propertiesError;
         setProperties(propertiesData);
@@ -158,7 +168,7 @@ export default function BuilderPage({ params }) {
                       { label: "Established", value: builder.established_year },
                       {
                         label: "Total Projects",
-                        value: builder.total_projects,
+                        value: builder.properties?.count || 0,
                       },
                       { label: "Headquarters", value: builder.headquarters },
                       { label: "Contact", value: builder.contact_phone },
@@ -182,7 +192,7 @@ export default function BuilderPage({ params }) {
           </div>
         </div>
 
-        {/* Projects Section - Updated to use real data */}
+        {/* Projects Section */}
         <div className="my-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -193,8 +203,9 @@ export default function BuilderPage({ params }) {
           {properties.length > 0 ? (
             <Properties
               properties={properties.map((property) => ({
+                id: property.id,
                 name: property.name,
-                location: property.location,
+                location: property.localities?.name || property.location,
                 type: property.type,
                 status: property.status,
                 developer: builder.name,
@@ -205,6 +216,11 @@ export default function BuilderPage({ params }) {
                 link: `/property/${property.id}`,
                 description: property.description,
                 amenities: property.amenities,
+                locality: {
+                  id: property.localities?.id,
+                  name: property.localities?.name,
+                  image: property.localities?.image,
+                },
               }))}
             />
           ) : (
@@ -214,15 +230,21 @@ export default function BuilderPage({ params }) {
           )}
         </div>
 
-        {/* Rest of the components remain the same */}
-        <h1 className="text-2xl md:text-3xl font-bold mt-20 mb-4 text-center px-4">
-          Browse by Localities
-        </h1>
-        <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-        <div className="px-4 md:px-20">
-          <Localities />
+        {/* Localities Section */}
+        <div className="my-16">
+          <h1 className="text-2xl md:text-3xl font-bold mt-20 mb-4 text-center px-4">
+            Browse by Localities
+          </h1>
+          <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
+          <div className="px-4 md:px-20">
+            <Localities />
+          </div>
         </div>
-        {/* ... */}
+
+        {/* Contact Section */}
+        <div className="mt-4">
+          <ContactUs />
+        </div>
       </div>
 
       <FooterTop />
