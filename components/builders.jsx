@@ -9,18 +9,13 @@ import { supabase } from "@/utils/supabase";
 const BuilderCard = ({ builder }) => {
   if (!builder) return null;
 
-  const { name, logo, total_projects, website_url } = builder;
+  const { id, name, logo, total_projects } = builder;
 
   return (
     <div className="item-cim">
       <div className="item-5t2">
         <div className="pro-oph">
-          <a
-            href={website_url || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
+          <a href={`/builder/${id}`} className="block">
             <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
               <div className="relative h-32 flex items-center justify-center mb-4">
                 <img
