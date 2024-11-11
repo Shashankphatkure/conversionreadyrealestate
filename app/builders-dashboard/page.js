@@ -5,8 +5,40 @@ import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/AuthProvider";
 import DashboardLayout from "@/components/DashboardLayout";
+import { v4 as uuidv4 } from "uuid";
 
 const BuilderForm = ({ builder, setBuilder, onSubmit, onCancel, title }) => {
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      // Create a unique file name
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${uuidv4()}.${fileExt}`;
+      const filePath = `builders/${fileName}`;
+
+      // Upload the file to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from("builders")
+        .upload(filePath, file);
+
+      if (error) throw error;
+
+      // Get the public URL
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("builders").getPublicUrl(filePath);
+
+      // Update the builder state with the new logo URL
+      setBuilder({ ...builder, logo: publicUrl });
+      toast.success("Logo uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading logo:", error);
+      toast.error("Error uploading logo");
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -32,16 +64,23 @@ const BuilderForm = ({ builder, setBuilder, onSubmit, onCancel, title }) => {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Logo URL
+                Logo
               </label>
-              <input
-                type="url"
-                value={builder.logo}
-                onChange={(e) =>
-                  setBuilder({ ...builder, logo: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
+              <div className="flex items-center gap-4">
+                {builder.logo && (
+                  <img
+                    src={builder.logo}
+                    alt="Builder logo"
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -72,67 +111,6 @@ const BuilderForm = ({ builder, setBuilder, onSubmit, onCancel, title }) => {
           </div>
         </div>
 
-        {/* Contact Information */}
-        <div className="col-span-2">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Contact Information
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Website URL
-              </label>
-              <input
-                type="url"
-                value={builder.website_url}
-                onChange={(e) =>
-                  setBuilder({ ...builder, website_url: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Headquarters
-              </label>
-              <input
-                type="text"
-                value={builder.headquarters}
-                onChange={(e) =>
-                  setBuilder({ ...builder, headquarters: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Contact Email
-              </label>
-              <input
-                type="email"
-                value={builder.contact_email}
-                onChange={(e) =>
-                  setBuilder({ ...builder, contact_email: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Contact Phone
-              </label>
-              <input
-                type="tel"
-                value={builder.contact_phone}
-                onChange={(e) =>
-                  setBuilder({ ...builder, contact_phone: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Description */}
         <div className="col-span-2">
           <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -150,35 +128,23 @@ const BuilderForm = ({ builder, setBuilder, onSubmit, onCancel, title }) => {
           </div>
         </div>
 
-        {/* Social Media */}
+        {/* Add Featured Toggle */}
         <div className="col-span-2">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Social Media
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {["facebook", "twitter", "linkedin", "instagram"].map(
-              (platform) => (
-                <div key={platform}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
-                    {platform} URL
-                  </label>
-                  <input
-                    type="url"
-                    value={builder.social_media?.[platform] || ""}
-                    onChange={(e) =>
-                      setBuilder({
-                        ...builder,
-                        social_media: {
-                          ...builder.social_media,
-                          [platform]: e.target.value,
-                        },
-                      })
-                    }
-                    className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              )
-            )}
+          <div className="flex items-center gap-2">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={builder.featured}
+                onChange={(e) =>
+                  setBuilder({ ...builder, featured: e.target.checked })
+                }
+              />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+            </label>
+            <span className="text-sm font-medium text-gray-700">
+              Featured Builder
+            </span>
           </div>
         </div>
       </div>
@@ -222,11 +188,6 @@ export default function BuildersDashboard() {
     description: "",
     established_year: "",
     total_projects: 0,
-    website_url: "",
-    headquarters: "",
-    contact_email: "",
-    contact_phone: "",
-    social_media: {},
     featured: false,
   };
 
@@ -270,6 +231,22 @@ export default function BuildersDashboard() {
   }
 
   async function handleDeleteBuilder(id) {
+    const builderToDelete = builders.find((b) => b.id === id);
+
+    if (builderToDelete?.logo) {
+      // Extract the file path from the URL
+      const logoPath = builderToDelete.logo.split("/").pop();
+
+      // Delete the image from storage
+      const { error: storageError } = await supabase.storage
+        .from("builders")
+        .remove([`builders/${logoPath}`]);
+
+      if (storageError) {
+        console.error("Error deleting logo:", storageError);
+      }
+    }
+
     const { error } = await supabase.from("builders").delete().eq("id", id);
 
     if (error) {
@@ -372,10 +349,10 @@ export default function BuildersDashboard() {
                     Builder
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Contact
+                    Projects
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Projects
+                    Featured
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
@@ -398,23 +375,43 @@ export default function BuildersDashboard() {
                           <div className="text-sm font-medium text-gray-900">
                             {builder.name}
                           </div>
-                          <div className="text-sm text-gray-500">
-                            {builder.headquarters}
-                          </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-900">
-                        {builder.contact_email}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {builder.contact_phone}
+                        {builder.total_projects} Projects
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900">
-                        {builder.total_projects} Projects
+                      <div className="flex items-center">
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={builder.featured}
+                            onChange={async () => {
+                              const { error } = await supabase
+                                .from("builders")
+                                .update({ featured: !builder.featured })
+                                .eq("id", builder.id);
+
+                              if (error) {
+                                toast.error("Error updating featured status");
+                              } else {
+                                setBuilders(
+                                  builders.map((b) =>
+                                    b.id === builder.id
+                                      ? { ...b, featured: !b.featured }
+                                      : b
+                                  )
+                                );
+                                toast.success("Featured status updated");
+                              }
+                            }}
+                          />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
                       </div>
                     </td>
                     <td className="px-6 py-4">
