@@ -17,7 +17,7 @@ import {
   CurrencyRupeeIcon,
   ClockIcon,
   TrashIcon,
-  SearchIcon,
+  MagnifyingGlassIcon as SearchIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/solid";
 import { supabase } from "@/utils/supabase";
@@ -65,37 +65,6 @@ const FilterTag = ({ label, value, onRemove }) => (
       <XMarkIcon className="w-4 h-4" />
     </button>
   </span>
-);
-
-// Enhanced SearchHistory with better styling
-const SearchHistory = ({ searches, onSelect, onClear }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 mb-8 transform transition-all duration-300 hover:shadow-lg">
-    <div className="flex justify-between items-center mb-6">
-      <div className="flex items-center gap-2">
-        <ClockIcon className="w-5 h-5 text-gray-400" />
-        <h3 className="font-semibold text-gray-900">Recent Searches</h3>
-      </div>
-      <button
-        onClick={onClear}
-        className="text-sm text-red-500 hover:text-red-600 transition-colors flex items-center gap-1"
-      >
-        <TrashIcon className="w-4 h-4" />
-        Clear History
-      </button>
-    </div>
-    <div className="flex flex-wrap gap-3">
-      {searches.map((search, index) => (
-        <button
-          key={index}
-          onClick={() => onSelect(search)}
-          className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full text-sm text-gray-600 transition-colors duration-200 flex items-center gap-2"
-        >
-          <SearchIcon className="w-4 h-4 text-gray-400" />
-          {search.projectName || search.city || search.builder}
-        </button>
-      ))}
-    </div>
-  </div>
 );
 
 // Enhanced Property Card Component
@@ -220,8 +189,10 @@ const PropertyCard = ({ property }) => (
 
 // Enhanced Filter Section
 const FilterSection = ({ title, children }) => (
-  <div className="space-y-2">
-    <label className="block text-sm font-medium text-gray-700">{title}</label>
+  <div className="border-b border-gray-100 pb-3">
+    <label className="block text-sm font-semibold text-gray-800 mb-1.5">
+      {title}
+    </label>
     {children}
   </div>
 );
@@ -238,6 +209,30 @@ const styles = `
     background-size: 1000px 100%;
   }
 `;
+
+// Add this new component for select inputs
+const FilterSelect = ({ value, onChange, name, options, placeholder }) => (
+  <div className="relative">
+    <select
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg 
+                 text-gray-700 text-sm appearance-none hover:border-red-300 
+                 focus:ring-2 focus:ring-red-100 focus:border-red-400 transition-all duration-200"
+    >
+      <option value="">{placeholder}</option>
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
+    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
+      <ChevronRightIcon className="w-4 h-4 text-gray-400 rotate-90" />
+    </div>
+  </div>
+);
 
 export default function SearchResults() {
   const router = useRouter();
@@ -292,30 +287,6 @@ export default function SearchResults() {
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
-  const [searchHistory, setSearchHistory] = useState([]);
-
-  // Load search history from localStorage on mount
-  useEffect(() => {
-    const savedHistory = localStorage.getItem("searchHistory");
-    if (savedHistory) {
-      setSearchHistory(JSON.parse(savedHistory));
-    }
-  }, []);
-
-  // Save search to history
-  const saveToHistory = useCallback(
-    (searchFilters) => {
-      const newHistory = [
-        searchFilters,
-        ...searchHistory
-          .filter((h) => JSON.stringify(h) !== JSON.stringify(searchFilters))
-          .slice(0, 4),
-      ];
-      setSearchHistory(newHistory);
-      localStorage.setItem("searchHistory", JSON.stringify(newHistory));
-    },
-    [searchHistory]
-  );
 
   useEffect(() => {
     fetchProperties();
@@ -461,7 +432,6 @@ export default function SearchResults() {
   const handleSearch = () => {
     setCurrentPage(1);
     updateURL(filters);
-    saveToHistory(filters);
     fetchProperties();
   };
 
@@ -545,10 +515,6 @@ export default function SearchResults() {
   };
 
   // Clear search history
-  const clearSearchHistory = () => {
-    setSearchHistory([]);
-    localStorage.removeItem("searchHistory");
-  };
 
   // Load saved search
   const loadSavedSearch = (savedFilters) => {
@@ -590,15 +556,6 @@ export default function SearchResults() {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 md:px-8 lg:px-20 py-8">
-        {/* Add Search History if available */}
-        {searchHistory.length > 0 && (
-          <SearchHistory
-            searches={searchHistory}
-            onSelect={loadSavedSearch}
-            onClear={clearSearchHistory}
-          />
-        )}
-
         {/* Search Stats and Sort */}
         <div className="flex flex-col space-y-4 mb-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
@@ -616,17 +573,6 @@ export default function SearchResults() {
                 <option value="price_high">Price: High to Low</option>
                 <option value="newest">Newest First</option>
               </select>
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 text-red-500 hover:text-red-600"
-              >
-                {showFilters ? (
-                  <XMarkIcon className="w-5 h-5" />
-                ) : (
-                  <AdjustmentsHorizontalIcon className="w-5 h-5" />
-                )}
-                {showFilters ? "Hide Filters" : "Show Filters"}
-              </button>
             </div>
           </div>
 
@@ -642,12 +588,6 @@ export default function SearchResults() {
                   onRemove={() => removeFilter(key)}
                 />
               ))}
-              <button
-                onClick={clearFilters}
-                className="text-sm text-red-500 hover:text-red-600 ml-2"
-              >
-                Clear All
-              </button>
             </div>
           )}
         </div>
@@ -656,140 +596,103 @@ export default function SearchResults() {
           {/* Filters Panel */}
           {showFilters && (
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-md p-6 sticky top-4 transition-shadow hover:shadow-lg">
-                <div className="flex justify-between items-center mb-8">
-                  <div className="flex items-center gap-2">
-                    <FunnelIcon className="w-5 h-5 text-red-500" />
-                    <h2 className="text-xl font-bold text-gray-900">Filters</h2>
-                  </div>
-                  <button
-                    onClick={clearFilters}
-                    className="text-red-500 text-sm hover:text-red-600 transition-colors flex items-center gap-1"
-                  >
-                    <XMarkIcon className="w-4 h-4" />
-                    Clear All
-                  </button>
-                </div>
-
-                <div className="space-y-6">
-                  {/* Use FilterSection component for each filter */}
+              <div className="bg-white rounded-xl shadow-md overflow-hidden sticky top-4 transition-all duration-300 hover:shadow-lg">
+                {/* Filter Content */}
+                <div className="p-4 space-y-4">
+                  {/* Project Name */}
                   <FilterSection title="Project Name">
-                    <input
-                      type="text"
-                      name="projectName"
-                      value={filters.projectName}
-                      onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
-                      placeholder="Search projects..."
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="projectName"
+                        value={filters.projectName}
+                        onChange={handleFilterChange}
+                        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg 
+                                 text-gray-700 text-sm placeholder-gray-400
+                                 focus:ring-2 focus:ring-red-100 focus:border-red-400 
+                                 transition-all duration-200"
+                        placeholder="Enter project name..."
+                      />
+                      <SearchIcon className="w-4 h-4 text-gray-400 absolute right-2 top-1/2 -translate-y-1/2" />
+                    </div>
                   </FilterSection>
 
                   {/* Project Type */}
                   <FilterSection title="Project Type">
-                    <select
+                    <FilterSelect
                       name="projectType"
                       value={filters.projectType}
                       onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-                    >
-                      <option value="">All Types</option>
-                      {projectTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
+                      options={projectTypes}
+                      placeholder="Select project type"
+                    />
                   </FilterSection>
 
                   {/* Builder */}
                   <FilterSection title="Builder">
-                    <select
+                    <FilterSelect
                       name="builder"
                       value={filters.builder}
                       onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-                    >
-                      <option value="">All Builders</option>
-                      {builders.map((builder) => (
-                        <option key={builder} value={builder}>
-                          {builder}
-                        </option>
-                      ))}
-                    </select>
+                      options={builders}
+                      placeholder="Select builder"
+                    />
                   </FilterSection>
+
+                  {/* Budget Range */}
+                  <div className="border-b border-gray-100 pb-3">
+                    <label className="block text-sm font-semibold text-gray-800 mb-1.5">
+                      Budget Range
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <FilterSelect
+                        name="minBudget"
+                        value={filters.minBudget}
+                        onChange={handleFilterChange}
+                        options={budgetRanges}
+                        placeholder="Min Budget"
+                      />
+                      <FilterSelect
+                        name="maxBudget"
+                        value={filters.maxBudget}
+                        onChange={handleFilterChange}
+                        options={budgetRanges}
+                        placeholder="Max Budget"
+                      />
+                    </div>
+                  </div>
 
                   {/* Configuration */}
                   <FilterSection title="Configuration">
-                    <select
+                    <FilterSelect
                       name="configuration"
                       value={filters.configuration}
                       onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-                    >
-                      <option value="">All Configurations</option>
-                      {configurations.map((config) => (
-                        <option key={config} value={config}>
-                          {config}
-                        </option>
-                      ))}
-                    </select>
-                  </FilterSection>
-
-                  {/* Min Budget */}
-                  <FilterSection title="Min Budget">
-                    <select
-                      name="minBudget"
-                      value={filters.minBudget}
-                      onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-                    >
-                      <option value="">No Min</option>
-                      {budgetRanges.map((budget) => (
-                        <option key={budget} value={budget}>
-                          {budget}
-                        </option>
-                      ))}
-                    </select>
-                  </FilterSection>
-
-                  {/* Max Budget */}
-                  <FilterSection title="Max Budget">
-                    <select
-                      name="maxBudget"
-                      value={filters.maxBudget}
-                      onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-                    >
-                      <option value="">No Max</option>
-                      {budgetRanges.map((budget) => (
-                        <option key={budget} value={budget}>
-                          {budget}
-                        </option>
-                      ))}
-                    </select>
+                      options={configurations}
+                      placeholder="Select configuration"
+                    />
                   </FilterSection>
 
                   {/* City */}
                   <FilterSection title="City">
-                    <select
+                    <FilterSelect
                       name="city"
                       value={filters.city}
                       onChange={handleFilterChange}
-                      className="w-full px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-                    >
-                      <option value="">All Cities</option>
-                      {cities.map((city) => (
-                        <option key={city} value={city}>
-                          {city}
-                        </option>
-                      ))}
-                    </select>
+                      options={cities}
+                      placeholder="Select city"
+                    />
                   </FilterSection>
 
+                  {/* Apply Button */}
                   <button
                     onClick={handleSearch}
                     disabled={loading}
-                    className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5 active:translate-y-0"
+                    className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2.5 
+                             rounded-lg font-medium shadow-sm hover:shadow-md
+                             hover:from-red-600 hover:to-red-700 transition-all duration-300 
+                             disabled:opacity-50 disabled:cursor-not-allowed 
+                             transform hover:-translate-y-0.5 active:translate-y-0"
                   >
                     {loading ? (
                       <div className="flex items-center justify-center gap-2">
