@@ -130,7 +130,7 @@ export default function Sidebar({ property }) {
         </div>
 
         <button
-          className="btn-pm7 info-4em form-een mt-oxz eff-dwh"
+          className="w-full py-2 text-sm font-semibold text-white bg-amber-500 hover:bg-amber-600 rounded-md transition-colors disabled:opacity-50 mt-4 animate-scaleIn"
           type="submit"
           disabled={loading}
         >
