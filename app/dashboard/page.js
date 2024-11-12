@@ -1,13 +1,96 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/utils/supabase";
 import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/AuthProvider";
 import DashboardLayout from "@/components/DashboardLayout";
+import { v4 as uuidv4 } from "uuid";
+
+// Add these helper functions before the Dashboard component
+const uploadImage = async (file, bucket = "properties") => {
+  try {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${uuidv4()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    const { error: uploadError, data } = await supabase.storage
+      .from(bucket)
+      .upload(filePath, file);
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    // Get public URL
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from(bucket).getPublicUrl(filePath);
+
+    return publicUrl;
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    throw error;
+  }
+};
+
+const uploadMultipleImages = async (files, bucket = "properties") => {
+  try {
+    const uploadPromises = Array.from(files).map((file) =>
+      uploadImage(file, bucket)
+    );
+    return await Promise.all(uploadPromises);
+  } catch (error) {
+    console.error("Error uploading multiple images:", error);
+    throw error;
+  }
+};
 
 // Add this component at the top of your file, outside the main Dashboard component
 const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
+  const mainImageRef = useRef(null);
+  const galleryRefs = {
+    exterior: useRef(null),
+    interior: useRef(null),
+    amenities: useRef(null),
+    construction: useRef(null),
+  };
+
+  const handleMainImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        const publicUrl = await uploadImage(file);
+        setProperty({
+          ...property,
+          image: publicUrl,
+        });
+        toast.success("Main image uploaded successfully");
+      } catch (error) {
+        toast.error("Error uploading main image");
+      }
+    }
+  };
+
+  const handleGalleryUpload = async (section, e) => {
+    const files = e.target.files;
+    if (files?.length) {
+      try {
+        const urls = await uploadMultipleImages(files);
+        setProperty({
+          ...property,
+          gallery: {
+            ...property.gallery,
+            [section]: [...(property.gallery?.[section] || []), ...urls],
+          },
+        });
+        toast.success(`${section} images uploaded successfully`);
+      } catch (error) {
+        toast.error(`Error uploading ${section} images`);
+      }
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -307,17 +390,17 @@ const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price per sq.ft
+                Starting Price
               </label>
               <input
                 type="text"
-                value={property.price_details?.price_per_sqft || ""}
+                value={property.price_details?.["Starting Price"] || ""}
                 onChange={(e) =>
                   setProperty({
                     ...property,
                     price_details: {
                       ...property.price_details,
-                      price_per_sqft: e.target.value,
+                      "Starting Price": e.target.value,
                     },
                   })
                 }
@@ -330,19 +413,156 @@ const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
               </label>
               <input
                 type="text"
-                value={property.price_details?.booking_amount || ""}
+                value={property.price_details?.["Booking Amount"] || ""}
                 onChange={(e) =>
                   setProperty({
                     ...property,
                     price_details: {
                       ...property.price_details,
-                      booking_amount: e.target.value,
+                      "Booking Amount": e.target.value,
                     },
                   })
                 }
                 className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
             </div>
+          </div>
+        </div>
+
+        {/* Add Price Range Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Price Range
+          </h3>
+          {["1_bhk", "2_bhk", "3_bhk"].map((bhk) => (
+            <div key={bhk} className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {bhk.replace("_", " ").toUpperCase()} Min Price
+                </label>
+                <input
+                  type="text"
+                  value={property.price_range?.[bhk]?.min || ""}
+                  onChange={(e) =>
+                    setProperty({
+                      ...property,
+                      price_range: {
+                        ...property.price_range,
+                        [bhk]: {
+                          ...property.price_range?.[bhk],
+                          min: e.target.value,
+                        },
+                      },
+                    })
+                  }
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {bhk.replace("_", " ").toUpperCase()} Max Price
+                </label>
+                <input
+                  type="text"
+                  value={property.price_range?.[bhk]?.max || ""}
+                  onChange={(e) =>
+                    setProperty({
+                      ...property,
+                      price_range: {
+                        ...property.price_range,
+                        [bhk]: {
+                          ...property.price_range?.[bhk],
+                          max: e.target.value,
+                        },
+                      },
+                    })
+                  }
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Add Carpet Area Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            Carpet Area
+          </h3>
+          {["1_bhk", "2_bhk", "3_bhk"].map((bhk) => (
+            <div key={bhk} className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {bhk.replace("_", " ").toUpperCase()} Carpet Area
+              </label>
+              <input
+                type="text"
+                value={property.carpet_area?.[bhk] || ""}
+                onChange={(e) =>
+                  setProperty({
+                    ...property,
+                    carpet_area: {
+                      ...property.carpet_area,
+                      [bhk]: e.target.value,
+                    },
+                  })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Gallery Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Gallery</h3>
+          {["exterior", "interior", "amenities", "construction"].map(
+            (section) => (
+              <div key={section} className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {section.charAt(0).toUpperCase() + section.slice(1)} Images
+                  (one URL per line)
+                </label>
+                <textarea
+                  value={property.gallery?.[section]?.join("\n") || ""}
+                  onChange={(e) =>
+                    setProperty({
+                      ...property,
+                      gallery: {
+                        ...property.gallery,
+                        [section]: e.target.value
+                          .split("\n")
+                          .filter((url) => url.trim()),
+                      },
+                    })
+                  }
+                  rows={3}
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            )
+          )}
+        </div>
+
+        {/* Add Highlights Section */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Highlights</h3>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Highlights (one per line)
+            </label>
+            <textarea
+              value={property.highlights?.join("\n") || ""}
+              onChange={(e) =>
+                setProperty({
+                  ...property,
+                  highlights: e.target.value
+                    .split("\n")
+                    .filter((item) => item.trim()),
+                })
+              }
+              rows={4}
+              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+            />
           </div>
         </div>
 
@@ -433,119 +653,6 @@ const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
             </div>
           </div>
         </div>
-
-        {/* Gallery Section */}
-        <div className="col-span-2">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Gallery</h3>
-          <div className="grid grid-cols-1 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Image URLs (one per line)
-              </label>
-              <textarea
-                value={property.gallery?.images?.join("\n") || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    gallery: {
-                      ...property.gallery,
-                      images: e.target.value
-                        .split("\n")
-                        .filter((url) => url.trim()),
-                    },
-                  })
-                }
-                rows={4}
-                placeholder="Enter image URLs, one per line"
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Video URLs (one per line)
-              </label>
-              <textarea
-                value={property.gallery?.videos?.join("\n") || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    gallery: {
-                      ...property.gallery,
-                      videos: e.target.value
-                        .split("\n")
-                        .filter((url) => url.trim()),
-                    },
-                  })
-                }
-                rows={4}
-                placeholder="Enter video URLs, one per line"
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
-        <div className="col-span-2">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">FAQs</h3>
-          <div className="space-y-4">
-            {(property.faq || []).map((faq, index) => (
-              <div key={index} className="grid grid-cols-1 gap-2">
-                <input
-                  type="text"
-                  value={faq.question || ""}
-                  onChange={(e) => {
-                    const newFaqs = [...(property.faq || [])];
-                    newFaqs[index] = {
-                      ...newFaqs[index],
-                      question: e.target.value,
-                    };
-                    setProperty({ ...property, faq: newFaqs });
-                  }}
-                  placeholder="Question"
-                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                />
-                <textarea
-                  value={faq.answer || ""}
-                  onChange={(e) => {
-                    const newFaqs = [...(property.faq || [])];
-                    newFaqs[index] = {
-                      ...newFaqs[index],
-                      answer: e.target.value,
-                    };
-                    setProperty({ ...property, faq: newFaqs });
-                  }}
-                  placeholder="Answer"
-                  rows={2}
-                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newFaqs = property.faq.filter((_, i) => i !== index);
-                    setProperty({ ...property, faq: newFaqs });
-                  }}
-                  className="text-red-600 hover:text-red-800"
-                >
-                  Remove FAQ
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={() => {
-                const newFaqs = [
-                  ...(property.faq || []),
-                  { question: "", answer: "" },
-                ];
-                setProperty({ ...property, faq: newFaqs });
-              }}
-              className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200"
-            >
-              Add FAQ
-            </button>
-          </div>
-        </div>
       </div>
 
       <div className="flex justify-end gap-4 pt-4 border-t">
@@ -586,7 +693,6 @@ export default function Dashboard() {
 
   const initialPropertyState = {
     name: "",
-    link: "",
     image: "",
     location: "",
     type: "residential",
@@ -596,41 +702,41 @@ export default function Dashboard() {
     price: "",
     description: "",
     amenities: [],
-    completion_date: "",
-    total_units: "",
-    overview: {
-      project_area: "",
-      total_towers: "",
-      total_floors: "",
-      possession_date: "",
-      rera_id: "",
-    },
+    highlights: [],
     price_details: {
-      starting_price: "",
-      price_per_sqft: "",
-      booking_amount: "",
-      maintenance_charges: "",
-    },
-    site_plan: {
-      plan_image: "",
-      plan_description: "",
+      "EMI Options": "",
+      "Payment Plan": "",
+      "Booking Amount": "",
+      "Starting Price": "",
     },
     gallery: {
-      images: [],
-      videos: [],
+      exterior: [],
+      interior: [],
+      amenities: [],
+      construction: [],
     },
     location_details: {
+      nearby: {
+        schools: [],
+        shopping: [],
+        hospitals: [],
+        transport: [],
+      },
       address: "",
+      mapEmbed: "",
       landmarks: [],
-      latitude: "",
-      longitude: "",
-      connectivity: [],
+      connectivity: {},
     },
-    site_tour: {
-      virtual_tour_link: "",
-      tour_images: [],
+    carpet_area: {
+      "1_bhk": "",
+      "2_bhk": "",
+      "3_bhk": "",
     },
-    faq: [],
+    price_range: {
+      "1_bhk": { min: "", max: "" },
+      "2_bhk": { min: "", max: "" },
+      "3_bhk": { min: "", max: "" },
+    },
   };
 
   const [newProperty, setNewProperty] = useState(initialPropertyState);
@@ -653,31 +759,102 @@ export default function Dashboard() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Clean up the property data before sending
+    // Clean up and format the property data
     const propertyToAdd = {
       ...newProperty,
+      // Convert string arrays
       amenities: Array.isArray(newProperty.amenities)
         ? newProperty.amenities
         : newProperty.amenities
             ?.split(",")
             .map((item) => item.trim())
             .filter(Boolean) || [],
-      gallery: {
-        images: Array.isArray(newProperty.gallery?.images)
-          ? newProperty.gallery.images
-          : newProperty.gallery?.images?.split("\n").filter(Boolean) || [],
-        videos: Array.isArray(newProperty.gallery?.videos)
-          ? newProperty.gallery.videos
-          : newProperty.gallery?.videos?.split("\n").filter(Boolean) || [],
+      highlights: Array.isArray(newProperty.highlights)
+        ? newProperty.highlights
+        : newProperty.highlights
+            ?.split(",")
+            .map((item) => item.trim())
+            .filter(Boolean) || [],
+
+      // Format price details
+      price_details: {
+        "EMI Options": newProperty.price_details?.["EMI Options"] || null,
+        "Payment Plan": newProperty.price_details?.["Payment Plan"] || null,
+        "Booking Amount": newProperty.price_details?.["Booking Amount"] || null,
+        "Starting Price": newProperty.price_details?.["Starting Price"] || null,
       },
+
+      // Format gallery
+      gallery: {
+        exterior: Array.isArray(newProperty.gallery?.exterior)
+          ? newProperty.gallery.exterior
+          : newProperty.gallery?.exterior?.split("\n").filter(Boolean) || null,
+        interior: Array.isArray(newProperty.gallery?.interior)
+          ? newProperty.gallery.interior
+          : newProperty.gallery?.interior?.split("\n").filter(Boolean) || null,
+        amenities: Array.isArray(newProperty.gallery?.amenities)
+          ? newProperty.gallery.amenities
+          : newProperty.gallery?.amenities?.split("\n").filter(Boolean) || null,
+        construction: Array.isArray(newProperty.gallery?.construction)
+          ? newProperty.gallery.construction
+          : newProperty.gallery?.construction?.split("\n").filter(Boolean) ||
+            null,
+      },
+
+      // Format location details
       location_details: {
-        ...newProperty.location_details,
+        nearby: {
+          schools: Array.isArray(newProperty.location_details?.nearby?.schools)
+            ? newProperty.location_details.nearby.schools
+            : [],
+          shopping: Array.isArray(
+            newProperty.location_details?.nearby?.shopping
+          )
+            ? newProperty.location_details.nearby.shopping
+            : [],
+          hospitals: Array.isArray(
+            newProperty.location_details?.nearby?.hospitals
+          )
+            ? newProperty.location_details.nearby.hospitals
+            : [],
+          transport: Array.isArray(
+            newProperty.location_details?.nearby?.transport
+          )
+            ? newProperty.location_details.nearby.transport
+            : [],
+        },
+        address: newProperty.location_details?.address || null,
+        mapEmbed: newProperty.location_details?.mapEmbed || null,
         landmarks: Array.isArray(newProperty.location_details?.landmarks)
           ? newProperty.location_details.landmarks
           : newProperty.location_details?.landmarks
               ?.split(",")
               .map((item) => item.trim())
               .filter(Boolean) || [],
+        connectivity: newProperty.location_details?.connectivity || {},
+      },
+
+      // Format carpet area
+      carpet_area: {
+        "1_bhk": newProperty.carpet_area?.["1_bhk"] || null,
+        "2_bhk": newProperty.carpet_area?.["2_bhk"] || null,
+        "3_bhk": newProperty.carpet_area?.["3_bhk"] || null,
+      },
+
+      // Format price range
+      price_range: {
+        "1_bhk": {
+          min: newProperty.price_range?.["1_bhk"]?.min || null,
+          max: newProperty.price_range?.["1_bhk"]?.max || null,
+        },
+        "2_bhk": {
+          min: newProperty.price_range?.["2_bhk"]?.min || null,
+          max: newProperty.price_range?.["2_bhk"]?.max || null,
+        },
+        "3_bhk": {
+          min: newProperty.price_range?.["3_bhk"]?.min || null,
+          max: newProperty.price_range?.["3_bhk"]?.max || null,
+        },
       },
     };
 
@@ -712,9 +889,37 @@ export default function Dashboard() {
     e.preventDefault();
     setIsLoading(true);
 
+    // Use the same formatting logic as handleAddProperty
+    const propertyToUpdate = {
+      ...editingProperty,
+      amenities: Array.isArray(editingProperty.amenities)
+        ? editingProperty.amenities
+        : editingProperty.amenities
+            ?.split(",")
+            .map((item) => item.trim())
+            .filter(Boolean) || [],
+      highlights: Array.isArray(editingProperty.highlights)
+        ? editingProperty.highlights
+        : editingProperty.highlights
+            ?.split(",")
+            .map((item) => item.trim())
+            .filter(Boolean) || [],
+
+      price_details: {
+        "EMI Options": editingProperty.price_details?.["EMI Options"] || null,
+        "Payment Plan": editingProperty.price_details?.["Payment Plan"] || null,
+        "Booking Amount":
+          editingProperty.price_details?.["Booking Amount"] || null,
+        "Starting Price":
+          editingProperty.price_details?.["Starting Price"] || null,
+      },
+
+      // ... (same formatting as handleAddProperty for other fields)
+    };
+
     const { data, error } = await supabase
       .from("properties")
-      .update(editingProperty)
+      .update(propertyToUpdate)
       .eq("id", editingProperty.id)
       .select();
 
