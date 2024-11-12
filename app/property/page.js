@@ -12,28 +12,5 @@ import PropertySiteTour from "./components/PropertySiteTour";
 import Sidebar from "./components/sidebar";
 
 export default function PropertyPage() {
-  return (
-    <div className="flex">
-      <main className="w-3/4">
-        <PropertyHeader />
-        <PropertyHero />
-
-        <div className="px-3">
-          <PropertyOverview />
-          <PropertyPrice />
-          <PropertySitePlan />
-          <PropertyAmenities />
-          <PropertyGallery />
-          <PropertyLocation />
-          <PropertySiteTour />
-        </div>
-
-        <PropertyFooter />
-      </main>
-
-      <aside className="w-1/4">
-        <Sidebar />
-      </aside>
-    </div>
-  );
+  return <div className="flex"></div>;
 }
