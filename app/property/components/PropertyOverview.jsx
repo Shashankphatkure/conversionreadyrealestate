@@ -2,28 +2,19 @@ import "./PropertyOverview.css";
 
 import { DocumentIcon } from "@heroicons/react/24/outline";
 
-export default function PropertyOverview() {
+export default function PropertyOverview({ property }) {
   return (
     <section className="section-nkt shadow-c1i">
       <span className="hea-njg text-56r d-8lo block-kvs pr-5">Overview</span>
       <h1 className="block-qo4 section-fnm col-qgi text-56r">
-        Ashar Merac Thane
+        {property.name}
       </h1>
       <h2 className="block-qo4 section-29f col-qgi text-56r">
-        At Thane, Mumbai
+        At {property.location}
       </h2>
       <div className="hid-1pw">
-        <p>
-          Ashar Merac is an emerging luxurious residential development in Shree
-          Nagar, Wagle Estate, Thane. The gated community provides 1, 2, and 3
-          BHK residences with balconies. The well-designed apartments have
-          quality decor, branded fixtures, and cross ventilation. The
-          neighbourhood has cutting-edge safety measures and recreational
-          attractions. Enjoy a variety of amenities, including a swimming pool,
-          indoor games room, jogging track, gymnasium, banquet hall, children's
-          play area, garden, multipurpose court, yoga and meditation space, and
-          more.{" "}
-        </p>
+        <p>{property.description}</p>
+
         <p>
           Wagle Estate is in a good position with some of the top schools,
           universities, hospitals, commercial parks, and malls. Finland
@@ -48,24 +39,26 @@ export default function PropertyOverview() {
         className="block-qo4 section-29f text-56r mt-oq8"
         style={{ textAlign: "left" }}
       >
-        About Ashar Group
+        About {property.builder?.name}
       </span>
-      <img
-        height={80}
-        src="https://newprojectsonline.com/assets/uploads/logos/1719552186-logo_(1).webp"
-      />
+      {property.builder?.logo && (
+        <img
+          height={200}
+          width={200}
+          src={property.builder.logo}
+          alt={`${property.builder.name} logo`}
+        />
+      )}
       <p style={{ textAlign: "left" }}>
-        Since its inception in 2001, Ashar Group has believed that execution
-        &amp; quality is essential to success in real estate. When combined with
-        uncompromising values, customer-centric attitude, robust engineering,
-        and transparency in business operations; it makes Ashar one of the most
-        preferred real estate brands in the residential and commercial segment.
-        Ashar Group has been a game-changer to Thane's skyline. They are
-        crafting future-ready homes and office spaces and are the makers of
-        Thane's Largest IT Park - Ashar IT Park and Thane's First International
-        School - Billabong High. The group delivers nothing but excellence with
-        best-in-class quality in a time-bound manner. Their Zero RERA complaints
-        track record and value to commitment is pivotal to their success story.
+        {property.builder?.description}
+        {property.builder?.established_year && (
+          <span>
+            {" "}
+            Established in {property.builder.established_year},{" "}
+            {property.builder.name} has grown to become one of the most trusted
+            names in real estate development.
+          </span>
+        )}
       </p>
       <hr />
       <span

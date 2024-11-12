@@ -19,10 +19,21 @@ export default async function SingleProperty({ params }) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
 
-  // Fetch property data
+  // Fetch property data with builder details
   const { data: property, error } = await supabase
     .from("properties")
-    .select("*")
+    .select(
+      `
+      *,
+      builder:builders (
+        id,
+        name,
+        logo,
+        description,
+        established_year
+      )
+    `
+    )
     .eq("id", params.id)
     .single();
 
