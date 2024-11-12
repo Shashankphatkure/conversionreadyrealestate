@@ -93,44 +93,44 @@ export default function Sidebar({ property }) {
       )}
 
       <form className="form-4al" onSubmit={handleSubmit}>
-        <div className="form-group-gl5">
+        <div className="mb-4">
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="form-control-f36 rounded-p3z field-qmw"
+            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
             placeholder="Name"
             required
           />
         </div>
 
-        <div className="form-group-gl5">
+        <div className="mb-4">
           <input
             type="tel"
             name="phone"
             value={formData.phone}
             onChange={handleInputChange}
-            className="form-control-f36 rounded-p3z field-qmw"
+            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
             placeholder="Mobile No"
             required
           />
         </div>
 
-        <div className="form-group-gl5">
+        <div className="">
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="form-control-f36 rounded-p3z field-qmw"
+            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
             placeholder="E-Mail Address"
             required
           />
         </div>
 
         <button
-          className="w-full py-2 text-sm font-semibold text-white bg-amber-500 hover:bg-amber-600 rounded-md transition-colors disabled:opacity-50 mt-4 animate-scaleIn"
+          className="w-full py-2 text-sm mb-2 font-semibold text-white bg-amber-500 hover:bg-amber-600 rounded-md transition-colors disabled:opacity-50 mt-4 animate-scaleIn"
           type="submit"
           disabled={loading}
         >
