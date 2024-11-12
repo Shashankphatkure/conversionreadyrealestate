@@ -12,7 +12,7 @@ export default function PropertyOverview({ property }) {
       <h2 className="block-qo4 section-29f col-qgi text-56r">
         At {property.location}
       </h2>
-      <div className="hid-1pw">
+      <div>
         <p>{property.description}</p>
 
         <p>
@@ -22,13 +22,12 @@ export default function PropertyOverview({ property }) {
           and Jr. College, Jupiter Hospital, Manavta Hospital, Apex Hospital,
           Manisha RJ Thakur College, KBP College, Korum Mall, and R Mall.
         </p>
-        <p></p>
       </div>
-      <div className="show-lvn">
-        <button className="btn-zi3 info-jp8 form-z8s eff-byd eff-onq" href="#">
-          Read More
-        </button>
-      </div>
+
+      <button className="btn-zi3 info-jp8 form-z8s eff-byd eff-onq" href="#">
+        Read More
+      </button>
+
       <center>
         {" "}
         <button className="btn-zi3 btn-foh info-aro btn-xr8 overflow-a2r">
@@ -47,6 +46,7 @@ export default function PropertyOverview({ property }) {
           width={200}
           src={property.builder.logo}
           alt={`${property.builder.name} logo`}
+          className="pb-3"
         />
       )}
       <p style={{ textAlign: "left" }}>
@@ -80,59 +80,16 @@ export default function PropertyOverview({ property }) {
               textAlign: "left",
             }}
           >
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ Vaastu-compliant homes with unobstructed city and creek Views.{" "}
-            </li>
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ Separate car parks for residential and commercial units.{" "}
-            </li>
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ New launch Ashar Shree Nagar Thane Wagle Estate Thane offers 1,
-              2 &amp; 3 BHK, Urban Homes.{" "}
-            </li>
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ Vehicle free amenity zone along with Wi-fi in common areas.{" "}
-            </li>
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ Brings world-class design &amp; features giving you a boutique
-              lifestyle.{" "}
-            </li>
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ Double height entrance lobby with 7 High speed elevators and 1
-              fire elevator.{" "}
-            </li>
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ New construction in Thane west brings Twin Towers at Wagle
-              Estate.{" "}
-            </li>
-            <li
-              className="list-group-item-low"
-              style={{ "border-bottom": "2px dashed" }}
-            >
-              ✓ New launch Ashar Shree Nagar Thane Wagle Estate is smartly
-              planned, the complex.
-            </li>
+            {property.highlights &&
+              property.highlights.map((highlight, index) => (
+                <li
+                  key={index}
+                  className="list-group-item-low"
+                  style={{ "border-bottom": "2px dashed" }}
+                >
+                  ✓ {highlight}
+                </li>
+              ))}
           </ul>
         </div>
       </div>
