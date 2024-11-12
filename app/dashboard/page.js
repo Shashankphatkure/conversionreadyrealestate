@@ -47,7 +47,15 @@ const uploadMultipleImages = async (files, bucket = "properties") => {
 };
 
 // Add this component at the top of your file, outside the main Dashboard component
-const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
+const PropertyForm = ({
+  property,
+  setProperty,
+  onSubmit,
+  onCancel,
+  title,
+  builders,
+  localities,
+}) => {
   const mainImageRef = useRef(null);
   const galleryRefs = {
     exterior: useRef(null),
@@ -100,6 +108,50 @@ const PropertyForm = ({ property, setProperty, onSubmit, onCancel, title }) => {
             Basic Information
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Add Builder Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Builder*
+              </label>
+              <select
+                value={property.builder || ""}
+                onChange={(e) =>
+                  setProperty({ ...property, builder: e.target.value })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                required
+              >
+                <option value="">Select Builder</option>
+                {builders.map((builder) => (
+                  <option key={builder.id} value={builder.id}>
+                    {builder.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Add Locality Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Locality*
+              </label>
+              <select
+                value={property.locality || ""}
+                onChange={(e) =>
+                  setProperty({ ...property, locality: e.target.value })
+                }
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                required
+              >
+                <option value="">Select Locality</option>
+                {localities.map((locality) => (
+                  <option key={locality.id} value={locality.id}>
+                    {locality.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Property Name*
@@ -691,6 +743,9 @@ export default function Dashboard() {
     priceRange: "all",
   });
 
+  const [builders, setBuilders] = useState([]);
+  const [localities, setLocalities] = useState([]);
+
   const initialPropertyState = {
     name: "",
     image: "",
@@ -737,12 +792,15 @@ export default function Dashboard() {
       "2_bhk": { min: "", max: "" },
       "3_bhk": { min: "", max: "" },
     },
+    builder: "",
+    locality: "",
   };
 
   const [newProperty, setNewProperty] = useState(initialPropertyState);
 
   useEffect(() => {
     fetchProperties();
+    fetchBuildersAndLocalities();
   }, []);
 
   async function fetchProperties() {
@@ -755,11 +813,34 @@ export default function Dashboard() {
     }
   }
 
+  const fetchBuildersAndLocalities = async () => {
+    // Fetch builders
+    const { data: buildersData, error: buildersError } = await supabase
+      .from("builders")
+      .select("id, name");
+
+    if (buildersError) {
+      console.error("Error fetching builders:", buildersError);
+    } else {
+      setBuilders(buildersData);
+    }
+
+    // Fetch localities
+    const { data: localitiesData, error: localitiesError } = await supabase
+      .from("localities")
+      .select("id, name");
+
+    if (localitiesError) {
+      console.error("Error fetching localities:", localitiesError);
+    } else {
+      setLocalities(localitiesData);
+    }
+  };
+
   async function handleAddProperty(e) {
     e.preventDefault();
     setIsLoading(true);
 
-    // Clean up and format the property data
     const propertyToAdd = {
       ...newProperty,
       // Convert string arrays
@@ -856,6 +937,8 @@ export default function Dashboard() {
           max: newProperty.price_range?.["3_bhk"]?.max || null,
         },
       },
+      builder: newProperty.builder || null,
+      locality: newProperty.locality || null,
     };
 
     const { data, error } = await supabase
@@ -889,9 +972,9 @@ export default function Dashboard() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Use the same formatting logic as handleAddProperty
     const propertyToUpdate = {
       ...editingProperty,
+      // Convert string arrays
       amenities: Array.isArray(editingProperty.amenities)
         ? editingProperty.amenities
         : editingProperty.amenities
@@ -914,7 +997,86 @@ export default function Dashboard() {
           editingProperty.price_details?.["Starting Price"] || null,
       },
 
-      // ... (same formatting as handleAddProperty for other fields)
+      // Format gallery
+      gallery: {
+        exterior: Array.isArray(editingProperty.gallery?.exterior)
+          ? editingProperty.gallery.exterior
+          : editingProperty.gallery?.exterior?.split("\n").filter(Boolean) ||
+            null,
+        interior: Array.isArray(editingProperty.gallery?.interior)
+          ? editingProperty.gallery.interior
+          : editingProperty.gallery?.interior?.split("\n").filter(Boolean) ||
+            null,
+        amenities: Array.isArray(editingProperty.gallery?.amenities)
+          ? editingProperty.gallery.amenities
+          : editingProperty.gallery?.amenities?.split("\n").filter(Boolean) ||
+            null,
+        construction: Array.isArray(editingProperty.gallery?.construction)
+          ? editingProperty.gallery.construction
+          : editingProperty.gallery?.construction
+              ?.split("\n")
+              .filter(Boolean) || null,
+      },
+
+      // Format location details
+      location_details: {
+        nearby: {
+          schools: Array.isArray(
+            editingProperty.location_details?.nearby?.schools
+          )
+            ? editingProperty.location_details.nearby.schools
+            : [],
+          shopping: Array.isArray(
+            editingProperty.location_details?.nearby?.shopping
+          )
+            ? editingProperty.location_details.nearby.shopping
+            : [],
+          hospitals: Array.isArray(
+            editingProperty.location_details?.nearby?.hospitals
+          )
+            ? editingProperty.location_details.nearby.hospitals
+            : [],
+          transport: Array.isArray(
+            editingProperty.location_details?.nearby?.transport
+          )
+            ? editingProperty.location_details.nearby.transport
+            : [],
+        },
+        address: editingProperty.location_details?.address || null,
+        mapEmbed: editingProperty.location_details?.mapEmbed || null,
+        landmarks: Array.isArray(editingProperty.location_details?.landmarks)
+          ? editingProperty.location_details.landmarks
+          : editingProperty.location_details?.landmarks
+              ?.split(",")
+              .map((item) => item.trim())
+              .filter(Boolean) || [],
+        connectivity: editingProperty.location_details?.connectivity || {},
+      },
+
+      // Format carpet area
+      carpet_area: {
+        "1_bhk": editingProperty.carpet_area?.["1_bhk"] || null,
+        "2_bhk": editingProperty.carpet_area?.["2_bhk"] || null,
+        "3_bhk": editingProperty.carpet_area?.["3_bhk"] || null,
+      },
+
+      // Format price range
+      price_range: {
+        "1_bhk": {
+          min: editingProperty.price_range?.["1_bhk"]?.min || null,
+          max: editingProperty.price_range?.["1_bhk"]?.max || null,
+        },
+        "2_bhk": {
+          min: editingProperty.price_range?.["2_bhk"]?.min || null,
+          max: editingProperty.price_range?.["2_bhk"]?.max || null,
+        },
+        "3_bhk": {
+          min: editingProperty.price_range?.["3_bhk"]?.min || null,
+          max: editingProperty.price_range?.["3_bhk"]?.max || null,
+        },
+      },
+      builder: editingProperty.builder || null,
+      locality: editingProperty.locality || null,
     };
 
     const { data, error } = await supabase
@@ -1182,6 +1344,8 @@ export default function Dashboard() {
                   onSubmit={handleEditProperty}
                   onCancel={() => setEditingProperty(null)}
                   title="Edit Property"
+                  builders={builders}
+                  localities={localities}
                 />
               </div>
             </div>
@@ -1201,6 +1365,8 @@ export default function Dashboard() {
                     setNewProperty(initialPropertyState);
                   }}
                   title="Add Property"
+                  builders={builders}
+                  localities={localities}
                 />
               </div>
             </div>
