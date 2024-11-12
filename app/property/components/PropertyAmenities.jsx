@@ -3,31 +3,26 @@
 import "./PropertyAmenities.css";
 import { useState } from "react";
 
-export default function PropertyAmenities() {
+export default function PropertyAmenities({ property }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const amenitiesList = [
-    ["24*7 Water Supply", "Box Cricket", "Car Parking", "Clubhouse"],
-    [
-      "Fire fighting system",
-      "Gymnasium",
-      "High Speed Elevators",
-      "Intercom Facility",
-    ],
-    [
-      "Rain Water Harvesting",
-      "Swimming Pool",
-      "Vastu Compliant",
-      "Video/CCTV Security",
-    ],
-  ];
+  // Split amenities array into groups of 4
+  const groupAmenities = (amenities) => {
+    if (!amenities) return [];
+    const groups = [];
+    for (let i = 0; i < amenities.length; i += 4) {
+      groups.push(amenities.slice(i, i + 4));
+    }
+    return groups;
+  };
 
-  const maxSlides = amenitiesList.length - 1;
+  const amenitiesList = groupAmenities(property.amenities);
+  const maxSlides = Math.max(0, amenitiesList.length - 1);
 
   const carouselStyles = {
     transform: `translate3d(${currentSlide * -532.245}px, 0px, 0px)`,
     transition: "all 0.5s ease",
-    width: "1597px",
+    width: `${amenitiesList.length * 532.245}px`,
   };
 
   const itemStyles = {
@@ -47,6 +42,10 @@ export default function PropertyAmenities() {
     setCurrentSlide((prev) => Math.min(maxSlides, prev + 1));
   };
 
+  if (!property.amenities || property.amenities.length === 0) {
+    return null;
+  }
+
   return (
     <section className="section-jhc shadow-7y3">
       <span className="section-ihs" />
@@ -58,7 +57,7 @@ export default function PropertyAmenities() {
               <div key={groupIndex} className="item-vc5" style={itemStyles}>
                 <div className="item-6b9">
                   {group.map((amenity, index) => (
-                    <div key={index}>
+                    <div key={`${groupIndex}-${index}`}>
                       <p style={amenityStyle}>✓ {amenity}</p>
                     </div>
                   ))}
@@ -67,24 +66,26 @@ export default function PropertyAmenities() {
             ))}
           </div>
         </div>
-        <div className="nav-yme">
-          <button
-            type="button"
-            className="owl-k2r"
-            onClick={handlePrevSlide}
-            disabled={currentSlide === 0}
-          >
-            <span>‹</span>
-          </button>
-          <button
-            type="button"
-            className="owl-cpr"
-            onClick={handleNextSlide}
-            disabled={currentSlide === maxSlides}
-          >
-            <span>›</span>
-          </button>
-        </div>
+        {amenitiesList.length > 1 && (
+          <div className="nav-yme">
+            <button
+              type="button"
+              className="owl-k2r"
+              onClick={handlePrevSlide}
+              disabled={currentSlide === 0}
+            >
+              <span>‹</span>
+            </button>
+            <button
+              type="button"
+              className="owl-cpr"
+              onClick={handleNextSlide}
+              disabled={currentSlide === maxSlides}
+            >
+              <span>›</span>
+            </button>
+          </div>
+        )}
         <div className="owl-woi dis-eor" />
       </div>
     </section>

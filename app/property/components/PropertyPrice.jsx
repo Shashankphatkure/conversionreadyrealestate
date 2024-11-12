@@ -1,6 +1,16 @@
 import "./PropertyPrice.css";
 
-export default function PropertyPrice() {
+export default function PropertyPrice({ property }) {
+  const formatPrice = (price) => {
+    if (!price) return "Price on Request";
+    return `₹ ${price} ${price >= 10000000 ? "Cr*" : "Lacs*"} + Onwards`;
+  };
+
+  const getFormattedArea = (area) => {
+    if (!area) return "N/A";
+    return `${area} sq.ft.`;
+  };
+
   return (
     <section className="section-2ot shadow-h9n">
       <span className="section-bz2" />
@@ -32,72 +42,80 @@ export default function PropertyPrice() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td
-                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                  style={{ textAlign: "left" }}
-                >
-                  1 BHK{" "}
-                </td>
-                <td
-                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                  style={{ textAlign: "left" }}
-                >
-                  390 - 444 sq.ft.{" "}
-                </td>
-                <td className="price-rit" style={{ textAlign: "left" }}>
-                  ₹ 78 Lacs* + Onwards
-                </td>
-                <td>
-                  <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
-                    Click Here
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                  style={{ textAlign: "left" }}
-                >
-                  2 BHK{" "}
-                </td>
-                <td
-                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                  style={{ textAlign: "left" }}
-                >
-                  596 - 664 sq.ft.{" "}
-                </td>
-                <td className="price-rit" style={{ textAlign: "left" }}>
-                  ₹ 1.19 Cr*+ Onwards
-                </td>
-                <td>
-                  <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
-                    Click Here
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                  style={{ textAlign: "left" }}
-                >
-                  3 BHK{" "}
-                </td>
-                <td
-                  className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                  style={{ textAlign: "left" }}
-                >
-                  830 sq.ft.{" "}
-                </td>
-                <td className="price-rit" style={{ textAlign: "left" }}>
-                  ₹ 1.69 Cr*+ Onwards
-                </td>
-                <td>
-                  <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
-                    Click Here
-                  </button>
-                </td>
-              </tr>
+              {property.carpet_area?.["1_bhk"] && (
+                <tr>
+                  <td
+                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                    style={{ textAlign: "left" }}
+                  >
+                    1 BHK
+                  </td>
+                  <td
+                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                    style={{ textAlign: "left" }}
+                  >
+                    {getFormattedArea(property.carpet_area["1_bhk"])}
+                  </td>
+                  <td className="price-rit" style={{ textAlign: "left" }}>
+                    {formatPrice(property.price_range?.["1_bhk"]?.min)}
+                  </td>
+                  <td>
+                    <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
+                      Click Here
+                    </button>
+                  </td>
+                </tr>
+              )}
+
+              {property.carpet_area?.["2_bhk"] && (
+                <tr>
+                  <td
+                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                    style={{ textAlign: "left" }}
+                  >
+                    2 BHK
+                  </td>
+                  <td
+                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                    style={{ textAlign: "left" }}
+                  >
+                    {getFormattedArea(property.carpet_area["2_bhk"])}
+                  </td>
+                  <td className="price-rit" style={{ textAlign: "left" }}>
+                    {formatPrice(property.price_range?.["2_bhk"]?.min)}
+                  </td>
+                  <td>
+                    <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
+                      Click Here
+                    </button>
+                  </td>
+                </tr>
+              )}
+
+              {property.carpet_area?.["3_bhk"] && (
+                <tr>
+                  <td
+                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                    style={{ textAlign: "left" }}
+                  >
+                    3 BHK
+                  </td>
+                  <td
+                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
+                    style={{ textAlign: "left" }}
+                  >
+                    {getFormattedArea(property.carpet_area["3_bhk"])}
+                  </td>
+                  <td className="price-rit" style={{ textAlign: "left" }}>
+                    {formatPrice(property.price_range?.["3_bhk"]?.min)}
+                  </td>
+                  <td>
+                    <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
+                      Click Here
+                    </button>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
