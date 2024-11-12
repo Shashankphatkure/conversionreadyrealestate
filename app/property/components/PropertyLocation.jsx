@@ -1,7 +1,34 @@
 import "./PropertyLocation.css";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 
-export default function PropertyLocation() {
+export default function PropertyLocation({ property }) {
+  // Helper function to format nearby places with time
+  const formatNearbyPlaces = () => {
+    if (!property.location_details?.nearby) return [];
+
+    const places = [];
+    // Add schools
+    property.location_details.nearby.schools?.forEach((school) =>
+      places.push({ name: school.name, time: school.distance_time })
+    );
+    // Add shopping
+    property.location_details.nearby.shopping?.forEach((shop) =>
+      places.push({ name: shop.name, time: shop.distance_time })
+    );
+    // Add hospitals
+    property.location_details.nearby.hospitals?.forEach((hospital) =>
+      places.push({ name: hospital.name, time: hospital.distance_time })
+    );
+    // Add transport
+    property.location_details.nearby.transport?.forEach((transport) =>
+      places.push({ name: transport.name, time: transport.distance_time })
+    );
+
+    return places;
+  };
+
+  const nearbyPlaces = formatNearbyPlaces();
+
   return (
     <section className="section-9de shadow-8vf">
       <span />
@@ -12,7 +39,7 @@ export default function PropertyLocation() {
           <span className="block-lob section-jdn text-lxi">Map View</span>
           <div className="map-qda">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d30144.538155035505!2d72.94729!3d19.192264!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTnCsDExJzMyLjIiTiA3MsKwNTYnNTAuMiJF!5e0!3m2!1sen!2sin!4v1719553320215!5m2!1sen!2sin"
+              src={property.location_details?.mapEmbed}
               width={400}
               height={450}
               style={{ border: "0" }}
@@ -23,12 +50,21 @@ export default function PropertyLocation() {
           <span className="block-lob section-jdn text-lxi text-zgr">
             Location Map
           </span>
+          {property.location_details?.address && (
+            <p className="mb-4">{property.location_details.address}</p>
+          )}
           <a href="#" className="text-wix">
             <div className="item-sxo mb-p1y">
               <div className="at-property-beb master-gz3">
-                <picture>
-                  <img className="shadow-8vf bor-k37" />
-                </picture>
+                {property.location_details?.staticMap && (
+                  <picture>
+                    <img
+                      src={property.location_details.staticMap}
+                      alt="Location Map"
+                      className="shadow-8vf bor-k37"
+                    />
+                  </picture>
+                )}
                 <div className="overlay-532" />
                 <span className="btn-w1o">View Location Map</span>
               </div>
@@ -38,28 +74,7 @@ export default function PropertyLocation() {
       </div>
       <p />
       <div className="location-list" style={{ textAlign: "left" }}>
-        {[
-          { name: "Pokhran Road", time: "07 Min" },
-          { name: "Eastern Express Highway", time: "05 Min" },
-          { name: "Thane Railway Station", time: "13 Min" },
-          { name: "Ghodbunder Road", time: "08 Min" },
-          { name: "Kolshet Road", time: "20 min" },
-          {
-            name: "Chattrapati Shivaji Maharaj International Airport",
-            time: "47 Min",
-          },
-          { name: "Mulund West", time: "11 min" },
-          { name: "Airoli", time: "26 min" },
-          { name: "Kalwa", time: "20 min" },
-          { name: "Thane West", time: "20 min" },
-          { name: "Bhandup", time: "16 min" },
-          { name: "Kalyan", time: "45 min" },
-          { name: "Jupiter Hospital", time: "15 Min" },
-          { name: "C.P. Goenka International School", time: "16 Min" },
-          { name: "Lodha World School", time: "18 Min" },
-          { name: "Holy Cross Convent", time: "16 Min" },
-          { name: "Big Bazaar", time: "15 Min" },
-        ].map((location, index) => (
+        {nearbyPlaces.map((location, index) => (
           <div key={index} className="location-item">
             <MapPinIcon className="location-icon" />
             <span className="location-text">

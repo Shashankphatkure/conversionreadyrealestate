@@ -1,6 +1,6 @@
 import "./PropertySiteTour.css";
 
-export default function PropertySiteTour() {
+export default function PropertySiteTour({ property }) {
   return (
     <section className="section-lw2 shadow-pfo">
       <span />
@@ -21,13 +21,13 @@ export default function PropertySiteTour() {
                   Virtual Tour
                 </span>
                 <span className="text-vx6 text-dyv d-r3t block-i76">
-                  Ashar Merac Thane At Thane, Mumbai
+                  {property.name} At {property.location}
                 </span>
               </div>
             </div>
           </div>
           <span className="block-9by text-vx6 text-dyv block-nwy d-md-3ej pt-bcb">
-            Ashar Merac Thane At Thane, Mumbai
+            {property.name} At {property.location}
           </span>
         </div>
       </a>

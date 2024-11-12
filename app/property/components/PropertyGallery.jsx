@@ -3,15 +3,30 @@
 import React, { useState, useEffect } from "react";
 import "./PropertyGallery.css";
 
-const images = [
-  "https://newprojectsonline.com/assets/uploads/gallery/1719553030-ashar-merac-mulund-gallery4.webp",
-  "https://newprojectsonline.com/assets/uploads/gallery/1719553030-ashar-merac-mulund-gallery2.webp",
-  "https://newprojectsonline.com/assets/uploads/gallery/1719553030-ashar-merac-mulund-gallery1.webp",
-  "https://newprojectsonline.com/assets/uploads/gallery/1719553030-ashar-merac-mulund-gallery3.webp",
-];
-
-export default function PropertyGallery() {
+export default function PropertyGallery({ property }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Get all images from the gallery object
+  const getAllImages = () => {
+    if (!property.gallery) return [];
+
+    const images = [];
+    if (property.gallery.exterior) {
+      images.push(...property.gallery.exterior);
+    }
+    if (property.gallery.interior) {
+      images.push(...property.gallery.interior);
+    }
+    if (property.gallery.amenities) {
+      images.push(...property.gallery.amenities);
+    }
+    if (property.gallery.construction) {
+      images.push(...property.gallery.construction);
+    }
+    return images;
+  };
+
+  const images = getAllImages();
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -27,6 +42,10 @@ export default function PropertyGallery() {
     const interval = setInterval(nextSlide, 5000); // Auto-slide every 5 seconds
     return () => clearInterval(interval);
   }, []);
+
+  if (!images || images.length === 0) {
+    return null;
+  }
 
   return (
     <section className="block-cfk section-n2n shadow-8ea">
@@ -67,23 +86,29 @@ export default function PropertyGallery() {
             ))}
           </div>
         </div>
-        <div className="nav-dj9">
-          <button type="button" className="owl-dbk" onClick={prevSlide}>
-            <span>‹</span>
-          </button>
-          <button type="button" className="owl-r4s" onClick={nextSlide}>
-            <span>›</span>
-          </button>
-        </div>
-        <div className="owl-yf4 dis-hwt">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              className={`owl-dot ${index === currentIndex ? "active" : ""}`}
-              onClick={() => setCurrentIndex(index)}
-            />
-          ))}
-        </div>
+        {images.length > 1 && (
+          <>
+            <div className="nav-dj9">
+              <button type="button" className="owl-dbk" onClick={prevSlide}>
+                <span>‹</span>
+              </button>
+              <button type="button" className="owl-r4s" onClick={nextSlide}>
+                <span>›</span>
+              </button>
+            </div>
+            <div className="owl-yf4 dis-hwt">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  className={`owl-dot ${
+                    index === currentIndex ? "active" : ""
+                  }`}
+                  onClick={() => setCurrentIndex(index)}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
