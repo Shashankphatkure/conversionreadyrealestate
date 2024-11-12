@@ -24,16 +24,16 @@ export default function HomeContent({ properties }) {
         <Welcome />
       </div>
 
-      <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center px-4">
-        New Launch Projects in Mumbai
-      </h1>
-      <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-      <div className="px-4 md:px-20">
-        <Properties properties={properties} />
+      <div className="px-4 md:px-20 py-12">
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
+          Browse by Builders
+        </h2>
+        <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
+        <Builders />
       </div>
 
-      <h1 className="text-2xl md:text-3xl font-bold mt-20 mb-4 text-center px-4">
-        New Launch Projects in Thane
+      <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center px-4">
+        New Launch Projects in Mumbai
       </h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <div className="px-4 md:px-20">
@@ -118,14 +118,6 @@ export default function HomeContent({ properties }) {
           </div>
         </div>
       </section>
-
-      <div className="px-4 md:px-20 py-12">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
-          Browse by Builders
-        </h2>
-        <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
-        <Builders />
-      </div>
 
       <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center px-4">
         Contact Us
