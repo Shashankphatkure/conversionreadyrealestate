@@ -11,6 +11,7 @@ import PropertyPrice from "../components/PropertyPrice";
 import PropertySitePlan from "../components/PropertySitePlan";
 import PropertySiteTour from "../components/PropertySiteTour";
 import Sidebar from "../components/sidebar";
+import PropertyModal from "../components/PropertyModal";
 
 export default async function SingleProperty({ params }) {
   // Initialize Supabase client
@@ -51,6 +52,7 @@ export default async function SingleProperty({ params }) {
       <main className="w-3/4">
         <PropertyHeader property={property} />
         <PropertyHero property={property} />
+        <PropertyModal property={property} />
 
         <div className="px-3">
           <PropertyOverview property={property} />

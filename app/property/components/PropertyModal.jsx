@@ -1,28 +1,40 @@
+import React from "react";
 import "./PropertyModal.css";
 
-export default function PropertyModal() {
+export default function PropertyModal({ property }) {
+  if (!property) return null;
+
+  const {
+    name,
+    location,
+    developer,
+    configurations,
+    price,
+    overview,
+    highlights,
+    price_details,
+  } = property;
+
   return (
     <div className="info-wod overflow-7fp">
       <span className="pro-anw">BOOKINGS OPEN </span>
-      <span className="title-ytn">Ashar Merac Thane</span>
-      <span className="pro-xrg">At Thane, Mumbai</span>
-      <span className="pro-arw">by Ashar Group</span>
+      <span className="title-ytn">{name}</span>
+      <span className="pro-xrg">At {location}</span>
+      <span className="pro-arw">by {developer}</span>
       <div className="block-zzx d-lg-y8h">
-        <span>Ashar Merac Thane</span>
-        <span>At Thane, Mumbai by Ashar Group</span>
+        <span>{name}</span>
+        <span>
+          At {location} by {developer}
+        </span>
         <ul className="animate-wxt">
           <li>
-            {" "}
-            <span className="hea-1z7">✓ Configurations</span> : 1, 2, 3 BHK{" "}
+            <span className="hea-1z7">✓ Configurations</span> : {configurations}
           </li>
           <li>
-            {" "}
-            <span className="hea-1z7">✓ Location</span> : Thane, Mumbai
+            <span className="hea-1z7">✓ Location</span> : {location}
           </li>
           <li>
-            {" "}
-            <span className="hea-1z7">✓ Price </span> : 85 Lac* All Incl.
-            Onwards
+            <span className="hea-1z7">✓ Price </span> : {price}
           </li>
         </ul>
       </div>
@@ -31,9 +43,8 @@ export default function PropertyModal() {
         style={{
           background: "var(--colorPrimary)",
           color: "#fff",
-          "font-size": "18px",
-          "-webkit-text-align": "center",
-          "text-align": "center",
+          fontSize: "18px",
+          textAlign: "center",
           padding: "5px",
           display: "block",
           margin: "25px 0px",
@@ -43,35 +54,33 @@ export default function PropertyModal() {
           className="ani-2zn bou-35v inf-b1c"
           style={{
             display: "block",
-            "-webkit-animation-duration": "3s",
-            "animation-duration": "3s",
-            "font-size": "16px",
+            animationDuration: "3s",
+            fontSize: "16px",
             border: "2px solid #fff",
-            "border-style": "dashed",
+            borderStyle: "dashed",
             color: "#fff",
           }}
         >
-          <h5
-            style={{ "-webkit-text-align": "center", "text-align": "center" }}
-          >
+          <h5 style={{ textAlign: "center" }}>
             <b>
-              &nbsp;Spot Booking Offer
-              <br /> &nbsp;Easy Payment Plan
-              <br /> &nbsp;Floors G + 35 Storey
-              <br /> &nbsp;East West Facing Flats
-              <br /> &nbsp;Nearby Mulund And Thane Station
+              {highlights?.map((highlight, index) => (
+                <React.Fragment key={index}>
+                  &nbsp;{highlight}
+                  <br />
+                </React.Fragment>
+              ))}
             </b>
           </h5>
         </span>
       </span>
       <span className="tag-kh5">
-        <p style={{ "-webkit-text-align": "center", "text-align": "center" }}>
-          <b>Premium 1, 2 &amp; 3 BHK Apartment </b>
+        <p style={{ textAlign: "center" }}>
+          <b>{configurations}</b>
         </p>
-        <h4 style={{ "-webkit-text-align": "center", "text-align": "center" }}>
-          <b>Starts ₹ 78 Lacs* </b>
+        <h4 style={{ textAlign: "center" }}>
+          <b>Starts ₹ {price_details?.["Starting Price"]}</b>
         </h4>
-        <p style={{ "-webkit-text-align": "center", "text-align": "center" }}>
+        <p style={{ textAlign: "center" }}>
           <b>Book Online Presentation Today!</b>
         </p>
       </span>
