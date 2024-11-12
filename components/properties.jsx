@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
+import Link from "next/link";
 import { HomeIcon, CurrencyRupeeIcon } from "@heroicons/react/24/solid";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,7 +10,7 @@ const PropertyCard = ({ property }) => (
   <div className="item-4f1">
     <div className="item-bgo">
       <div className="pro-85g">
-        <a href={property.link}>
+        <Link href={`/property/${property.id}`}>
           <div className="pt-i6m">
             <img src={property.image} alt={property.name} />
             <div className="pti-tly">
@@ -42,7 +43,7 @@ const PropertyCard = ({ property }) => (
               {property.price}
             </h4>
           </div>
-        </a>
+        </Link>
         <a
           href={`https://api.whatsapp.com/send?phone=919892666207&text=Hi!%20I%20am%20interested%20in ${encodeURIComponent(
             property.name
