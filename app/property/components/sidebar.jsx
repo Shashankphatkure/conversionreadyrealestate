@@ -92,8 +92,8 @@ export default function Sidebar({ property }) {
         </div>
       )}
 
-      <form className="form-4al" onSubmit={handleSubmit}>
-        <div className="mb-4">
+      <form className="px-4" onSubmit={handleSubmit}>
+        <div className="mb-1">
           <input
             type="text"
             name="name"
