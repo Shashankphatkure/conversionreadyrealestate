@@ -12,6 +12,7 @@ import PropertySitePlan from "../components/PropertySitePlan";
 import PropertySiteTour from "../components/PropertySiteTour";
 import Sidebar from "../components/sidebar";
 import PropertyModal from "../components/PropertyModal";
+import PropertyPopup from "../components/PropertyPopup";
 
 export default async function SingleProperty({ params }) {
   // Initialize Supabase client
@@ -48,28 +49,32 @@ export default async function SingleProperty({ params }) {
   }
 
   return (
-    <div className="flex">
-      <main className="w-3/4">
-        <PropertyHeader property={property} />
-        <PropertyHero property={property} />
-        <PropertyModal property={property} />
+    <>
+      <div className="flex">
+        <main className="w-3/4">
+          <PropertyHeader property={property} />
+          <PropertyHero property={property} />
+          <PropertyModal property={property} />
 
-        <div className="px-3">
-          <PropertyOverview property={property} />
-          <PropertyPrice property={property} />
-          <PropertySitePlan property={property} />
-          <PropertyAmenities property={property} />
-          <PropertyGallery property={property} />
-          <PropertyLocation property={property} />
-          <PropertySiteTour property={property} />
-        </div>
+          <div className="px-3">
+            <PropertyOverview property={property} />
+            <PropertyPrice property={property} />
+            <PropertySitePlan property={property} />
+            <PropertyAmenities property={property} />
+            <PropertyGallery property={property} />
+            <PropertyLocation property={property} />
+            <PropertySiteTour property={property} />
+          </div>
 
-        <PropertyFooter property={property} />
-      </main>
+          <PropertyFooter property={property} />
+        </main>
 
-      <aside className="w-1/4">
-        <Sidebar property={property} />
-      </aside>
-    </div>
+        <aside className="w-1/4">
+          <Sidebar property={property} />
+        </aside>
+      </div>
+
+      <PropertyPopup property={property} />
+    </>
   );
 }
