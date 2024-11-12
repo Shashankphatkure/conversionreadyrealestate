@@ -27,7 +27,12 @@ export const AuthProvider = ({ children }) => {
   }, [pathname]);
 
   const isProtectedRoute = (path) => {
-    const protectedRoutes = ["/dashboard", "/leads", "/localities"];
+    const protectedRoutes = [
+      "/dashboard",
+      "/leads",
+      "/localities",
+      "/builders-dashboard",
+    ];
     return protectedRoutes.some((route) => path.startsWith(route));
   };
 
