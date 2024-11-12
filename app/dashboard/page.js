@@ -266,19 +266,6 @@ const PropertyForm = ({
                 required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Total Units
-              </label>
-              <input
-                type="number"
-                value={property.total_units}
-                onChange={(e) =>
-                  setProperty({ ...property, total_units: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
           </div>
         </div>
 
@@ -290,31 +277,33 @@ const PropertyForm = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Image URL*
+                Main Image*
               </label>
-              <input
-                type="url"
-                value={property.image}
-                onChange={(e) =>
-                  setProperty({ ...property, image: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Property Link*
-              </label>
-              <input
-                type="url"
-                value={property.link}
-                onChange={(e) =>
-                  setProperty({ ...property, link: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              />
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  value={property.image}
+                  onChange={(e) =>
+                    setProperty({ ...property, image: e.target.value })
+                  }
+                  className="flex-1 border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Image URL"
+                />
+                <input
+                  type="file"
+                  ref={mainImageRef}
+                  onChange={handleMainImageUpload}
+                  accept="image/*"
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => mainImageRef.current?.click()}
+                  className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
+                >
+                  Upload
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -342,94 +331,89 @@ const PropertyForm = ({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Amenities
               </label>
-              <input
-                type="text"
-                value={property.amenities}
-                onChange={(e) =>
+              <select
+                multiple
+                value={property.amenities || []}
+                onChange={(e) => {
+                  const selectedAmenities = Array.from(
+                    e.target.selectedOptions
+                  ).map((option) => option.value);
                   setProperty({
                     ...property,
-                    amenities: e.target.value.split(","),
-                  })
-                }
-                placeholder="Enter amenities separated by commas"
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Completion Date
-              </label>
-              <input
-                type="date"
-                value={property.completion_date}
-                onChange={(e) =>
-                  setProperty({ ...property, completion_date: e.target.value })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Overview Section */}
-        <div className="col-span-2">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Project Overview
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Project Area (acres)
-              </label>
-              <input
-                type="text"
-                value={property.overview?.project_area || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    overview: {
-                      ...property.overview,
-                      project_area: e.target.value,
-                    },
-                  })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Total Towers
-              </label>
-              <input
-                type="number"
-                value={property.overview?.total_towers || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    overview: {
-                      ...property.overview,
-                      total_towers: e.target.value,
-                    },
-                  })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                RERA ID
-              </label>
-              <input
-                type="text"
-                value={property.overview?.rera_id || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    overview: { ...property.overview, rera_id: e.target.value },
-                  })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
+                    amenities: selectedAmenities,
+                  });
+                }}
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 h-48"
+              >
+                <option value="24/7 Security">24/7 Security</option>
+                <option value="Swimming Pool">Swimming Pool</option>
+                <option value="Gym">Gym</option>
+                <option value="Kids Play Area">Kids Play Area</option>
+                <option value="Clubhouse">Clubhouse</option>
+                <option value="Indoor Games">Indoor Games</option>
+                <option value="Yoga/Meditation Area">
+                  Yoga/Meditation Area
+                </option>
+                <option value="Jogging Track">Jogging Track</option>
+                <option value="Landscaped Gardens">Landscaped Gardens</option>
+                <option value="Basketball Court">Basketball Court</option>
+                <option value="Tennis Court">Tennis Court</option>
+                <option value="Badminton Court">Badminton Court</option>
+                <option value="Cricket Pitch">Cricket Pitch</option>
+                <option value="Amphitheatre">Amphitheatre</option>
+                <option value="Banquet Hall">Banquet Hall</option>
+                <option value="Library">Library</option>
+                <option value="Senior Citizen Area">Senior Citizen Area</option>
+                <option value="BBQ Area">BBQ Area</option>
+                <option value="Party Lawn">Party Lawn</option>
+                <option value="Cycling Track">Cycling Track</option>
+                <option value="Car Parking">Car Parking</option>
+                <option value="Visitor Parking">Visitor Parking</option>
+                <option value="Power Backup">Power Backup</option>
+                <option value="Rain Water Harvesting">
+                  Rain Water Harvesting
+                </option>
+                <option value="Fire Fighting System">
+                  Fire Fighting System
+                </option>
+                <option value="CCTV Surveillance">CCTV Surveillance</option>
+                <option value="Intercom">Intercom</option>
+                <option value="Wi-Fi Connectivity">Wi-Fi Connectivity</option>
+                <option value="Shopping Complex">Shopping Complex</option>
+                <option value="ATM">ATM</option>
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Supermarket">Supermarket</option>
+                <option value="School Within Campus">
+                  School Within Campus
+                </option>
+                <option value="Hospital Within Campus">
+                  Hospital Within Campus
+                </option>
+                <option value="Spa">Spa</option>
+                <option value="Salon">Salon</option>
+                <option value="Cafe">Cafe</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Movie Theatre">Movie Theatre</option>
+                <option value="Pet Area">Pet Area</option>
+                <option value="Guest Rooms">Guest Rooms</option>
+                <option value="Laundry Service">Laundry Service</option>
+                <option value="Valet Service">Valet Service</option>
+                <option value="Electric Car Charging">
+                  Electric Car Charging
+                </option>
+                <option value="Waste Management">Waste Management</option>
+                <option value="Solar Power">Solar Power</option>
+                <option value="Sewage Treatment Plant">
+                  Sewage Treatment Plant
+                </option>
+                <option value="Meditation Hall">Meditation Hall</option>
+                <option value="Rock Climbing">Rock Climbing</option>
+                <option value="Skating Rink">Skating Rink</option>
+                <option value="Golf Course">Golf Course</option>
+              </select>
+              <p className="text-sm text-gray-500 mt-1">
+                Hold Ctrl/Cmd to select multiple amenities
+              </p>
             </div>
           </div>
         </div>
@@ -572,24 +556,48 @@ const PropertyForm = ({
               <div key={section} className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   {section.charAt(0).toUpperCase() + section.slice(1)} Images
-                  (one URL per line)
                 </label>
-                <textarea
-                  value={property.gallery?.[section]?.join("\n") || ""}
-                  onChange={(e) =>
-                    setProperty({
-                      ...property,
-                      gallery: {
-                        ...property.gallery,
-                        [section]: e.target.value
-                          .split("\n")
-                          .filter((url) => url.trim()),
-                      },
-                    })
-                  }
-                  rows={3}
-                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                />
+                <div className="space-y-2">
+                  <textarea
+                    value={property.gallery?.[section]?.join("\n") || ""}
+                    onChange={(e) =>
+                      setProperty({
+                        ...property,
+                        gallery: {
+                          ...property.gallery,
+                          [section]: e.target.value
+                            .split("\n")
+                            .filter((url) => url.trim()),
+                        },
+                      })
+                    }
+                    rows={3}
+                    className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter URLs (one per line)"
+                  />
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="file"
+                      ref={galleryRefs[section]}
+                      onChange={(e) => handleGalleryUpload(section, e)}
+                      accept="image/*"
+                      multiple
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => galleryRefs[section].current?.click()}
+                      className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
+                    >
+                      Upload Images
+                    </button>
+                    {property.gallery?.[section]?.length > 0 && (
+                      <span className="text-sm text-gray-500">
+                        {property.gallery[section].length} images
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             )
           )}
@@ -1309,11 +1317,9 @@ export default function Dashboard() {
                             <FiEdit2 />
                           </button>
                           <a
-                            href={property.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={`/property/${property.id}`}
                             className="text-green-600 hover:text-green-800"
-                            title="View Details"
+                            title="View Property"
                           >
                             <FiExternalLink />
                           </a>
