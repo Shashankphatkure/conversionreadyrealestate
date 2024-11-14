@@ -89,7 +89,7 @@ export default function RequirementPopup() {
               Free Service
             </div>
             <Image
-              src="/pickup-service.png"
+              src="/pickup.png"
               alt="Free Pickup Service"
               width={400}
               height={400}
@@ -158,7 +158,7 @@ export default function RequirementPopup() {
               <h2 className="text-md font-bold text-gray-800">
                 Submit Your Requirement
               </h2>
-              <div className="w-16 h-1 bg-orange-500 mx-auto my-2"></div>
+
               <p className="text-gray-600 text-sm">
                 QUALITY SERVICE GUARANTEED
               </p>
