@@ -22,6 +22,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { supabase } from "@/utils/supabase";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 // Enhanced PropertySkeleton with better animation
 const PropertySkeleton = () => (
@@ -69,8 +70,8 @@ const FilterTag = ({ label, value, onRemove }) => (
 
 // Enhanced Property Card Component
 const PropertyCard = ({ property }) => (
-  <a
-    href={property.link}
+  <Link
+    href={`/property/${property.id}`}
     className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
   >
     {/* Image Container with Overlay */}
@@ -184,7 +185,7 @@ const PropertyCard = ({ property }) => (
       {/* Hover Overlay for Touch Devices */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors pointer-events-none md:hidden" />
     </div>
-  </a>
+  </Link>
 );
 
 // Enhanced Filter Section
@@ -238,15 +239,15 @@ export default function SearchResults() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Add configurations array with other sample data at the top of the component
-  const projectTypes = ["Residential", "Commercial", "Luxury", "Affordable"];
-  const builders = [
-    "Lodha Group",
-    "Godrej Properties",
-    "Runwal Group",
-    "Piramal Realty",
-  ];
-  const cities = ["Mumbai", "Thane", "Navi Mumbai", "Kalyan"];
+  // Add itemsPerPage constant
+  const itemsPerPage = 10; // or whatever number you want to show per page
+
+  // Add these state declarations at the top with other useState hooks
+  const [builders, setBuilders] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  // Keep these as regular constants
+  const projectTypes = ["Residential", "Commercial", "Industrial"];
   const configurations = [
     "1 BHK",
     "1.5 BHK",
@@ -280,6 +281,28 @@ export default function SearchResults() {
     configuration: searchParams.get("config") || "",
   });
 
+  const [showFilters, setShowFilters] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("relevance");
+  const [properties, setProperties] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Add useEffect to fetch builders and localities
+  useEffect(() => {
+    const loadFilterData = async () => {
+      const [buildersList, localitiesList] = await Promise.all([
+        fetchBuilders(),
+        fetchLocalities(),
+      ]);
+
+      setBuilders(buildersList);
+      setCities(localitiesList);
+    };
+
+    loadFilterData();
+  }, []);
+
   // Add this useEffect to handle URL parameter changes
   useEffect(() => {
     const searchName = searchParams.get("name");
@@ -291,18 +314,15 @@ export default function SearchResults() {
     }
   }, [searchParams]);
 
-  const [showFilters, setShowFilters] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [sortBy, setSortBy] = useState("relevance");
-  const [properties, setProperties] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
-
   // Add this useEffect to trigger search when filters change
   useEffect(() => {
     fetchProperties();
   }, [filters]);
+
+  // Add this useEffect to trigger search when sort changes
+  useEffect(() => {
+    fetchProperties();
+  }, [sortBy]);
 
   const fetchProperties = async () => {
     try {
@@ -311,21 +331,30 @@ export default function SearchResults() {
         `
           id,
           name,
-          link,
           image,
           location,
           type,
           status,
-          developer,
           configurations,
           price,
-          description,
-          amenities,
-          completion_date,
-          total_units,
-          overview,
           price_details,
-          location_details
+          amenities,
+          carpet_area,
+          price_range,
+          overview,
+          location_details,
+          created_at,
+          builder:builders (
+            id,
+            name,
+            logo,
+            established_year
+          ),
+          locality:localities (
+            id,
+            name,
+            properties
+          )
         `,
         { count: "exact" }
       );
@@ -340,66 +369,50 @@ export default function SearchResults() {
       }
 
       if (filters.builder) {
-        query = query.ilike("developer", `%${filters.builder}%`);
+        query = query.eq("builder.name", filters.builder);
       }
 
       if (filters.city) {
-        query = query.ilike("location", `%${filters.city}%`);
+        query = query.eq("locality.name", filters.city);
       }
 
-      if (filters.configuration) {
-        query = query.ilike("configurations", `%${filters.configuration}%`);
-      }
-
-      // Price range filtering (assuming price is stored as text)
-      if (filters.minBudget) {
-        const minPrice = filters.minBudget.replace(/[^0-9.]/g, "");
-        query = query.gte("price_details->>'Starting Price'", minPrice);
-      }
-
-      if (filters.maxBudget) {
-        const maxPrice = filters.maxBudget.replace(/[^0-9.]/g, "");
-        query = query.lte("price_details->>'Starting Price'", maxPrice);
-      }
-
-      // Apply sorting
+      // Updated sorting logic
       switch (sortBy) {
         case "price_low":
-          query = query.order("price_details->>'Starting Price'", {
-            ascending: true,
-          });
+          query = query.order("price", { ascending: true, nullsLast: true });
           break;
         case "price_high":
-          query = query.order("price_details->>'Starting Price'", {
-            ascending: false,
-          });
+          query = query.order("price", { ascending: false, nullsLast: true });
           break;
         case "newest":
           query = query.order("created_at", { ascending: false });
           break;
+        case "relevance":
         default:
-          query = query.order("name");
+          query = query.order("name", { ascending: true });
+          break;
       }
 
       // Apply pagination
-      const start = (currentPage - 1) * itemsPerPage;
-      query = query.range(start, start + itemsPerPage - 1);
+      query = query.range(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage - 1
+      );
 
       const { data, error, count } = await query;
 
       if (error) throw error;
 
-      // Transform the data to match the PropertyCard component expectations
+      // Transform the properties
       const transformedProperties = data.map((property) => ({
         id: property.id,
         name: property.name,
-        link: property.link,
         image: property.image,
-        location: property.location,
-        developer: property.developer,
+        location: property.locality?.name || property.location,
+        developer: property.builder?.name || "Unknown Developer",
         configurations: property.configurations,
-        price: property.price_details?.["Starting Price"] || property.price,
-        status: property.status.replace("_", " "),
+        price: formatPrice(property.price_range),
+        status: property.status.replace(/_/g, " "),
         possession: property.completion_date
           ? new Date(property.completion_date).toLocaleDateString("en-US", {
               month: "short",
@@ -420,6 +433,58 @@ export default function SearchResults() {
     }
   };
 
+  // Add functions to fetch builders and localities for filters
+  const fetchBuilders = async () => {
+    const { data: builders, error } = await supabase
+      .from("builders")
+      .select("name")
+      .order("name");
+
+    if (error) {
+      console.error("Error fetching builders:", error);
+      return [];
+    }
+
+    return builders.map((builder) => builder.name);
+  };
+
+  const fetchLocalities = async () => {
+    const { data: localities, error } = await supabase
+      .from("localities")
+      .select("name")
+      .order("name");
+
+    if (error) {
+      console.error("Error fetching localities:", error);
+      return [];
+    }
+
+    return localities.map((locality) => locality.name);
+  };
+
+  // Add this helper function to format the price range
+  const formatPrice = (priceRange) => {
+    if (!priceRange) return "Price on Request";
+
+    const configs = ["1_bhk", "2_bhk", "3_bhk"];
+    let minPrice = Infinity;
+
+    configs.forEach((config) => {
+      if (priceRange[config]?.min) {
+        minPrice = Math.min(minPrice, priceRange[config].min);
+      }
+    });
+
+    if (minPrice === Infinity) return "Price on Request";
+
+    // Convert to Crores/Lakhs format
+    if (minPrice >= 10000000) {
+      return `${(minPrice / 10000000).toFixed(2)} Cr onwards`;
+    } else {
+      return `${(minPrice / 100000).toFixed(2)} L onwards`;
+    }
+  };
+
   // Update URL with current filters
   const updateURL = (newFilters) => {
     const params = new URLSearchParams();
@@ -437,6 +502,7 @@ export default function SearchResults() {
       [name]: value,
     };
     setFilters(newFilters);
+    setCurrentPage(1);
     updateURL(newFilters);
   };
 
@@ -535,6 +601,29 @@ export default function SearchResults() {
     fetchProperties();
   };
 
+  // Create a separate sorting component for better organization
+  const SortingOptions = () => (
+    <div className="flex items-center gap-2">
+      <label htmlFor="sort-select" className="text-gray-600">
+        Sort by:
+      </label>
+      <select
+        id="sort-select"
+        value={sortBy}
+        onChange={(e) => {
+          setSortBy(e.target.value);
+          setCurrentPage(1); // Reset to first page when sorting changes
+        }}
+        className="px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500 bg-white"
+      >
+        <option value="relevance">Relevance</option>
+        <option value="price_low">Price: Low to High</option>
+        <option value="price_high">Price: High to Low</option>
+        <option value="newest">Newest First</option>
+      </select>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50">
       <HeaderTop />
@@ -574,18 +663,7 @@ export default function SearchResults() {
             <p className="text-gray-600 mb-4 md:mb-0">
               Showing {properties.length} of {totalCount} properties
             </p>
-            <div className="flex items-center gap-4">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"
-              >
-                <option value="relevance">Sort by Relevance</option>
-                <option value="price_low">Price: Low to High</option>
-                <option value="price_high">Price: High to Low</option>
-                <option value="newest">Newest First</option>
-              </select>
-            </div>
+            <SortingOptions />
           </div>
 
           {/* Add Filter Tags */}

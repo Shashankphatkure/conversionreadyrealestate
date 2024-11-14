@@ -15,7 +15,7 @@ export default function PropertyPopup({ property }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 100000);
+    }, 6000);
 
     if (isVisible) {
       document.body.style.overflow = "hidden";

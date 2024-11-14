@@ -61,6 +61,15 @@ export default function Header() {
                   Contact
                 </a>
               </li>
+
+              <li>
+                <a
+                  href="/search"
+                  className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80"
+                >
+                  Properties
+                </a>
+              </li>
               <li>
                 <a
                   href="/privacy"
