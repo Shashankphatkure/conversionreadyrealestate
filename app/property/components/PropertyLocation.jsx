@@ -30,7 +30,7 @@ export default function PropertyLocation({ property }) {
   const nearbyPlaces = formatNearbyPlaces();
 
   return (
-    <section className="section-9de shadow-8vf">
+    <section id="location" className="section-9de shadow-8vf">
       <span />
       <span className="hea-6ig text-lxi pr-5">Location</span>
       <br />

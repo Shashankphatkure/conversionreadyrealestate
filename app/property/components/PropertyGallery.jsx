@@ -48,7 +48,7 @@ export default function PropertyGallery({ property }) {
   }
 
   return (
-    <section className="block-cfk section-n2n shadow-8ea">
+    <section id="gallery" className="block-cfk section-n2n shadow-8ea">
       <span className="section-kjw" />
       <span className="hea-zos text-d42 pr-5">Gallery</span>
       <div className="carousel-6g1 owl-3mp owl-1nm owl-n2n">

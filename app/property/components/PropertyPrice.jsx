@@ -12,7 +12,7 @@ export default function PropertyPrice({ property }) {
   };
 
   return (
-    <section className="section-2ot shadow-h9n">
+    <section id="pricing" className="section-2ot shadow-h9n">
       <span className="section-bz2" />
       <span className="hea-z85 text-w9d pr-5">Price</span>
       <div className="row-3b7">
