@@ -62,10 +62,10 @@ export default function PropertyPopup({ property }) {
         {/* Header */}
         <div className="relative bg-gradient-to-r from-[#D4AF37] to-[#C5A028] text-white p-4 text-center">
           <button
-            className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+            className="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors"
             onClick={handleClose}
           >
-            <XMarkIcon className="h-3 w-3" />
+            <XMarkIcon className="h-5 w-5 text-white" />
           </button>
           <h3 className="text-lg font-semibold mb-1">Exclusive Offer!</h3>
           <p className="text-sm opacity-90">
