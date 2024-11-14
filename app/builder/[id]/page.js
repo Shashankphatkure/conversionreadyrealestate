@@ -55,7 +55,6 @@ export default function BuilderPage({ params }) {
             configurations,
             price,
             image,
-            link,
             overview,
             price_details,
             description,

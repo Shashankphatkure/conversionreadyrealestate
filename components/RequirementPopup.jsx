@@ -58,12 +58,12 @@ export default function RequirementPopup() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl max-w-3xl w-full relative overflow-hidden shadow-2xl animate-fadeIn">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 sm:p-4">
+      <div className="bg-white rounded-xl max-w-3xl w-full relative overflow-hidden shadow-2xl animate-fadeIn max-h-[90vh] overflow-y-auto m-2 sm:m-0">
         {/* Close Button */}
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute right-4 top-4 z-10 bg-white/80 rounded-full p-1 hover:bg-white transition-all duration-300 shadow-md"
+          className="absolute right-2 top-2 z-10 bg-white/80 rounded-full p-1 hover:bg-white transition-all duration-300 shadow-md sm:right-4 sm:top-4"
           aria-label="Close popup"
         >
           <svg
@@ -83,9 +83,9 @@ export default function RequirementPopup() {
         </button>
 
         <div className="flex flex-col md:flex-row">
-          {/* Left Section with Image */}
-          <div className="w-full md:w-1/2 bg-gradient-to-br from-blue-50 to-orange-50 p-6 relative">
-            <div className="absolute top-4 left-4 bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-medium">
+          {/* Left Section with Image - Hidden on mobile */}
+          <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-blue-50 to-orange-50 p-3 sm:p-6 relative">
+            <div className="absolute top-2 left-2 bg-orange-100 text-orange-600 px-3 py-0.5 rounded-full text-xs sm:text-sm font-medium sm:top-4 sm:left-4 sm:px-4 sm:py-1">
               Free Service
             </div>
             <Image
@@ -93,7 +93,7 @@ export default function RequirementPopup() {
               alt="Free Pickup Service"
               width={400}
               height={400}
-              className="w-full h-auto object-contain mt-6"
+              className="w-full h-auto object-contain mt-8 sm:mt-6 max-h-[200px] sm:max-h-none"
             />
             <div className="mt-6 space-y-4">
               <h3 className="text-lg font-semibold text-gray-800">
@@ -152,9 +152,9 @@ export default function RequirementPopup() {
             </div>
           </div>
 
-          {/* Right Section with Form */}
-          <div className="w-full md:w-1/2 p-6">
-            <div className="text-center mb-4">
+          {/* Right Section with Form - Full width on mobile */}
+          <div className="w-full md:w-1/2 p-6 sm:p-6">
+            <div className="text-center mb-2 sm:mb-4">
               <h2 className="text-md font-bold text-gray-800">
                 Submit Your Requirement
               </h2>
@@ -164,7 +164,7 @@ export default function RequirementPopup() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-1">
+            <form onSubmit={handleSubmit} className="space-y-1 sm:space-y-2">
               <div className="space-y-0.5">
                 <label className="text-sm font-medium text-gray-700">
                   Name *
@@ -176,7 +176,7 @@ export default function RequirementPopup() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
+                  className="w-full p-1.5 sm:p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
                   placeholder="Enter your name"
                 />
               </div>
@@ -192,7 +192,7 @@ export default function RequirementPopup() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
+                  className="w-full p-1.5 sm:p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
                   placeholder="Enter your email"
                 />
               </div>
@@ -212,7 +212,7 @@ export default function RequirementPopup() {
                     onChange={(e) =>
                       setFormData({ ...formData, mobile: e.target.value })
                     }
-                    className="w-full p-2.5 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
+                    className="w-full p-1.5 sm:p-2.5 border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
                     placeholder="Enter your mobile number"
                   />
                 </div>
@@ -228,15 +228,15 @@ export default function RequirementPopup() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  rows="4"
-                  className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
+                  rows="3"
+                  className="w-full p-1.5 sm:p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
                   placeholder="Tell us about your requirement"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-orange-500 text-white py-2.5 rounded-lg font-medium hover:bg-orange-600 transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="w-full bg-orange-500 text-white py-2 sm:py-2.5 rounded-lg font-medium hover:bg-orange-600 transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Submit Requirement
               </button>
