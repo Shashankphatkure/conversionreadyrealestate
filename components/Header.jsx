@@ -64,8 +64,14 @@ export default function Header() {
 
               <li>
                 <a
-                  href="/search"
+                  href="#properties"
                   className="block py-2 lg:py-0 px-4 text-black lg:text-white font-bold hover:text-opacity-80"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById("properties")
+                      .scrollIntoView({ behavior: "smooth" });
+                  }}
                 >
                   Properties
                 </a>

@@ -86,7 +86,7 @@ export default function Properties({ properties }) {
   };
 
   return (
-    <div className="properties-slider">
+    <div id="properties" className="properties-slider">
       <Slider {...settings}>
         {properties.map((property, index) => (
           <PropertyCard key={index} property={property} />
