@@ -33,7 +33,7 @@ export default function HomeContent({ properties }) {
       </div>
 
       <h1 className="text-2xl md:text-3xl font-bold mt-8 mb-4 text-center px-4">
-        New Launch Projects in Mumbai
+        Newly Launched Projects
       </h1>
       <div className="w-16 h-1 bg-red-500 mx-auto mb-4"></div>
       <div className="px-4 md:px-20">
