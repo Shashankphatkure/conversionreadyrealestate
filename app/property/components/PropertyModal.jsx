@@ -1,7 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import "./PropertyModal.css";
+import PropertyPopup from "./PropertyPopup";
 
 export default function PropertyModal({ property }) {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const triggerPopup = () => {
+    setShowPopup(false);
+    setTimeout(() => setShowPopup(true), 0);
+  };
+
   if (!property) return null;
 
   const {
@@ -84,9 +94,14 @@ export default function PropertyModal({ property }) {
           <b>Book Online Presentation Today!</b>
         </p>
       </span>
-      <button className="btn-cgc info-8ch form-4fj eff-rbw eff-1ot">
+      <button
+        className="btn-cgc info-8ch form-4fj eff-rbw eff-1ot"
+        onClick={triggerPopup}
+      >
         Enquire Now
       </button>
+
+      <PropertyPopup property={property} trigger={showPopup} />
     </div>
   );
 }

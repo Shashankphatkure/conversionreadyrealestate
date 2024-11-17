@@ -1,11 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import "./PropertySiteTour.css";
+import PropertyPopup from "./PropertyPopup";
 
 export default function PropertySiteTour({ property }) {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const triggerPopup = (e) => {
+    e.preventDefault();
+    setShowPopup(false);
+    setTimeout(() => setShowPopup(true), 0);
+  };
+
   return (
     <section id="sitevisit" className="section-lw2 shadow-pfo">
       <span />
       <span className="hea-6e1 text-vx6 pr-5">Virtual Site Tour</span>
-      <a href="#">
+      <a onClick={triggerPopup} style={{ cursor: "pointer" }}>
         <div className="my-e8o pt-md-mdk">
           <div className="at-property-sjq vsv-jgs">
             <picture>
@@ -31,6 +43,8 @@ export default function PropertySiteTour({ property }) {
           </span>
         </div>
       </a>
+
+      <PropertyPopup property={property} trigger={showPopup} />
     </section>
   );
 }
