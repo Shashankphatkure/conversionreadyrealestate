@@ -142,49 +142,33 @@ export default function BuilderPage({ params }) {
       </div>
 
       {/* Main Content Container */}
-      <div className="container mx-auto px-4 md:px-8 lg:px-20">
+      <div className="container px-4 md:px-8 lg:px-20">
         {/* Builder Profile Section */}
         <div className="my-8 md:my-12">
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-6 md:p-8 lg:p-10">
-              <div className="flex flex-col md:flex-row gap-8">
-                <div className="w-full md:w-48 h-48 mx-auto md:mx-0">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-gray-900/10 to-transparent"></div>
+              <div className="h-24 bg-gray-50"></div>
+            </div>
+            <div className=" md:p-10 lg:p-12">
+              <div className="flex flex-col md:flex-row gap-10 -mt-24 relative">
+                <div className="w-48 h-48 flex-shrink-0 mx-auto md:mx-0">
                   <img
                     src={builder.logo || "/default-builder-logo.png"}
                     alt={builder.name}
-                    className="w-full h-full object-contain rounded-lg"
+                    className="w-full h-full object-contain rounded-xl shadow-lg bg-white p-4 border-2 border-gray-50"
                   />
                 </div>
-                <div className="flex-grow">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                    {builder.name}
-                  </h1>
-                  <p className="text-gray-600 leading-relaxed mb-8">
+                <div className="flex-1 space-y-6">
+                  <div>
+                    <h1 className="text-4xl font-bold text-gray-900 mb-3 text-center md:text-left">
+                      {builder.name}
+                    </h1>
+                    <div className="w-20 h-1 bg-red-500 mb-6 hidden md:block"></div>
+                  </div>
+                  <p className="text-gray-600 leading-relaxed text-center md:text-left text-lg">
                     {builder.description}
                   </p>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
-                    {[
-                      { label: "Established", value: builder.established_year },
-                      {
-                        label: "Total Projects",
-                        value: builder.properties?.count || 0,
-                      },
-                      { label: "Headquarters", value: builder.headquarters },
-                      { label: "Contact", value: builder.contact_phone },
-                    ].map((stat) => (
-                      <div
-                        key={stat.label}
-                        className="bg-gray-50 p-4 rounded-lg text-center hover:bg-gray-100 transition-colors"
-                      >
-                        <p className="text-gray-600 text-sm mb-1">
-                          {stat.label}
-                        </p>
-                        <p className="text-xl font-semibold text-gray-900">
-                          {stat.value || "N/A"}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
