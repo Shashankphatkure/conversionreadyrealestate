@@ -26,8 +26,8 @@ export default function HomeContent({ properties }) {
         <HeaderSearch />
       </div>
 
-      <div className="pt-[200px]">
-        <div className="p-4 md:p-20">
+      <div>
+        <div>
           <Welcome />
         </div>
 
