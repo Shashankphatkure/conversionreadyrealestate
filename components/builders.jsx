@@ -5,8 +5,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { BuildingOfficeIcon } from "@heroicons/react/24/solid";
 import { supabase } from "@/utils/supabase";
+import BuilderPopup from "@/components/BuilderPopup";
 
-const BuilderCard = ({ builder }) => {
+const BuilderCard = ({ builder, setIsOpen }) => {
   if (!builder) return null;
 
   const { id, name, logo, total_projects } = builder;
@@ -15,7 +16,7 @@ const BuilderCard = ({ builder }) => {
     <div className="item-cim">
       <div className="item-5t2">
         <div className="pro-oph">
-          <a href={`/builder/${id}`} className="block">
+          <div onClick={() => setIsOpen(true)} className="block cursor-pointer">
             <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
               <div className="relative h-32 flex items-center justify-center mb-4">
                 <img
@@ -39,7 +40,7 @@ const BuilderCard = ({ builder }) => {
                 </p>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -50,6 +51,7 @@ const Builders = () => {
   const [builders, setBuilders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetchBuilders();
@@ -61,7 +63,8 @@ const Builders = () => {
         .from("builders")
         .select("*")
         .order("name")
-        .eq("featured", true); // Only fetch featured builders
+        .eq("featured", true);
+      // Only fetch featured builders
 
       if (error) {
         throw error;
@@ -136,6 +139,7 @@ const Builders = () => {
 
   return (
     <div className="content-5j6" style={{ paddingTop: "0px" }}>
+      <BuilderPopup isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="content-dq6">
         <div className="tab-1cs act-447">
           <div>
@@ -144,7 +148,11 @@ const Builders = () => {
                 <div className="builders-slider">
                   <Slider {...settings}>
                     {builders.map((builder) => (
-                      <BuilderCard key={builder.id} builder={builder} />
+                      <BuilderCard
+                        key={builder.id}
+                        builder={builder}
+                        setIsOpen={setIsOpen}
+                      />
                     ))}
                   </Slider>
                 </div>

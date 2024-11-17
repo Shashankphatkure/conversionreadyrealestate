@@ -6,9 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 import "./localities.css";
 import { supabase } from "@/utils/supabase";
 import { MapPinIcon, BuildingOfficeIcon } from "@heroicons/react/24/solid";
+import LocalityPopup from "./LocalityPopup";
 
 // Separate LocalityCard component with prop types
-const LocalityCard = ({ locality }) => {
+const LocalityCard = ({ locality, setIsOpen }) => {
   if (!locality) return null;
 
   const { id, name, image, properties } = locality;
@@ -17,7 +18,7 @@ const LocalityCard = ({ locality }) => {
     <div className="item-cim">
       <div className="item-5t2">
         <div className="pro-oph">
-          <a href={`/localitylistings/${id}`}>
+          <div onClick={() => setIsOpen(true)} className="cursor-pointer">
             <div className="pt-noq">
               <img
                 src={image}
@@ -40,7 +41,7 @@ const LocalityCard = ({ locality }) => {
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -51,6 +52,7 @@ const Localities = () => {
   const [localities, setLocalities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchLocalities = async () => {
@@ -128,6 +130,7 @@ const Localities = () => {
 
   return (
     <div className="content-5j6" style={{ paddingTop: "0px" }}>
+      <LocalityPopup isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="content-dq6">
         <div className="tab-1cs act-447">
           <div>
@@ -136,7 +139,11 @@ const Localities = () => {
                 <div className="localities-slider">
                   <Slider {...settings}>
                     {localities.map((locality) => (
-                      <LocalityCard key={locality.id} locality={locality} />
+                      <LocalityCard
+                        key={locality.id}
+                        locality={locality}
+                        setIsOpen={setIsOpen}
+                      />
                     ))}
                   </Slider>
                 </div>
