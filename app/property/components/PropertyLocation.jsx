@@ -1,7 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import "./PropertyLocation.css";
 import { MapPinIcon } from "@heroicons/react/24/solid";
+import PropertyPopup from "./PropertyPopup";
 
 export default function PropertyLocation({ property }) {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const triggerPopup = (e) => {
+    e.preventDefault();
+    setShowPopup(false);
+    setTimeout(() => setShowPopup(true), 0);
+  };
+
   // Helper function to format nearby places with time
   const formatNearbyPlaces = () => {
     if (!property.location_details?.nearby) return [];
@@ -53,7 +65,11 @@ export default function PropertyLocation({ property }) {
           {property.location_details?.address && (
             <p className="mb-4">{property.location_details.address}</p>
           )}
-          <a href="#" className="text-wix">
+          <a
+            className="text-wix"
+            onClick={triggerPopup}
+            style={{ cursor: "pointer" }}
+          >
             <div className="item-sxo mb-p1y">
               <div className="at-property-beb master-gz3">
                 {property.location_details?.staticMap && (
@@ -83,6 +99,7 @@ export default function PropertyLocation({ property }) {
           </div>
         ))}
       </div>
+      <PropertyPopup property={property} trigger={showPopup} />
     </section>
   );
 }

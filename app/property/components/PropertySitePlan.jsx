@@ -1,6 +1,18 @@
-import "./PropertySitePlan.css";
+"use client";
 
-export default function PropertySitePlan() {
+import { useState } from "react";
+import "./PropertySitePlan.css";
+import PropertyPopup from "./PropertyPopup";
+
+export default function PropertySitePlan({ property }) {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const triggerPopup = (e) => {
+    e.preventDefault(); // Prevent default anchor tag behavior
+    setShowPopup(false);
+    setTimeout(() => setShowPopup(true), 0);
+  };
+
   return (
     <section id="sitefloorplan" className="section-vhg shadow-y88">
       <span className="section-ara" />
@@ -11,7 +23,7 @@ export default function PropertySitePlan() {
       >
         Master Plan
       </span>
-      <a href="#" className="text-oid">
+      <a className="text-oid" onClick={triggerPopup}>
         <div className="item-3xt mt-asz">
           <div className="at-property-etq master-5v7 text-5rz">
             <picture>
@@ -33,7 +45,7 @@ export default function PropertySitePlan() {
       </span>
       <div className="row-fx7 row-ebz row-735">
         <div className="col-gco">
-          <a href="#" className="text-oid">
+          <a className="text-oid" onClick={triggerPopup}>
             <div className="item-3xt shadow-y88 bor-5eh mt-asz">
               <div className="at-property-etq">
                 <picture>
@@ -52,7 +64,7 @@ export default function PropertySitePlan() {
           </a>
         </div>
         <div className="col-gco">
-          <a href="#" className="text-oid">
+          <a className="text-oid" onClick={triggerPopup}>
             <div className="item-3xt shadow-y88 bor-5eh mt-asz">
               <div className="at-property-etq">
                 <picture>
@@ -71,7 +83,7 @@ export default function PropertySitePlan() {
           </a>
         </div>
         <div className="col-gco">
-          <a href="#" className="text-oid">
+          <a className="text-oid" onClick={triggerPopup}>
             <div className="item-3xt shadow-y88 bor-5eh mt-asz">
               <div className="at-property-etq">
                 <picture>
@@ -90,6 +102,7 @@ export default function PropertySitePlan() {
           </a>
         </div>
       </div>
+      <PropertyPopup property={property} trigger={showPopup} />
     </section>
   );
 }
