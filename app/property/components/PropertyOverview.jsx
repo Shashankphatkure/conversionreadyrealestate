@@ -1,8 +1,13 @@
-import "./PropertyOverview.css";
+"use client";
 
+import "./PropertyOverview.css";
+import { useState } from "react";
 import { DocumentIcon } from "@heroicons/react/24/outline";
+import PropertyPopup from "./PropertyPopup";
 
 export default function PropertyOverview({ property }) {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <section id="home" className="section-nkt shadow-c1i">
       <span className="hea-njg text-56r d-8lo block-kvs pr-5">Overview</span>
@@ -24,16 +29,30 @@ export default function PropertyOverview({ property }) {
         </p>
       </div>
 
-      <button className="btn-zi3 info-jp8 form-z8s eff-byd eff-onq" href="#">
+      <button
+        className="btn-zi3 info-jp8 form-z8s eff-byd eff-onq"
+        onClick={() => {
+          setShowPopup(false);
+          setTimeout(() => setShowPopup(true), 0);
+        }}
+      >
         Read More
       </button>
 
       <center>
-        {" "}
-        <button className="btn-zi3 btn-foh info-aro btn-xr8 overflow-a2r">
+        <button
+          className="btn-zi3 btn-foh info-aro btn-xr8 overflow-a2r"
+          onClick={() => {
+            setShowPopup(false);
+            setTimeout(() => setShowPopup(true), 0);
+          }}
+        >
           <DocumentIcon className="h-5 w-5 inline-block" /> Download Brochure
-        </button>{" "}
+        </button>
       </center>
+
+      <PropertyPopup property={property} trigger={showPopup} />
+
       <span
         className="block-qo4 section-29f text-56r mt-oq8"
         style={{ textAlign: "left" }}

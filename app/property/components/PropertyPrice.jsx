@@ -1,6 +1,12 @@
+"use client";
+
 import "./PropertyPrice.css";
+import { useState } from "react";
+import PropertyPopup from "./PropertyPopup";
 
 export default function PropertyPrice({ property }) {
+  const [showPopup, setShowPopup] = useState(false);
+
   const formatPrice = (price) => {
     if (!price) return "Price on Request";
     return `₹ ${price} ${price >= 10000000 ? "Cr*" : "Lacs*"} + Onwards`;
@@ -9,6 +15,11 @@ export default function PropertyPrice({ property }) {
   const getFormattedArea = (area) => {
     if (!area) return "N/A";
     return `${area} sq.ft.`;
+  };
+
+  const triggerPopup = () => {
+    setShowPopup(false);
+    setTimeout(() => setShowPopup(true), 0);
   };
 
   return (
@@ -60,7 +71,10 @@ export default function PropertyPrice({ property }) {
                     {formatPrice(property.price_range?.["1_bhk"]?.min)}
                   </td>
                   <td>
-                    <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
+                    <button
+                      className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa"
+                      onClick={triggerPopup}
+                    >
                       Click Here
                     </button>
                   </td>
@@ -85,7 +99,10 @@ export default function PropertyPrice({ property }) {
                     {formatPrice(property.price_range?.["2_bhk"]?.min)}
                   </td>
                   <td>
-                    <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
+                    <button
+                      className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa"
+                      onClick={triggerPopup}
+                    >
                       Click Here
                     </button>
                   </td>
@@ -110,7 +127,10 @@ export default function PropertyPrice({ property }) {
                     {formatPrice(property.price_range?.["3_bhk"]?.min)}
                   </td>
                   <td>
-                    <button className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa">
+                    <button
+                      className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa"
+                      onClick={triggerPopup}
+                    >
                       Click Here
                     </button>
                   </td>
@@ -120,7 +140,11 @@ export default function PropertyPrice({ property }) {
           </table>
         </div>
         <div className="col-p53">
-          <a href="#" className="text-zmc">
+          <a
+            className="text-zmc"
+            onClick={triggerPopup}
+            style={{ cursor: "pointer" }}
+          >
             <div className="item-d4w shadow-h9n bor-pz1 mt-cqm">
               <div className="at-property-ow5">
                 <picture>
@@ -130,15 +154,19 @@ export default function PropertyPrice({ property }) {
                   />
                 </picture>
                 <div className="overlay-y7c" />
-                <span className="btn-rwp btn-b5b">Enquire Now</span>
+                <span className="btn-rwp btn-b5b" onClick={triggerPopup}>
+                  Enquire Now
+                </span>
               </div>
               <div className="at-property-jcf eff-lgs">
-                <h5>Complete Costing Details</h5>
+                <h5 style={{ cursor: "pointer" }}>Complete Costing Details</h5>
               </div>
             </div>
           </a>
         </div>
       </div>
+
+      <PropertyPopup property={property} trigger={showPopup} />
     </section>
   );
 }

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { PhoneIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
-export default function PropertyPopup({ property }) {
+export default function PropertyPopup({ property, trigger }) {
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -13,19 +13,13 @@ export default function PropertyPopup({ property }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Show popup whenever trigger becomes true
+    if (trigger) {
       setIsVisible(true);
-    }, 6000);
-
-    if (isVisible) {
-      document.body.style.overflow = "hidden";
+    } else {
+      setIsVisible(false); // Hide popup when trigger is false
     }
-
-    return () => {
-      clearTimeout(timer);
-      document.body.style.overflow = "unset";
-    };
-  }, [isVisible]);
+  }, [trigger]);
 
   const handleClose = () => {
     setIsVisible(false);
