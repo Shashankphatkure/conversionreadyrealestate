@@ -7,7 +7,7 @@ import { BuildingOfficeIcon } from "@heroicons/react/24/solid";
 import { supabase } from "@/utils/supabase";
 import BuilderPopup from "@/components/BuilderPopup";
 
-const BuilderCard = ({ builder, setIsOpen }) => {
+const BuilderCard = ({ builder, onBuilderClick }) => {
   if (!builder) return null;
 
   const { id, name, logo, total_projects } = builder;
@@ -16,7 +16,10 @@ const BuilderCard = ({ builder, setIsOpen }) => {
     <div className="item-cim">
       <div className="item-5t2">
         <div className="pro-oph">
-          <div onClick={() => setIsOpen(true)} className="block cursor-pointer">
+          <div
+            onClick={() => onBuilderClick(id)}
+            className="block cursor-pointer"
+          >
             <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
               <div className="relative h-32 flex items-center justify-center mb-4">
                 <img
@@ -52,6 +55,7 @@ const Builders = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedBuilder, setSelectedBuilder] = useState(null);
 
   useEffect(() => {
     fetchBuilders();
@@ -113,6 +117,11 @@ const Builders = () => {
     ],
   };
 
+  const handleBuilderClick = (builderId) => {
+    setSelectedBuilder(builderId);
+    setIsOpen(true);
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-48">
@@ -139,7 +148,11 @@ const Builders = () => {
 
   return (
     <div className="content-5j6" style={{ paddingTop: "0px" }}>
-      <BuilderPopup isOpen={isOpen} setIsOpen={setIsOpen} />
+      <BuilderPopup
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selectedBuilder={selectedBuilder}
+      />
       <div className="content-dq6">
         <div className="tab-1cs act-447">
           <div>
@@ -151,7 +164,7 @@ const Builders = () => {
                       <BuilderCard
                         key={builder.id}
                         builder={builder}
-                        setIsOpen={setIsOpen}
+                        onBuilderClick={handleBuilderClick}
                       />
                     ))}
                   </Slider>
