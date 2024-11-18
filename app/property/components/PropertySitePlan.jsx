@@ -102,7 +102,11 @@ export default function PropertySitePlan({ property }) {
           </a>
         </div>
       </div>
-      <PropertyPopup property={property} trigger={showPopup} />
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Send me plan details"
+      />
     </section>
   );
 }

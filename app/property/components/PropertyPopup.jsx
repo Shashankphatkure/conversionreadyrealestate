@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import { PhoneIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
-export default function PropertyPopup({ property, trigger }) {
+export default function PropertyPopup({
+  property,
+  trigger,
+  title = "Exclusive Offer!",
+}) {
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -61,10 +65,7 @@ export default function PropertyPopup({ property, trigger }) {
           >
             <XMarkIcon className="h-5 w-5 text-white" />
           </button>
-          <h3 className="text-lg font-semibold mb-1">Exclusive Offer!</h3>
-          <p className="text-sm opacity-90">
-            Get Best Deals for {property?.name}
-          </p>
+          <h3 className="text-lg font-semibold mb-1">{title}</h3>
         </div>
 
         {/* Promise List */}
@@ -85,14 +86,6 @@ export default function PropertyPopup({ property, trigger }) {
 
         {/* Form Container */}
         <div className="p-4">
-          {property?.builder?.logo && (
-            <img
-              src={property.builder.logo}
-              className="h-10 mx-auto mb-4"
-              alt={property.builder.name}
-            />
-          )}
-
           <form onSubmit={handleSubmit} className="space-y-3">
             <input
               type="text"

@@ -51,7 +51,11 @@ export default function PropertyOverview({ property }) {
         </button>
       </center>
 
-      <PropertyPopup property={property} trigger={showPopup} />
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Download Brochure"
+      />
 
       <span
         className="block-qo4 section-29f text-56r mt-oq8"

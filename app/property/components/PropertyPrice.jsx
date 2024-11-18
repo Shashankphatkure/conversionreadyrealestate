@@ -166,7 +166,11 @@ export default function PropertyPrice({ property }) {
         </div>
       </div>
 
-      <PropertyPopup property={property} trigger={showPopup} />
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Send me costing details"
+      />
     </section>
   );
 }

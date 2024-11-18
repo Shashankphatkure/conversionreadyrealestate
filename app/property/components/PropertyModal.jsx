@@ -101,7 +101,11 @@ export default function PropertyModal({ property }) {
         Enquire Now
       </button>
 
-      <PropertyPopup property={property} trigger={showPopup} />
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Mail me pricing details"
+      />
     </div>
   );
 }

@@ -44,7 +44,11 @@ export default function PropertySiteTour({ property }) {
         </div>
       </a>
 
-      <PropertyPopup property={property} trigger={showPopup} />
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Virtual Site Visit"
+      />
     </section>
   );
 }

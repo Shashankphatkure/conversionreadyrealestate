@@ -99,7 +99,11 @@ export default function PropertyLocation({ property }) {
           </div>
         ))}
       </div>
-      <PropertyPopup property={property} trigger={showPopup} />
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Send me Location Map"
+      />
     </section>
   );
 }
