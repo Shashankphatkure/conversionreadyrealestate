@@ -9,16 +9,21 @@ import { MapPinIcon, BuildingOfficeIcon } from "@heroicons/react/24/solid";
 import LocalityPopup from "./LocalityPopup";
 
 // Separate LocalityCard component with prop types
-const LocalityCard = ({ locality, setIsOpen }) => {
+const LocalityCard = ({ locality, setIsOpen, setSelectedLocality }) => {
   if (!locality) return null;
 
   const { id, name, image, properties } = locality;
+
+  const handleClick = () => {
+    setSelectedLocality(locality);
+    setIsOpen(true);
+  };
 
   return (
     <div className="item-cim">
       <div className="item-5t2">
         <div className="pro-oph">
-          <div onClick={() => setIsOpen(true)} className="cursor-pointer">
+          <div onClick={handleClick} className="cursor-pointer">
             <div className="pt-noq">
               <img
                 src={image}
@@ -53,6 +58,7 @@ const Localities = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedLocality, setSelectedLocality] = useState(null);
 
   useEffect(() => {
     const fetchLocalities = async () => {
@@ -130,7 +136,11 @@ const Localities = () => {
 
   return (
     <div className="content-5j6" style={{ paddingTop: "0px" }}>
-      <LocalityPopup isOpen={isOpen} setIsOpen={setIsOpen} />
+      <LocalityPopup
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selectedLocality={selectedLocality}
+      />
       <div className="content-dq6">
         <div className="tab-1cs act-447">
           <div>
@@ -143,6 +153,7 @@ const Localities = () => {
                         key={locality.id}
                         locality={locality}
                         setIsOpen={setIsOpen}
+                        setSelectedLocality={setSelectedLocality}
                       />
                     ))}
                   </Slider>

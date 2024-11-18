@@ -1,16 +1,41 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-export default function LocalityPopup({ isOpen, setIsOpen }) {
+export default function LocalityPopup({ isOpen, setIsOpen, selectedLocality }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
+    location: "",
     message: "",
   });
+  const [locations, setLocations] = useState([]);
   const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    async function fetchLocations() {
+      const { data, error } = await supabase
+        .from("localities")
+        .select("id, name")
+        .order("name");
+
+      if (!error) {
+        setLocations(data);
+      }
+    }
+    fetchLocations();
+  }, [supabase]);
+
+  useEffect(() => {
+    if (selectedLocality) {
+      setFormData((prev) => ({
+        ...prev,
+        location: selectedLocality.name,
+      }));
+    }
+  }, [selectedLocality]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +46,7 @@ export default function LocalityPopup({ isOpen, setIsOpen }) {
           name: formData.name,
           email: formData.email,
           phone: formData.mobile,
+          location: formData.location,
           notes: formData.message,
           source: "popup_form",
           // Status will default to 'NEW' as per table definition
@@ -34,6 +60,7 @@ export default function LocalityPopup({ isOpen, setIsOpen }) {
         name: "",
         email: "",
         mobile: "",
+        location: "",
         message: "",
       });
       setIsOpen(false);
@@ -174,22 +201,6 @@ export default function LocalityPopup({ isOpen, setIsOpen }) {
                 />
               </div>
 
-              <div className="space-y-0.5">
-                <label className="text-sm font-medium text-gray-700">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="w-full p-1.5 sm:p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
-                  placeholder="Enter your email"
-                />
-              </div>
-
               <div className="space-y-1">
                 <label className="text-sm font-medium text-gray-700">
                   Mobile *
@@ -211,9 +222,52 @@ export default function LocalityPopup({ isOpen, setIsOpen }) {
                 </div>
               </div>
 
+              <div className="space-y-0.5">
+                <label className="text-sm font-medium text-gray-700">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full p-1.5 sm:p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div className="space-y-0.5">
+                <label className="text-sm font-medium text-gray-700">
+                  Location *
+                </label>
+                <select
+                  required
+                  value={formData.location}
+                  onChange={(e) =>
+                    setFormData({ ...formData, location: e.target.value })
+                  }
+                  className="w-full p-1.5 sm:p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300"
+                >
+                  <option value="">Select a location</option>
+                  {locations.map((loc) => (
+                    <option
+                      key={loc.id}
+                      value={loc.name}
+                      selected={
+                        selectedLocality && selectedLocality.name === loc.name
+                      }
+                    >
+                      {loc.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="space-y-1">
                 <label className="text-sm font-medium text-gray-700">
-                  Message *
+                  Explain briefly about your requirements *
                 </label>
                 <textarea
                   required
