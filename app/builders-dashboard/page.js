@@ -128,6 +128,52 @@ const BuilderForm = ({ builder, setBuilder, onSubmit, onCancel, title }) => {
           </div>
         </div>
 
+        {/* Locations */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Locations</h3>
+          <div className="space-y-4">
+            {builder.locations.map((location, index) => (
+              <div key={index} className="flex gap-2">
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(e) => {
+                    const newLocations = [...builder.locations];
+                    newLocations[index] = e.target.value;
+                    setBuilder({ ...builder, locations: newLocations });
+                  }}
+                  className="flex-1 border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter location"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newLocations = builder.locations.filter(
+                      (_, i) => i !== index
+                    );
+                    setBuilder({ ...builder, locations: newLocations });
+                  }}
+                  className="text-red-600 hover:text-red-800 px-2"
+                >
+                  <FiTrash2 />
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                setBuilder({
+                  ...builder,
+                  locations: [...builder.locations, ""],
+                });
+              }}
+              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+            >
+              <FiPlus /> Add Location
+            </button>
+          </div>
+        </div>
+
         {/* Add Featured Toggle */}
         <div className="col-span-2">
           <div className="flex items-center gap-2">
@@ -189,6 +235,7 @@ export default function BuildersDashboard() {
     established_year: "",
     total_projects: 0,
     featured: false,
+    locations: [],
   };
 
   const [newBuilder, setNewBuilder] = useState(initialBuilderState);
@@ -352,6 +399,9 @@ export default function BuildersDashboard() {
                     Projects
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Locations
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Featured
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -381,6 +431,13 @@ export default function BuildersDashboard() {
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-900">
                         {builder.total_projects} Projects
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-900">
+                        {builder.locations?.length > 0
+                          ? builder.locations.join(", ")
+                          : "No locations"}
                       </div>
                     </td>
                     <td className="px-6 py-4">
