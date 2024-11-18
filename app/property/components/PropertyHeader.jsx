@@ -17,7 +17,10 @@ export default function PropertyHeader({ property }) {
     <nav className="navbar-t4w navbar-kqe navbar-ele bg-7pn navbar-5sv">
       <a className="navbar-brand-hol" href="#home">
         <img
-          src={property.logo || "/default-logo.png"}
+          src={
+            property.logo ||
+            "https://newprojectsonline.com/assets/uploads/logos/1719552634-logo1.png"
+          }
           className="h-12 w-auto"
           alt={`${property.name} Logo`}
         />
