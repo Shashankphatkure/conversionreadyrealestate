@@ -65,7 +65,7 @@ export default function PropertyPopup({
           >
             <XMarkIcon className="h-5 w-5 text-white" />
           </button>
-          <h3 className="text-lg font-semibold mb-1">{title}</h3>
+          <p className="text-xl font-semibold mb-1">{title}</p>
         </div>
 
         {/* Promise List */}
