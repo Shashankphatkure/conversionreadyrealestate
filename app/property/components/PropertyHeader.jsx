@@ -12,14 +12,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./PropertyHeader.css";
 
-export default function PropertyHeader() {
+export default function PropertyHeader({ property }) {
   return (
     <nav className="navbar-t4w navbar-kqe navbar-ele bg-7pn navbar-5sv">
       <a className="navbar-brand-hol" href="#home">
         <img
-          src="https://newprojectsonline.com/assets/uploads/logos/1719552634-logo1.png"
-          className="logo-2nm"
-          alt="Logo"
+          src={property.logo || "/default-logo.png"}
+          className="h-12 w-auto"
+          alt={`${property.name} Logo`}
         />
       </a>
       <button className="navbar-nzs" type="button">

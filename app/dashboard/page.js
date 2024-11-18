@@ -57,6 +57,7 @@ const PropertyForm = ({
   localities,
 }) => {
   const mainImageRef = useRef(null);
+  const logoImageRef = useRef(null);
   const galleryRefs = {
     exterior: useRef(null),
     interior: useRef(null),
@@ -99,6 +100,22 @@ const PropertyForm = ({
     }
   };
 
+  const handleLogoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        const publicUrl = await uploadImage(file, "logos");
+        setProperty({
+          ...property,
+          logo: publicUrl,
+        });
+        toast.success("Logo uploaded successfully");
+      } catch (error) {
+        toast.error("Error uploading logo");
+      }
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -108,6 +125,45 @@ const PropertyForm = ({
             Basic Information
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Add Logo Upload Field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Property Logo
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="url"
+                  value={property.logo}
+                  onChange={(e) =>
+                    setProperty({ ...property, logo: e.target.value })
+                  }
+                  className="flex-1 border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Logo URL"
+                />
+                <input
+                  type="file"
+                  ref={logoImageRef}
+                  onChange={handleLogoUpload}
+                  accept="image/*"
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => logoImageRef.current?.click()}
+                  className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
+                >
+                  Upload
+                </button>
+              </div>
+              {property.logo && (
+                <img
+                  src={property.logo}
+                  alt="Property Logo"
+                  className="mt-2 h-16 w-16 object-contain"
+                />
+              )}
+            </div>
+
             {/* Add Builder Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -757,6 +813,7 @@ export default function Dashboard() {
   const initialPropertyState = {
     name: "",
     image: "",
+    logo: "",
     location: "",
     type: "residential",
     status: "UNDER_CONSTRUCTION",
@@ -1247,6 +1304,7 @@ export default function Dashboard() {
                 <thead className="bg-gray-50">
                   <tr>
                     {[
+                      "Logo",
                       "Image",
                       "Name",
                       "Location",
@@ -1268,6 +1326,13 @@ export default function Dashboard() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {sortedAndFilteredProperties.map((property) => (
                     <tr key={property.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <img
+                          src={property.logo || "/placeholder-logo.png"}
+                          alt={`${property.name} Logo`}
+                          className="w-12 h-12 rounded-lg object-contain"
+                        />
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <img
                           src={property.image || "/placeholder.png"}
