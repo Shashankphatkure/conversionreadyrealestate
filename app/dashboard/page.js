@@ -526,7 +526,7 @@ const PropertyForm = ({
           <h3 className="text-lg font-medium text-gray-900 mb-4">
             Price Range
           </h3>
-          {["1_bhk", "2_bhk", "3_bhk"].map((bhk) => (
+          {["1_bhk", "2_bhk", "3_bhk", "4_bhk", "5_bhk"].map((bhk) => (
             <div key={bhk} className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -548,6 +548,7 @@ const PropertyForm = ({
                     })
                   }
                   className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter minimum price"
                 />
               </div>
               <div>
@@ -570,6 +571,7 @@ const PropertyForm = ({
                     })
                   }
                   className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter maximum price"
                 />
               </div>
             </div>
@@ -856,6 +858,8 @@ export default function Dashboard() {
       "1_bhk": { min: "", max: "" },
       "2_bhk": { min: "", max: "" },
       "3_bhk": { min: "", max: "" },
+      "4_bhk": { min: "", max: "" },
+      "5_bhk": { min: "", max: "" },
     },
     builder: "",
     locality: "",
@@ -1001,6 +1005,14 @@ export default function Dashboard() {
           min: newProperty.price_range?.["3_bhk"]?.min || null,
           max: newProperty.price_range?.["3_bhk"]?.max || null,
         },
+        "4_bhk": {
+          min: newProperty.price_range?.["4_bhk"]?.min || null,
+          max: newProperty.price_range?.["4_bhk"]?.max || null,
+        },
+        "5_bhk": {
+          min: newProperty.price_range?.["5_bhk"]?.min || null,
+          max: newProperty.price_range?.["5_bhk"]?.max || null,
+        },
       },
       builder: newProperty.builder || null,
       locality: newProperty.locality || null,
@@ -1138,6 +1150,14 @@ export default function Dashboard() {
         "3_bhk": {
           min: editingProperty.price_range?.["3_bhk"]?.min || null,
           max: editingProperty.price_range?.["3_bhk"]?.max || null,
+        },
+        "4_bhk": {
+          min: editingProperty.price_range?.["4_bhk"]?.min || null,
+          max: editingProperty.price_range?.["4_bhk"]?.max || null,
+        },
+        "5_bhk": {
+          min: editingProperty.price_range?.["5_bhk"]?.min || null,
+          max: editingProperty.price_range?.["5_bhk"]?.max || null,
         },
       },
       builder: editingProperty.builder || null,
