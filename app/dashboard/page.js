@@ -387,89 +387,85 @@ const PropertyForm = ({
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Amenities
               </label>
-              <select
-                multiple
-                value={property.amenities || []}
-                onChange={(e) => {
-                  const selectedAmenities = Array.from(
-                    e.target.selectedOptions
-                  ).map((option) => option.value);
-                  setProperty({
-                    ...property,
-                    amenities: selectedAmenities,
-                  });
-                }}
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500 h-48"
-              >
-                <option value="24/7 Security">24/7 Security</option>
-                <option value="Swimming Pool">Swimming Pool</option>
-                <option value="Gym">Gym</option>
-                <option value="Kids Play Area">Kids Play Area</option>
-                <option value="Clubhouse">Clubhouse</option>
-                <option value="Indoor Games">Indoor Games</option>
-                <option value="Yoga/Meditation Area">
-                  Yoga/Meditation Area
-                </option>
-                <option value="Jogging Track">Jogging Track</option>
-                <option value="Landscaped Gardens">Landscaped Gardens</option>
-                <option value="Basketball Court">Basketball Court</option>
-                <option value="Tennis Court">Tennis Court</option>
-                <option value="Badminton Court">Badminton Court</option>
-                <option value="Cricket Pitch">Cricket Pitch</option>
-                <option value="Amphitheatre">Amphitheatre</option>
-                <option value="Banquet Hall">Banquet Hall</option>
-                <option value="Library">Library</option>
-                <option value="Senior Citizen Area">Senior Citizen Area</option>
-                <option value="BBQ Area">BBQ Area</option>
-                <option value="Party Lawn">Party Lawn</option>
-                <option value="Cycling Track">Cycling Track</option>
-                <option value="Car Parking">Car Parking</option>
-                <option value="Visitor Parking">Visitor Parking</option>
-                <option value="Power Backup">Power Backup</option>
-                <option value="Rain Water Harvesting">
-                  Rain Water Harvesting
-                </option>
-                <option value="Fire Fighting System">
-                  Fire Fighting System
-                </option>
-                <option value="CCTV Surveillance">CCTV Surveillance</option>
-                <option value="Intercom">Intercom</option>
-                <option value="Wi-Fi Connectivity">Wi-Fi Connectivity</option>
-                <option value="Shopping Complex">Shopping Complex</option>
-                <option value="ATM">ATM</option>
-                <option value="Pharmacy">Pharmacy</option>
-                <option value="Supermarket">Supermarket</option>
-                <option value="School Within Campus">
-                  School Within Campus
-                </option>
-                <option value="Hospital Within Campus">
-                  Hospital Within Campus
-                </option>
-                <option value="Spa">Spa</option>
-                <option value="Salon">Salon</option>
-                <option value="Cafe">Cafe</option>
-                <option value="Restaurant">Restaurant</option>
-                <option value="Movie Theatre">Movie Theatre</option>
-                <option value="Pet Area">Pet Area</option>
-                <option value="Guest Rooms">Guest Rooms</option>
-                <option value="Laundry Service">Laundry Service</option>
-                <option value="Valet Service">Valet Service</option>
-                <option value="Electric Car Charging">
-                  Electric Car Charging
-                </option>
-                <option value="Waste Management">Waste Management</option>
-                <option value="Solar Power">Solar Power</option>
-                <option value="Sewage Treatment Plant">
-                  Sewage Treatment Plant
-                </option>
-                <option value="Meditation Hall">Meditation Hall</option>
-                <option value="Rock Climbing">Rock Climbing</option>
-                <option value="Skating Rink">Skating Rink</option>
-                <option value="Golf Course">Golf Course</option>
-              </select>
-              <p className="text-sm text-gray-500 mt-1">
-                Hold Ctrl/Cmd to select multiple amenities
-              </p>
+              <div className="space-y-3">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Add amenities (separate with commas)..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        const newAmenities = e.target.value
+                          .split(",")
+                          .map((item) => item.trim())
+                          .filter((item) => item.length > 0);
+
+                        if (newAmenities.length > 0) {
+                          setProperty({
+                            ...property,
+                            amenities: [
+                              ...(property.amenities || []),
+                              ...newAmenities,
+                            ],
+                          });
+                          e.target.value = "";
+                        }
+                      }
+                    }}
+                    className="flex-1 border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      const input = e.target.previousSibling;
+                      const newAmenities = input.value
+                        .split(",")
+                        .map((item) => item.trim())
+                        .filter((item) => item.length > 0);
+
+                      if (newAmenities.length > 0) {
+                        setProperty({
+                          ...property,
+                          amenities: [
+                            ...(property.amenities || []),
+                            ...newAmenities,
+                          ],
+                        });
+                        input.value = "";
+                      }
+                    }}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                {/* Display added amenities */}
+                <div className="flex flex-wrap gap-2">
+                  {property.amenities?.map((amenity, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full"
+                    >
+                      <span className="text-sm">{amenity}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProperty({
+                            ...property,
+                            amenities: property.amenities.filter(
+                              (_, i) => i !== index
+                            ),
+                          });
+                        }}
+                        className="text-gray-500 hover:text-red-500"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
