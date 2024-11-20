@@ -8,7 +8,6 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
     name: "",
     contact: "",
     configuration: "",
-    budget: "",
     location: "",
     remarks: "",
   });
@@ -54,7 +53,6 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
           name: formData.name,
           phone: formData.contact,
           property_type: formData.configuration,
-          budget_range: formData.budget,
           location: formData.location,
           notes: formData.remarks,
           source: "popup_form",
@@ -67,7 +65,6 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
         name: "",
         contact: "",
         configuration: "",
-        budget: "",
         location: "",
         remarks: "",
       });
@@ -81,15 +78,15 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
 
   return (
     <div
-      className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 ${
+      className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-2 ${
         isOpen ? "" : "hidden"
       }`}
     >
-      <div className="bg-white rounded-xl max-w-3xl w-full relative overflow-hidden shadow-2xl">
+      <div className="bg-white rounded-lg w-full max-w-md relative overflow-hidden shadow-2xl">
         {/* Close Button */}
         <button
           onClick={() => setIsOpen(false)}
-          className="absolute right-2 top-2 z-10 bg-white/80 rounded-full p-1 hover:bg-white transition-all duration-300 shadow-md sm:right-4 sm:top-4"
+          className="absolute right-2 top-2 z-10 bg-white/80 rounded-full p-1 hover:bg-white transition-all duration-300 shadow-md"
           aria-label="Close popup"
         >
           <svg
@@ -108,14 +105,14 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
           </svg>
         </button>
 
-        <div className="p-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">
+        <div className="p-4">
+          <h2 className="text-lg font-bold text-gray-800 mb-3">
             Submit Your Requirement
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs font-medium text-gray-700">
                 Name *
               </label>
               <input
@@ -125,12 +122,12 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                className="w-full p-2 border border-gray-300 rounded-lg"
+                className="w-full p-1.5 text-sm border border-gray-300 rounded-lg"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs font-medium text-gray-700">
                 Contact *
               </label>
               <input
@@ -146,7 +143,7 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
                       : "Please enter a valid 10-digit phone number"
                   );
                 }}
-                className={`w-full p-2 border ${
+                className={`w-full p-1.5 text-sm border ${
                   phoneError ? "border-red-500" : "border-gray-300"
                 } rounded-lg`}
                 maxLength="10"
@@ -157,7 +154,7 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs font-medium text-gray-700">
                 Configuration *
               </label>
               <select
@@ -166,7 +163,7 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
                 onChange={(e) =>
                   setFormData({ ...formData, configuration: e.target.value })
                 }
-                className="w-full p-2 border border-gray-300 rounded-lg"
+                className="w-full p-1.5 text-sm border border-gray-300 rounded-lg"
               >
                 <option value="">Select Configuration</option>
                 <option value="1BHK">1 BHK</option>
@@ -177,28 +174,7 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
-                Budget Range *
-              </label>
-              <select
-                required
-                value={formData.budget}
-                onChange={(e) =>
-                  setFormData({ ...formData, budget: e.target.value })
-                }
-                className="w-full p-2 border border-gray-300 rounded-lg"
-              >
-                <option value="">Select Budget Range</option>
-                <option value="20-30L">20-30 Lakhs</option>
-                <option value="30-40L">30-40 Lakhs</option>
-                <option value="40-50L">40-50 Lakhs</option>
-                <option value="50-60L">50-60 Lakhs</option>
-                <option value="60L+">Above 60 Lakhs</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs font-medium text-gray-700">
                 Location *
               </label>
               <select
@@ -207,7 +183,7 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
                 onChange={(e) =>
                   setFormData({ ...formData, location: e.target.value })
                 }
-                className="w-full p-2 border border-gray-300 rounded-lg"
+                className="w-full p-1.5 text-sm border border-gray-300 rounded-lg"
               >
                 <option value="">Select Location</option>
                 {locations.map((location, index) => (
@@ -219,7 +195,7 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-xs font-medium text-gray-700">
                 Remarks
               </label>
               <textarea
@@ -227,14 +203,14 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
                 onChange={(e) =>
                   setFormData({ ...formData, remarks: e.target.value })
                 }
-                className="w-full p-2 border border-gray-300 rounded-lg"
+                className="w-full p-1.5 text-sm border border-gray-300 rounded-lg"
                 rows="3"
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-orange-500 text-white py-2.5 rounded-lg font-medium hover:bg-orange-600"
+              className="w-full bg-orange-500 text-white py-2 rounded-lg text-sm font-medium hover:bg-orange-600"
             >
               Submit Requirement
             </button>

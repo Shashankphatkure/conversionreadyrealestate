@@ -10,11 +10,11 @@ export default function Header() {
     <header className="absolute z-10 left-0 top-10 w-full  bg-opacity-30 bg-black py-4">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <div className="logo">
+          {/* <div className="logo">
             <a href="/">
               <img src="/logo.png" width={50} height={50} alt="Logo" />
             </a>
-          </div>
+          </div> */}
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
