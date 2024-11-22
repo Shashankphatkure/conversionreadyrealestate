@@ -1,0 +1,795 @@
+@font-face {
+  font-family: micon;
+  src: url(https://newprojectsonline.com/assets/fonts/micon.woff2);
+  src: url(https://newprojectsonline.com/assets/fonts/micon.woff2)
+      format("woff2"),
+    url(https://newprojectsonline.com/assets/fonts/micon.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  font-display: swap;
+}
+@font-face {
+  font-family: muli;
+  src: url(https://newprojectsonline.com/assets/fonts/muli-variablefont_wght-webfont.woff2)
+      format("woff2"),
+    url(https://newprojectsonline.com/assets/fonts/muli-variablefont_wght-webfont.woff)
+      format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: roboto;
+  src: url(https://newprojectsonline.com/assets/fonts/roboto-regular-webfont.woff2)
+      format("woff2"),
+    url(https://newprojectsonline.com/assets/fonts/roboto-regular-webfont.woff)
+      format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 1.12vw;
+    letter-spacing: 0.02vw;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+
+body {
+  font-family: muli, Helvetica, Arial, sans-serif;
+  background-color: #dbe4e9;
+  overflow-y: scroll;
+  position: relative;
+}
+
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 1.12vw;
+    letter-spacing: 0.02vw;
+  }
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --colorPrimary: #ba8d4a;
+  --colorBtn: #ffffff;
+}
+
+nav {
+  display: block;
+}
+
+.navbar-t4w {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+@media (min-width: 992px) {
+  .navbar-kqe {
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+}
+
+.bg-7pn {
+  background-color: #fff !important;
+}
+
+.navbar-t4w {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.bg-7pn {
+  background-color: #fff !important;
+}
+
+.navbar-5sv {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  font-family: roboto, Helvetica, Arial, sans-serif;
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar-t4w.navbar-5sv {
+    padding: 0;
+  }
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.navbar-brand-hol {
+  display: inline-block;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+}
+
+.navbar-brand-hol {
+  display: inline-block;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar-brand-hol {
+    padding: 0 0.2rem;
+    margin: 0 auto;
+  }
+}
+
+.navbar-ele .navbar-brand-hol {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar-ele .navbar-brand-hol {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.navbar-brand-hol:hover {
+  text-decoration: none;
+}
+
+.navbar-ele .navbar-brand-hol:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar-ele .navbar-brand-hol:focus,
+.navbar-ele .navbar-brand-hol:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+button {
+  border-radius: 0;
+}
+
+button {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  overflow: visible;
+}
+
+button {
+  text-transform: none;
+}
+
+[type="button"],
+button {
+  -webkit-appearance: button;
+}
+
+.navbar-nzs {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.navbar-nzs {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+[type="button"]:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .navbar-kqe .navbar-nzs {
+    display: none;
+  }
+}
+
+.navbar-ele .navbar-nzs {
+  color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.navbar-ele .navbar-nzs {
+  color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nzs:hover {
+  text-decoration: none;
+}
+
+.navbar-collapse-8nw {
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.col-or6:not(.show) {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .navbar-kqe .navbar-collapse-8nw {
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+  }
+
+  .navbar-kqe .navbar-collapse-8nw {
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+  }
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+@media only screen and (min-width: 992px) {
+  .logo-2nm {
+    max-width: 18vw;
+    height: 3.9vw;
+  }
+}
+
+.navbar-os1 {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: 50%/100% 100% no-repeat;
+}
+
+.navbar-os1 {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.navbar-ele .navbar-os1 {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.navbar-nav-vlg {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+@media (min-width: 992px) {
+  .navbar-kqe .navbar-nav-vlg {
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar-nav-vlg {
+    width: 100%;
+  }
+}
+
+.nav-vwb .nav-item-3s3 {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar-t4w.navbar-5sv .nav-item-3s3 {
+    border-right: 0.1vw solid #dbe4e9;
+  }
+
+  .navbar-t4w.navbar-5sv .nav-item-3s3:first-child {
+    border-left: 0.1vw solid #dbe4e9;
+  }
+}
+
+.overflow-bdf {
+  overflow: hidden !important;
+}
+
+.overflow-bdf {
+  overflow: hidden !important;
+}
+
+.nav-link-xai {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.nav-link-xai {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-nav-vlg .nav-link-xai {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+@media (min-width: 992px) {
+  .navbar-kqe .navbar-nav-vlg .nav-link-xai {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}
+
+.navbar-ele .navbar-nav-vlg .nav-link-xai {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 992px) {
+  .navbar-kqe .navbar-nav-vlg .nav-link-xai {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}
+
+.navbar-ele .navbar-nav-vlg .nav-link-xai {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar-t4w.navbar-5sv .nav-link-xai {
+    padding: 1.1vw 0.3vw;
+  }
+}
+
+.navbar-ele .navbar-nav-vlg .nav-link-xai.act-aef {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar-ele .navbar-nav-vlg .nav-link-xai.act-aef {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar-t4w.navbar-5sv .nav-item-3s3 .nav-link-xai {
+  color: #000;
+}
+
+.navbar-t4w.navbar-5sv .nav-item-3s3 .nav-link-xai.act-aef {
+  background-color: var(--colorPrimary);
+  color: var(--colorBtn);
+}
+
+.nav-link-xai:hover {
+  text-decoration: none;
+}
+
+.navbar-ele .navbar-nav-vlg .nav-link-xai:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.navbar-ele .navbar-nav-vlg .nav-link-xai:focus,
+.navbar-ele .navbar-nav-vlg .nav-link-xai:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.navbar-t4w.navbar-5sv .nav-item-3s3 .nav-link-xai:hover {
+  background-color: #f1f1f1;
+}
+
+.navbar-ele .navbar-nav-vlg .nav-link-xai:focus,
+.navbar-ele .navbar-nav-vlg .nav-link-xai:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.ewhem {
+  font-family: micon !important;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media only screen and (min-width: 992px) {
+  .icon-jen {
+    margin-right: 3px;
+    font-size: 1.25vw;
+  }
+}
+
+.mi-oi4:before {
+  content: "\e908";
+}
+
+@media (min-width: 576px) {
+  .d-sm-wo2 {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .d-md-oft {
+    display: none !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .d-sm-wo2 {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .d-md-oft {
+    display: none !important;
+  }
+}
+
+.mi-74p:before {
+  content: "\e90a";
+}
+
+.mi-72s:before {
+  content: "\e90b";
+}
+
+.mi-ha8:before {
+  content: "\e905";
+}
+
+.gallery-8aa:before {
+  content: "\e907";
+}
+
+.mi-div:before {
+  content: "\e909";
+}
+
+.mi-it3:before {
+  content: "\e90c";
+}
+
+.block-gvw {
+  display: inline-block !important;
+}
+
+.block-gvw {
+  display: inline-block !important;
+}
+
+.ani-5fc {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.slide-obl {
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+}
+
+.ani-5fc.inf-q4g {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+.mi-12p:before {
+  content: "\e906";
+}
+
+@keyframes slideInDown {
+  0% {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+    transform: translate3d(0px, -100%, 0px);
+    visibility: visible;
+  }
+  80% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+
+.custom-icon {
+  font-size: 20px !important; /* Set a fixed size of 10px */
+  width: 20px !important; /* Ensure width is also 10px */
+  height: 20px !important; /* Ensure height is also 10px */
+  vertical-align: middle;
+  margin-right: 5px; /* Keep the space between icon and text */
+}
+
+.nav-link-xai {
+  display: flex;
+  align-items: center;
+}
+
+/* Override any conflicting styles */
+.icon-jen {
+  font-size: 10px !important;
+  margin-right: 5px;
+}
+
+@media only screen and (min-width: 992px) {
+  .icon-jen {
+    font-size: 10px !important;
+    margin-right: 5px;
+  }
+}
+
+/* Ensure FontAwesome icons are also 10px */
+.fa-xs.custom-icon {
+  font-size: 10px !important;
+}
+
+/* Center the navbar items */
+.navbar-nav-vlg {
+  width: 100%;
+  justify-content: center;
+}
+
+.nav-item-3s3 {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link-xai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem 0.25rem; /* Reduce horizontal padding */
+}
+
+/* Adjust icon size and alignment */
+.custom-icon {
+  font-size: 10px !important;
+  width: 10px !important;
+  height: 10px !important;
+  vertical-align: middle;
+  margin-right: 3px; /* Reduce space between icon and text */
+}
+
+/* Ensure consistent font size for menu items */
+.nav-link-xai span {
+  font-size: 14px; /* Adjust this value as needed */
+}
+
+/* Responsive adjustments */
+@media only screen and (min-width: 992px) {
+  .navbar-nav-vlg {
+    flex-direction: row;
+  }
+
+  .nav-item-3s3 {
+    flex: 1;
+  }
+
+  .nav-link-xai {
+    padding: 0.5rem 0.1rem; /* Further reduce padding for larger screens */
+  }
+}
+
+/* Adjust the navbar to full width */
+.navbar-t4w {
+  width: 100%;
+  padding: 0;
+}
+
+/* Center the navbar items and make them cover full width */
+.navbar-nav-vlg {
+  width: 100%;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.nav-item-3s3 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link-xai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem 0.5rem;
+  width: 100%;
+}
+
+/* Increase icon size */
+.custom-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* Increase text size */
+.nav-link-xai span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media only screen and (min-width: 992px) {
+  .navbar-nav-vlg {
+    flex-direction: row;
+  }
+
+  .nav-item-3s3 {
+    border-right: 1px solid #dbe4e9;
+  }
+
+  .nav-item-3s3:first-child {
+    border-left: 1px solid #dbe4e9;
+  }
+
+  .nav-link-xai {
+    padding: 1rem 0.25rem;
+  }
+
+  .custom-icon {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .nav-link-xai span {
+    font-size: 14px;
+  }
+}
+
+/* Ensure the navbar collapse is always visible on larger screens */
+@media (min-width: 992px) {
+  .navbar-kqe .navbar-collapse-8nw {
+    display: flex !important;
+  }
+}
+
+/* Hide the toggle button on larger screens */
+@media (min-width: 992px) {
+  .navbar-nzs {
+    display: none;
+  }
+}
+
+/* Adjust logo size */
+@media only screen and (min-width: 992px) {
+  .logo-2nm {
+    max-width: 150px;
+    height: auto;
+  }
+}
+
+/* Remove any max-width constraints on the navbar */
+.navbar-t4w,
+.navbar-kqe,
+.navbar-ele,
+.navbar-5sv {
+  max-width: none;
+}
