@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 import PropertyAmenities from "../components/PropertyAmenities";
-import PropertyFAQ from "../components/PropertyFAQ";
 import PropertyFooter from "../components/PropertyFooter";
 import PropertyGallery from "../components/PropertyGallery";
 import PropertyHeader from "../components/PropertyHeader";
@@ -13,6 +12,8 @@ import PropertySiteTour from "../components/PropertySiteTour";
 import Sidebar from "../components/sidebar";
 import PropertyModal from "../components/PropertyModal";
 import PropertyPopup from "../components/PropertyPopup";
+
+export const revalidate = 0;
 
 export default async function SingleProperty({ params }) {
   // Initialize Supabase client
