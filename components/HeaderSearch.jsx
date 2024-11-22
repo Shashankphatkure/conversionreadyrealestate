@@ -23,7 +23,7 @@ export default function HeaderSearch() {
           <div className="content-zed">
             <div className="row-etd content-nj1 text-i2x flex-column">
               <div className="text-center mb-3">
-                <p style={{ color: "white", fontSize: "36px" }}>
+                <p className="text-white text-2xl md:text-3xl lg:text-4xl font-bold">
                   Find Your Dream Home With Us
                 </p>
               </div>
