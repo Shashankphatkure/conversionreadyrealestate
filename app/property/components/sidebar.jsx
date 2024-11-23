@@ -93,7 +93,7 @@ export default function Sidebar({ property }) {
       )}
 
       <form className="px-4" onSubmit={handleSubmit}>
-        <div className="mb-4">
+        <div className="mb-0">
           <input
             type="text"
             name="name"
