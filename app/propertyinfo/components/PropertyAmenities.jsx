@@ -7,6 +7,8 @@ export default function PropertyAmenities({ property }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(4);
   const [slideWidth, setSlideWidth] = useState(532);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   // Handle responsive layout
   useEffect(() => {
@@ -63,6 +65,36 @@ export default function PropertyAmenities({ property }) {
     setCurrentSlide((prev) => Math.min(maxSlides, prev + 1));
   };
 
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(distance) < minSwipeDistance) return;
+
+    if (distance > 0 && currentSlide < maxSlides) {
+      // Swiped left
+      handleNextSlide();
+    }
+
+    if (distance < 0 && currentSlide > 0) {
+      // Swiped right
+      handlePrevSlide();
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
   if (!property.amenities || property.amenities.length === 0) {
     return null;
   }
@@ -79,7 +111,12 @@ export default function PropertyAmenities({ property }) {
 
       <div className="carousel-container relative overflow-hidden">
         <div id="ami-lem" className="carousel-opg owl-is3 owl-mmz">
-          <div className="tag-2wa">
+          <div
+            className="tag-2wa"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div className="tag-hlx" style={carouselStyles}>
               {amenitiesList.map((group, groupIndex) => (
                 <div key={groupIndex} className="item-vc5" style={itemStyles}>
@@ -97,39 +134,6 @@ export default function PropertyAmenities({ property }) {
               ))}
             </div>
           </div>
-
-          {amenitiesList.length > 1 && (
-            <div className="nav-yme absolute top-1/2 -translate-y-1/2 w-full flex justify-between px-2">
-              <button
-                type="button"
-                className={`owl-k2r w-10 h-10 flex items-center justify-center rounded-full 
-                  bg-white shadow-md hover:bg-gray-50 transition-colors
-                  ${
-                    currentSlide === 0
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                onClick={handlePrevSlide}
-                disabled={currentSlide === 0}
-              >
-                <span className="text-2xl">‹</span>
-              </button>
-              <button
-                type="button"
-                className={`owl-cpr w-10 h-10 flex items-center justify-center rounded-full 
-                  bg-white shadow-md hover:bg-gray-50 transition-colors
-                  ${
-                    currentSlide === maxSlides
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                onClick={handleNextSlide}
-                disabled={currentSlide === maxSlides}
-              >
-                <span className="text-2xl">›</span>
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </section>
