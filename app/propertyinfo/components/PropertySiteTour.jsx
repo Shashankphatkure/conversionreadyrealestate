@@ -16,7 +16,7 @@ export default function PropertySiteTour({ property }) {
   return (
     <section
       id="sitevisit"
-      className="section-lw2 shadow-pfo p-4 md:p-6 lg:p-8"
+      className="section-lw2 shadow-pfo p-4 md:p-6 lg:p-8 rounded-md m-3"
     >
       <span className="hea-6e1 text-vx6 pr-5 text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">
         Virtual Site Tour

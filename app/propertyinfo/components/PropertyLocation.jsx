@@ -42,7 +42,10 @@ export default function PropertyLocation({ property }) {
   const nearbyPlaces = formatNearbyPlaces();
 
   return (
-    <section id="location" className="section-9de shadow-8vf p-4 md:p-6 lg:p-8">
+    <section
+      id="location"
+      className="section-9de shadow-8vf p-4 md:p-6 lg:p-8 rounded-md m-3"
+    >
       <span className="hea-6ig text-lxi pr-5 text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">
         Location
       </span>

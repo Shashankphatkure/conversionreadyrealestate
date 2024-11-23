@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -13,6 +15,8 @@ import {
 import "./PropertyHeader.css";
 
 export default function PropertyHeader({ property }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <nav className="navbar-t4w navbar-kqe navbar-ele bg-7pn navbar-5sv">
       <a className="navbar-brand-hol" href="#home">
@@ -25,10 +29,16 @@ export default function PropertyHeader({ property }) {
           alt={`${property.name} Logo`}
         />
       </a>
-      <button className="navbar-nzs" type="button">
+      <button
+        className="navbar-nzs"
+        type="button"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
         <span className="navbar-os1" />
       </button>
-      <div className="col-or6 navbar-collapse-8nw">
+      <div
+        className={`col-or6 navbar-collapse-8nw ${isMenuOpen ? "show" : ""}`}
+      >
         <ul className="navbar-nav-vlg nav-vwb">
           <li className="nav-item-3s3">
             <a className="nav-link-xai act-aef" href="#home">

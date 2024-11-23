@@ -50,7 +50,7 @@ export default function PropertyGallery({ property }) {
   return (
     <section
       id="gallery"
-      className="block-cfk section-n2n shadow-8ea p-4 md:p-6 lg:p-8"
+      className="block-cfk section-n2n shadow-8ea p-4 md:p-6 lg:p-8 rounded-md m-3"
     >
       <span className="section-kjw" />
       <span className="hea-zos text-d42 pr-5 text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">

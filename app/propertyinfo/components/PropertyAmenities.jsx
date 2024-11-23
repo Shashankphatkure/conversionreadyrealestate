@@ -70,7 +70,7 @@ export default function PropertyAmenities({ property }) {
   return (
     <section
       id="amenities"
-      className="section-jhc shadow-7y3 p-4 md:p-6 lg:p-8"
+      className="section-jhc shadow-7y3 p-4 md:p-6 lg:p-8 rounded-md m-3"
     >
       <span className="section-ihs" />
       <span className="hea-jgp text-x9d text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">

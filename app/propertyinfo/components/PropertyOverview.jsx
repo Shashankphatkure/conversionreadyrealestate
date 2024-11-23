@@ -9,7 +9,10 @@ export default function PropertyOverview({ property }) {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
-    <section id="home" className="section-nkt shadow-c1i p-4 md:p-6 lg:p-8">
+    <section
+      id="home"
+      className="section-nkt shadow-c1i p-4 md:p-6 lg:p-8 rounded-md m-3"
+    >
       <span className="hea-njg text-56r d-8lo block-kvs pr-5 text-2xl md:text-3xl lg:text-4xl font-bold">
         Overview
       </span>

@@ -57,7 +57,7 @@ export default async function SingleProperty({ params }) {
           <PropertyHero property={property} />
           <PropertyModal property={property} />
 
-          <div className="px-3">
+          <div className="">
             <PropertyOverview property={property} />
             <PropertyPrice property={property} />
             <PropertySitePlan property={property} />

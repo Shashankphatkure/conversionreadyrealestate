@@ -23,7 +23,10 @@ export default function PropertyPrice({ property }) {
   };
 
   return (
-    <section id="pricing" className="section-2ot shadow-h9n p-4 md:p-6 lg:p-8">
+    <section
+      id="pricing"
+      className="section-2ot shadow-h9n p-4 md:p-6 lg:p-8 m-3 rounded-md"
+    >
       <span className="section-bz2" />
       <span className="text-2xl md:text-3xl lg:text-4xl font-bold block mb-6 text-[#c9b06b]">
         Price

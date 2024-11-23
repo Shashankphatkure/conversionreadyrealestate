@@ -16,7 +16,7 @@ export default function PropertySitePlan({ property }) {
   return (
     <section
       id="sitefloorplan"
-      className="section-vhg shadow-y88 p-4 md:p-6 lg:p-8"
+      className="section-vhg shadow-y88 p-4 md:p-6 lg:p-8 rounded-md m-3"
     >
       <span className="section-ara" />
       <span className="hea-xq2 text-[#c9b06b] text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">
