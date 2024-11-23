@@ -11,64 +11,52 @@ export default function HeaderSearch() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchText.trim()) {
-      // Navigate to search page with the search query
       router.push(`/search?name=${encodeURIComponent(searchText.trim())}`);
     }
   };
 
   return (
-    <div className="hb-25x">
-      <div className="search-oyt">
-        <div className="container-ssc">
-          <div className="content-zed">
-            <div className="row-etd content-nj1 text-i2x flex-column">
+    <div className="w-full h-full relative bg-[url('https://newprojectsonline.com/assets/main/img/properties/properties-6.webp')] bg-cover bg-center bg-no-repeat py-24">
+      <div className="absolute inset-0 bg-black/50" />
+
+      <div className="relative z-10 w-full pt-10">
+        <div className="container mx-auto px-4 max-w-[1250px]">
+          <div className="py-16">
+            <div className="flex flex-col items-center justify-center">
               <div className="text-center mb-3">
                 <p className="text-white text-2xl md:text-3xl lg:text-4xl font-bold">
                   Find Your Dream Home With Us
                 </p>
               </div>
-              <div className="col-8nj">
-                <div className="search-vvo">
-                  <div className="search-ze4">
-                    <form onSubmit={handleSubmit}>
-                      <div className="row-etd content-nj1 no-maj">
-                        <div className="col-oxy col-x5q d-yrc" />
-                        <div className="col-sgs col-pzo">
-                          <div className="auto-jpq">
-                            <input
-                              type="text"
-                              name="project-name"
-                              id="sea-6t3"
-                              value={searchText}
-                              onChange={(e) => setSearchText(e.target.value)}
-                              placeholder="Search by: Project Name/ Property Name/ Location"
-                              style={{ margin: "0 !important" }}
-                            />
-                            <div
-                              style={{
-                                width: "96%",
-                                position: "absolute",
-                                zIndex: "999",
-                                height: "140px",
-                                overflow: "auto",
-                                display: "none",
-                                marginLeft: "0%",
-                                borderRadius: "10px",
-                              }}
-                            />
-                            <div id="sug-71o" />
+
+              <div className="w-full lg:w-2/3 px-4">
+                <div className="relative mt-2.5">
+                  <div className="absolute w-full bottom-[-90px]">
+                    <div className="p-8 rounded bg-white/30 backdrop-blur-sm shadow-lg">
+                      <form onSubmit={handleSubmit}>
+                        <div className="flex">
+                          <div className="flex-1">
+                            <div className="relative text-left">
+                              <input
+                                type="text"
+                                name="project-name"
+                                id="sea-6t3"
+                                value={searchText}
+                                onChange={(e) => setSearchText(e.target.value)}
+                                placeholder="Search by: Project Name/ Property Name/ Location"
+                                className="w-full h-[45px] px-4 rounded-l focus:outline-none"
+                              />
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-gbd col-hz4">
-                          <button type="submit">
-                            <FontAwesomeIcon
-                              icon={faSearch}
-                              className="hygin search-48v"
-                            />
+                          <button
+                            type="submit"
+                            className="bg-[#f64d0d] text-white px-6 h-[45px] uppercase text-lg rounded-r hover:bg-[#e64707] transition-colors"
+                          >
+                            <FontAwesomeIcon icon={faSearch} />
                           </button>
                         </div>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
