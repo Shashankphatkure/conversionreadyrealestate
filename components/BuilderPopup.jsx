@@ -106,9 +106,9 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
         </button>
 
         <div className="p-4">
-          <h2 className="text-lg font-bold text-gray-800 mb-3">
+          <p className="text-xl font-bold text-gray-800 mb-3">
             Submit Your Requirement
-          </h2>
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-3">
             <div>
@@ -204,7 +204,7 @@ export default function BuilderPopup({ isOpen, setIsOpen, selectedBuilder }) {
                   setFormData({ ...formData, remarks: e.target.value })
                 }
                 className="w-full p-1.5 text-sm border border-gray-300 rounded-lg"
-                rows="3"
+                rows="1"
               ></textarea>
             </div>
 

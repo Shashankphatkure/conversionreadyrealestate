@@ -155,9 +155,9 @@ export default function RequirementPopup() {
           {/* Right Section with Form - Full width on mobile */}
           <div className="w-full md:w-1/2 p-6 sm:p-6">
             <div className="text-center mb-2 sm:mb-4">
-              <h2 className="text-md font-bold text-gray-800">
+              <p className="text-xl font-bold text-gray-800">
                 Submit Your Requirement
-              </h2>
+              </p>
 
               <p className="text-gray-600 text-sm">
                 QUALITY SERVICE GUARANTEED
