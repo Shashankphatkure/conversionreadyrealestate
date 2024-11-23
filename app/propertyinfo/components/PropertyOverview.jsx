@@ -9,24 +9,19 @@ export default function PropertyOverview({ property }) {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
-    <section id="home" className="section-nkt shadow-c1i">
-      <span className="hea-njg text-56r d-8lo block-kvs pr-5">Overview</span>
-      <h1 className="block-qo4 section-fnm col-qgi text-56r">
+    <section id="home" className="section-nkt shadow-c1i p-4 md:p-6 lg:p-8">
+      <span className="hea-njg text-56r d-8lo block-kvs pr-5 text-2xl md:text-3xl lg:text-4xl font-bold">
+        Overview
+      </span>
+      <h1 className="block-qo4 section-fnm col-qgi text-xl md:text-2xl lg:text-3xl mb-2">
         {property.name}
       </h1>
-      <h2 className="block-qo4 section-29f col-qgi text-56r">
+      <h2 className="block-qo4 section-29f col-qgi text-lg md:text-xl lg:text-2xl mb-4">
         At {property.location}
       </h2>
-      <div>
+      <div className="space-y-4 text-base md:text-lg">
         <p>{property.description}</p>
-
-        <p>
-          Wagle Estate is in a good position with some of the top schools,
-          universities, hospitals, commercial parks, and malls. Finland
-          International School, Oxford English School, St. Lawrence High School
-          and Jr. College, Jupiter Hospital, Manavta Hospital, Apex Hospital,
-          Manisha RJ Thakur College, KBP College, Korum Mall, and R Mall.
-        </p>
+        <p className="text-justify">Wagle Estate is in a good position...</p>
       </div>
 
       <button
@@ -57,22 +52,21 @@ export default function PropertyOverview({ property }) {
         title="Download Brochure"
       />
 
-      <span
-        className="block-qo4 section-29f text-56r mt-oq8"
-        style={{ textAlign: "left" }}
-      >
+      <span className="block-qo4 section-29f text-xl md:text-2xl lg:text-3xl mt-8 mb-4 block">
         About {property.builder?.name}
       </span>
+
       {property.builder?.logo && (
         <img
           height={200}
           width={200}
           src={property.builder.logo}
           alt={`${property.builder.name} logo`}
-          className="pb-3"
+          className="pb-3 max-w-[150px] md:max-w-[200px] h-auto"
         />
       )}
-      <p style={{ textAlign: "left" }}>
+
+      <p className="text-base md:text-lg text-justify mb-6">
         {property.builder?.description}
         {property.builder?.established_year && (
           <span>
@@ -83,32 +77,21 @@ export default function PropertyOverview({ property }) {
           </span>
         )}
       </p>
-      <hr />
-      <span
-        className="at-property-bge eff-byd"
-        style={{ textAlign: "left", marginLeft: "0" }}
-      >
-        {" "}
-        Project Highlights{" "}
+
+      <hr className="my-6" />
+
+      <span className="at-property-bge eff-byd text-xl md:text-2xl lg:text-3xl block mb-4">
+        Project Highlights
       </span>
-      <div className="row-m23" style={{ textAlign: "left" }}>
-        <div className="col-3lh">
-          <ul
-            className="list-group-tzc"
-            style={{
-              border: "2px solid",
-              "font-size": "16px",
-              "list-style": "none",
-              "padding-left": "0",
-              textAlign: "left",
-            }}
-          >
+
+      <div className="w-full">
+        <div className="max-w-2xl">
+          <ul className="list-group-tzc border-2 text-base md:text-lg list-none p-0">
             {property.highlights &&
               property.highlights.map((highlight, index) => (
                 <li
                   key={index}
-                  className="list-group-item-low"
-                  style={{ "border-bottom": "2px dashed" }}
+                  className="list-group-item-low border-b-2 border-dashed p-3"
                 >
                   ✓ {highlight}
                 </li>

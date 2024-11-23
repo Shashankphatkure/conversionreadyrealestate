@@ -14,35 +14,45 @@ export default function PropertySiteTour({ property }) {
   };
 
   return (
-    <section id="sitevisit" className="section-lw2 shadow-pfo">
-      <span />
-      <span className="hea-6e1 text-vx6 pr-5">Virtual Site Tour</span>
-      <a onClick={triggerPopup} style={{ cursor: "pointer" }}>
-        <div className="my-e8o pt-md-mdk">
-          <div className="at-property-sjq vsv-jgs">
-            <picture>
+    <section
+      id="sitevisit"
+      className="section-lw2 shadow-pfo p-4 md:p-6 lg:p-8"
+    >
+      <span className="hea-6e1 text-vx6 pr-5 text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">
+        Virtual Site Tour
+      </span>
+
+      <div
+        onClick={triggerPopup}
+        className="cursor-pointer transition-transform hover:scale-[1.02] duration-300"
+      >
+        <div className="my-e8o relative overflow-hidden rounded-lg shadow-lg">
+          <div className="at-property-sjq vsv-jgs aspect-video">
+            <picture className="w-full h-full">
               <img
                 src="https://newprojectsonline.com/assets/uploads/virtualTour/1719553101-ashar-merac-mulund-site-visit.webp"
-                className="w-jl7"
+                alt="Virtual Tour"
+                className="w-full h-full object-cover"
               />
             </picture>
-            <div className="text-cdb">
-              <div className="text-7x8">
-                <div />
-                <span className="text-mi7 jxlqo font-weight-n8y mb-bm2 d-r3t block-i76">
+
+            <div className="text-cdb absolute inset-0 bg-black/40 flex items-center justify-center">
+              <div className="text-7x8 text-center">
+                <span className="text-mi7 jxlqo font-bold mb-2 block text-white text-xl md:text-2xl">
                   Virtual Tour
                 </span>
-                <span className="text-vx6 text-dyv d-r3t block-i76">
+                <span className="text-vx6 text-white text-lg md:text-xl block">
                   {property.name} At {property.location}
                 </span>
               </div>
             </div>
           </div>
-          <span className="block-9by text-vx6 text-dyv block-nwy d-md-3ej pt-bcb">
+
+          <span className="md:hidden block text-center py-4 text-lg font-medium">
             {property.name} At {property.location}
           </span>
         </div>
-      </a>
+      </div>
 
       <PropertyPopup
         property={property}

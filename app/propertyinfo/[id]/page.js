@@ -51,8 +51,8 @@ export default async function SingleProperty({ params }) {
 
   return (
     <>
-      <div className="flex">
-        <main className="w-3/4">
+      <div className="flex flex-col md:flex-row">
+        <main className="w-full md:w-3/4">
           <PropertyHeader property={property} />
           <PropertyHero property={property} />
           <PropertyModal property={property} />
@@ -70,7 +70,7 @@ export default async function SingleProperty({ params }) {
           <PropertyFooter property={property} />
         </main>
 
-        <aside className="w-1/4">
+        <aside className="hidden md:block md:w-1/4">
           <Sidebar property={property} />
         </aside>
       </div>

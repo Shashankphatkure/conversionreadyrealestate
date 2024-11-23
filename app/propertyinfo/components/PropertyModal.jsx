@@ -26,76 +26,97 @@ export default function PropertyModal({ property }) {
   } = property;
 
   return (
-    <div className="info-wod overflow-7fp">
-      <span className="pro-anw">BOOKINGS OPEN </span>
-      <span className="title-ytn">{name}</span>
-      <span className="pro-xrg">At {location}</span>
-      <span className="pro-arw">by {developer}</span>
-      <div className="block-zzx d-lg-y8h">
-        <span>{name}</span>
-        <span>
-          At {location} by {developer}
+    <div className="info-wod p-4 md:p-6 lg:p-8 rounded-md shadow-lg bg-white m-3">
+      {/* Header Section */}
+      <div className="space-y-2 md:space-y-3 mb-6">
+        <span className="pro-anw inline-block bg-[#c9b06b] text-white px-3 py-1 rounded-md text-sm md:text-base">
+          BOOKINGS OPEN
         </span>
-        <ul className="animate-wxt">
-          <li>
-            <span className="hea-1z7">✓ Configurations</span> : {configurations}
+
+        <h1 className="title-ytn text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">
+          {name}
+        </h1>
+
+        <div className="space-y-1">
+          <h2 className="pro-xrg text-lg md:text-xl text-gray-700">
+            At {location}
+          </h2>
+          <p className="pro-arw text-base md:text-lg text-gray-600">
+            by {developer}
+          </p>
+        </div>
+      </div>
+
+      {/* Property Details Block */}
+      <div className="block-zzx bg-gray-50 p-4 md:p-6 rounded-lg mb-6">
+        <div className="space-y-2 mb-4">
+          <h3 className="text-xl md:text-2xl font-semibold text-gray-800">
+            {name}
+          </h3>
+          <p className="text-gray-600 text-base md:text-lg">
+            At {location} by {developer}
+          </p>
+        </div>
+
+        <ul className="animate-wxt space-y-3">
+          <li className="flex items-start gap-2">
+            <span className="hea-1z7 text-[#c9b06b] font-medium min-w-[120px] md:min-w-[140px]">
+              ✓ Configurations
+            </span>
+            <span className="text-gray-700">: {configurations}</span>
           </li>
-          <li>
-            <span className="hea-1z7">✓ Location</span> : {location}
+          <li className="flex items-start gap-2">
+            <span className="hea-1z7 text-[#c9b06b] font-medium min-w-[120px] md:min-w-[140px]">
+              ✓ Location
+            </span>
+            <span className="text-gray-700">: {location}</span>
           </li>
-          <li>
-            <span className="hea-1z7">✓ Price </span> : {price}
+          <li className="flex items-start gap-2">
+            <span className="hea-1z7 text-[#c9b06b] font-medium min-w-[120px] md:min-w-[140px]">
+              ✓ Price
+            </span>
+            <span className="text-gray-700">: {price}</span>
           </li>
         </ul>
       </div>
-      <span
-        className="block-vis mb-tv4"
-        style={{
-          background: "var(--colorPrimary)",
-          color: "#fff",
-          fontSize: "18px",
-          textAlign: "center",
-          padding: "5px",
-          display: "block",
-          margin: "25px 0px",
-        }}
-      >
-        <span
-          className="ani-2zn bou-35v inf-b1c"
-          style={{
-            display: "block",
-            animationDuration: "3s",
-            fontSize: "16px",
-            border: "2px solid #fff",
-            borderStyle: "dashed",
-            color: "#fff",
-          }}
-        >
-          <h5 style={{ textAlign: "center" }}>
-            <b>
+
+      {/* Highlights Section */}
+      <div className="mb-6">
+        <div className="bg-[#c9b06b] text-white p-4 md:p-6 rounded-lg">
+          <div className="border-2 border-white border-dashed p-4 rounded-lg">
+            <h4 className="text-center text-lg md:text-xl font-bold mb-4">
+              Project Highlights
+            </h4>
+            <div className="space-y-2">
               {highlights?.map((highlight, index) => (
-                <React.Fragment key={index}>
-                  &nbsp;{highlight}
-                  <br />
-                </React.Fragment>
+                <p key={index} className="text-center text-base md:text-lg">
+                  {highlight}
+                </p>
               ))}
-            </b>
-          </h5>
-        </span>
-      </span>
-      <span className="tag-kh5">
-        <p style={{ textAlign: "center" }}>
-          <b>{configurations}</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Pricing Section */}
+      <div className="tag-kh5 text-center space-y-4 mb-6">
+        <p className="text-lg md:text-xl font-bold text-gray-800">
+          {configurations}
         </p>
-        <h4 style={{ textAlign: "center" }}>
-          <b>Starts ₹ {price_details?.["Starting Price"]}</b>
+        <h4 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#c9b06b]">
+          Starts ₹ {price_details?.["Starting Price"]}
         </h4>
-        <p style={{ textAlign: "center" }}>
-          <b>Book Online Presentation Today!</b>
+        <p className="text-lg md:text-xl font-semibold text-gray-700">
+          Book Online Presentation Today!
         </p>
-      </span>
+      </div>
+
+      {/* CTA Button */}
       <button
-        className="btn-cgc info-8ch form-4fj eff-rbw eff-1ot"
+        className="btn-cgc w-full md:w-auto md:min-w-[200px] px-6 py-3 
+          bg-[#c9b06b] hover:bg-[#b39a5a] text-white rounded-lg 
+          text-lg font-semibold transition-colors duration-200
+          flex items-center justify-center mx-auto"
         onClick={triggerPopup}
       >
         Enquire Now

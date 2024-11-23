@@ -14,10 +14,6 @@ export default function Welcome() {
           </div>
 
           <div className="w-full md:w-1/2 space-y-6">
-            <h2 className="text-3xl font-bold text-orange-600 mb-6">
-              Welcome to Shree Ganesh Realty
-            </h2>
-
             <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
               <p className="text-gray-800 font-semibold tracking-wide">
                 WE ARE A FAST-GROWING MARKETING COMPANY IN THE REAL ESTATE
@@ -25,6 +21,9 @@ export default function Welcome() {
                 PERSONALIZED HOME SOLUTIONS.
               </p>
             </div>
+            <h2 className="text-3xl font-bold text-orange-600 mb-6">
+              Welcome to Shree Ganesh Realty
+            </h2>
 
             <p className="text-gray-600 leading-relaxed">
               In the first place, our Mission is to give buyers all information

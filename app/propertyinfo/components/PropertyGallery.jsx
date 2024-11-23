@@ -48,38 +48,30 @@ export default function PropertyGallery({ property }) {
   }
 
   return (
-    <section id="gallery" className="block-cfk section-n2n shadow-8ea">
+    <section
+      id="gallery"
+      className="block-cfk section-n2n shadow-8ea p-4 md:p-6 lg:p-8"
+    >
       <span className="section-kjw" />
-      <span className="hea-zos text-d42 pr-5">Gallery</span>
-      <div className="carousel-6g1 owl-3mp owl-1nm owl-n2n">
-        <div className="tag-zpy">
+      <span className="hea-zos text-d42 pr-5 text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">
+        Gallery
+      </span>
+      <div className="carousel-6g1 owl-3mp owl-1nm owl-n2n relative">
+        <div className="tag-zpy overflow-hidden">
           <div
-            className="tag-fio"
+            className="tag-fio flex transition-transform duration-500 ease-in-out"
             style={{
               transform: `translateX(-${currentIndex * 100}%)`,
-              transition: "transform 0.5s ease-in-out",
               width: `${images.length * 100}%`,
-              display: "flex",
             }}
           >
             {images.map((src, index) => (
-              <div
-                key={index}
-                className="item-o6j"
-                style={{ width: "100%", flex: "0 0 100%" }}
-              >
-                <div
-                  style={{ width: "100%", height: "100%", overflow: "hidden" }}
-                >
+              <div key={index} className="item-o6j w-full flex-shrink-0">
+                <div className="aspect-video w-full h-full overflow-hidden">
                   <img
                     src={src}
                     alt={`Gallery image ${index + 1}`}
-                    className="gallery-icp"
-                    style={{
-                      width: "auto",
-                      height: "650px",
-                      objectPosition: "center",
-                    }}
+                    className="gallery-icp w-full h-full object-cover"
                   />
                 </div>
               </div>
@@ -88,20 +80,30 @@ export default function PropertyGallery({ property }) {
         </div>
         {images.length > 1 && (
           <>
-            <div className="nav-dj9">
-              <button type="button" className="owl-dbk" onClick={prevSlide}>
-                <span>‹</span>
+            <div className="nav-dj9 absolute top-1/2 left-0 right-0 transform -translate-y-1/2 flex justify-between px-4">
+              <button
+                type="button"
+                className="owl-dbk bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                onClick={prevSlide}
+              >
+                <span className="text-2xl">‹</span>
               </button>
-              <button type="button" className="owl-r4s" onClick={nextSlide}>
-                <span>›</span>
+              <button
+                type="button"
+                className="owl-r4s bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                onClick={nextSlide}
+              >
+                <span className="text-2xl">›</span>
               </button>
             </div>
-            <div className="owl-yf4 dis-hwt">
+            <div className="owl-yf4 dis-hwt absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
-                  className={`owl-dot ${
-                    index === currentIndex ? "active" : ""
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentIndex
+                      ? "bg-white"
+                      : "bg-white/50 hover:bg-white/70"
                   }`}
                   onClick={() => setCurrentIndex(index)}
                 />

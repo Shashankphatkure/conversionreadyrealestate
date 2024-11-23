@@ -42,63 +42,75 @@ export default function PropertyLocation({ property }) {
   const nearbyPlaces = formatNearbyPlaces();
 
   return (
-    <section id="location" className="section-9de shadow-8vf">
-      <span />
-      <span className="hea-6ig text-lxi pr-5">Location</span>
-      <br />
-      <div className="row-fv6 mb-d67">
-        <div className="col-dpq col-353">
-          <span className="block-lob section-jdn text-lxi">Map View</span>
-          <div className="map-qda">
+    <section id="location" className="section-9de shadow-8vf p-4 md:p-6 lg:p-8">
+      <span className="hea-6ig text-lxi pr-5 text-2xl md:text-3xl lg:text-4xl font-bold block mb-6">
+        Location
+      </span>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-8">
+        <div className="w-full">
+          <span className="block-lob section-jdn text-lxi text-xl md:text-2xl font-semibold mb-4 block">
+            Map View
+          </span>
+          <div className="map-qda w-full h-[300px] md:h-[450px] rounded-lg overflow-hidden shadow-lg">
             <iframe
               src={property.location_details?.mapEmbed}
-              width={400}
-              height={450}
-              style={{ border: "0" }}
+              className="w-full h-full border-0"
+              title="Property Location Map"
+              loading="lazy"
             />
           </div>
         </div>
-        <div className="col-ofk col-353 map-8tm text-zgr">
-          <span className="block-lob section-jdn text-lxi text-zgr">
+
+        <div className="w-full">
+          <span className="block-lob section-jdn text-lxi text-xl md:text-2xl font-semibold mb-4 block">
             Location Map
           </span>
+
           {property.location_details?.address && (
-            <p className="mb-4">{property.location_details.address}</p>
+            <p className="mb-4 text-base md:text-lg">
+              {property.location_details.address}
+            </p>
           )}
-          <a
-            className="text-wix"
+
+          <div
             onClick={triggerPopup}
-            style={{ cursor: "pointer" }}
+            className="cursor-pointer transition-transform hover:scale-[1.02] duration-300"
           >
-            <div className="item-sxo mb-p1y">
-              <div className="at-property-beb master-gz3">
-                {property.location_details?.staticMap && (
-                  <picture>
-                    <img
-                      src={property.location_details.staticMap}
-                      alt="Location Map"
-                      className="shadow-8vf bor-k37"
-                    />
-                  </picture>
-                )}
-                <div className="overlay-532" />
-                <span className="btn-w1o">View Location Map</span>
-              </div>
+            <div className="relative overflow-hidden rounded-lg shadow-lg">
+              {property.location_details?.staticMap && (
+                <div className="aspect-video">
+                  <img
+                    src={property.location_details.staticMap}
+                    alt="Location Map"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <span className="btn-w1o text-white text-lg md:text-xl font-medium">
+                      View Location Map
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
-          </a>
+          </div>
         </div>
       </div>
-      <p />
-      <div className="location-list" style={{ textAlign: "left" }}>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {nearbyPlaces.map((location, index) => (
-          <div key={index} className="location-item">
-            <MapPinIcon className="location-icon" />
-            <span className="location-text">
+          <div
+            key={index}
+            className="flex items-center space-x-2 p-3 rounded-lg bg-gray-50 shadow-sm"
+          >
+            <MapPinIcon className="h-5 w-5 text-primary flex-shrink-0" />
+            <span className="text-sm md:text-base">
               {location.name} - {location.time}
             </span>
           </div>
         ))}
       </div>
+
       <PropertyPopup
         property={property}
         trigger={showPopup}
