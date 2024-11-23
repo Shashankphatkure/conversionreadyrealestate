@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 
 export default function PropertyGallery({ property }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const getAllImages = () => {
     if (!property.gallery) return [];
@@ -27,6 +29,31 @@ export default function PropertyGallery({ property }) {
     );
   };
 
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(distance) >= minSwipeDistance) {
+      if (distance > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
@@ -45,7 +72,12 @@ export default function PropertyGallery({ property }) {
       </span>
 
       <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-[#c9b06b]/20">
-        <div className="relative w-full h-[300px] md:h-[400px]">
+        <div
+          className="relative w-full h-[300px] md:h-[400px]"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {images.map((src, index) => (
             <div
               key={index}
@@ -61,43 +93,6 @@ export default function PropertyGallery({ property }) {
               />
             </div>
           ))}
-
-          {images.length > 1 && (
-            <>
-              <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4">
-                <button
-                  type="button"
-                  onClick={prevSlide}
-                  className="z-10 p-2 rounded-full bg-[#c9b06b] hover:bg-[#b39a5a] text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c9b06b]/50"
-                >
-                  <span className="text-xl md:text-2xl select-none">‹</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={nextSlide}
-                  className="z-10 p-2 rounded-full bg-[#c9b06b] hover:bg-[#b39a5a] text-white transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c9b06b]/50"
-                >
-                  <span className="text-xl md:text-2xl select-none">›</span>
-                </button>
-              </div>
-
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                {images.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    aria-label={`Go to slide ${index + 1}`}
-                    className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-colors duration-300 
-                      ${
-                        index === currentIndex
-                          ? "bg-[#c9b06b]"
-                          : "bg-[#c9b06b]/50 hover:bg-[#c9b06b]/70"
-                      }`}
-                  />
-                ))}
-              </div>
-            </>
-          )}
         </div>
       </div>
     </section>
