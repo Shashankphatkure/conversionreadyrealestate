@@ -28,7 +28,7 @@ export default function PropertyOverview({ property }) {
       </div>
 
       <button
-        className="btn-zi3 info-jp8 form-z8s eff-byd eff-onq"
+        className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-colors duration-300 mt-4 mb-6 block"
         onClick={() => {
           setShowPopup(false);
           setTimeout(() => setShowPopup(true), 0);
@@ -39,7 +39,7 @@ export default function PropertyOverview({ property }) {
 
       <center>
         <button
-          className="btn-zi3 btn-foh info-aro btn-xr8 overflow-a2r"
+          className="inline-flex items-center gap-2 px-6 py-3 text-base font-medium text-white bg-primary rounded-md hover:bg-primary/90 transition-colors duration-300 shadow-sm"
           onClick={() => {
             setShowPopup(false);
             setTimeout(() => setShowPopup(true), 0);

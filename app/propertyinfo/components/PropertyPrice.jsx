@@ -28,7 +28,7 @@ export default function PropertyPrice({ property }) {
       className="section-2ot shadow-h9n p-4 md:p-6 lg:p-8 m-3 rounded-md"
     >
       <span className="section-bz2" />
-      <span className="text-2xl md:text-3xl lg:text-4xl font-bold block mb-6 text-[#c9b06b]">
+      <span className="text-2xl md:text-3xl lg:text-4xl font-bold block mb-6 text-black">
         Price
       </span>
 
@@ -140,7 +140,7 @@ export default function PropertyPrice({ property }) {
               </div>
             </div>
             <div className="p-4">
-              <h5 className="text-xl md:text-2xl font-semibold text-center text-[#c9b06b]">
+              <h5 className="text-xl md:text-2xl font-semibold text-center text-black">
                 Complete Costing Details
               </h5>
               <p className="text-gray-600 text-center mt-2">
