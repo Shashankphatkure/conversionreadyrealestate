@@ -81,22 +81,6 @@ export default function PropertyHero({ property }) {
                     <span className="text-2xl">›</span>
                   </button>
                 </div>
-
-                {/* Dots indicator */}
-                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2">
-                  {exteriorImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentIndex(index)}
-                      className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                        index === currentIndex
-                          ? "bg-white"
-                          : "bg-white/50 hover:bg-white/70"
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
               </>
             )}
           </div>
