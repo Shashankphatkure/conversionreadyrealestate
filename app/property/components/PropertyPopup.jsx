@@ -86,10 +86,7 @@ export default function PropertyPopup({
 
         {/* Form Container */}
         <div className="p-4">
-          <form
-            onSubmit={handleSubmit}
-            className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
-          >
+          <form onSubmit={handleSubmit} className="space-y-3">
             <input
               type="text"
               className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
