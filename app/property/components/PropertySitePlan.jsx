@@ -8,10 +8,34 @@ export default function PropertySitePlan({ property }) {
   const [showPopup, setShowPopup] = useState(false);
 
   const triggerPopup = (e) => {
-    e.preventDefault(); // Prevent default anchor tag behavior
+    e.preventDefault();
     setShowPopup(false);
     setTimeout(() => setShowPopup(true), 0);
   };
+
+  // Get configurations from price_range
+  const getConfigurations = () => {
+    const priceRange = property.price_range || {};
+    return Object.keys(priceRange).filter((key) => priceRange[key]);
+  };
+
+  // Format configuration name
+  const formatConfigName = (configKey) => {
+    return configKey.replace(/_/g, " ").toUpperCase();
+  };
+
+  // Get floor plan images or use first image as fallback
+  const getFloorPlanImage = (index) => {
+    const images = [
+      "https://newprojectsonline.com/assets/uploads/floor_plans/1719552954-mer_1_bhk_thumb.webp",
+      "https://newprojectsonline.com/assets/uploads/floor_plans/1719552962-merac_2_bhk_thumb.webp",
+      "https://newprojectsonline.com/assets/uploads/floor_plans/1719552968-merac_3bhk_thumb.webp",
+    ];
+    // Return the image at index or fallback to first image
+    return images[index] || images[0];
+  };
+
+  const configurations = getConfigurations();
 
   return (
     <section id="sitefloorplan" className="section-vhg shadow-y88">
@@ -43,65 +67,38 @@ export default function PropertySitePlan({ property }) {
       >
         Floor Plan
       </span>
-      <div className="row-fx7 row-ebz row-735">
-        <div className="col-gco">
-          <a className="text-oid" onClick={triggerPopup}>
-            <div className="item-3xt shadow-y88 bor-5eh mt-asz">
-              <div className="at-property-etq">
-                <picture>
-                  <img
-                    className="floor-plan-tp3 blu-ao1"
-                    src="https://newprojectsonline.com/assets/uploads/floor_plans/1719552954-mer_1_bhk_thumb.webp"
-                  />
-                </picture>
-                <div className="overlay-bhv" />
-                <span className="btn-26v btn-g38">Enquire Now</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-asz">
+        {configurations.map((config, index) => (
+          <div key={config} className="w-full max-w-sm mx-auto">
+            <a className="text-oid" onClick={triggerPopup}>
+              <div className="item-3xt shadow-y88 bor-5eh">
+                <div className="at-property-etq" style={{ aspectRatio: "4/3" }}>
+                  <picture>
+                    <img
+                      className="floor-plan-tp3 blu-ao1 w-full h-full object-cover"
+                      src={getFloorPlanImage(index)}
+                      alt={formatConfigName(config)}
+                    />
+                  </picture>
+                  <div className="overlay-bhv" />
+                  <span className="btn-26v btn-g38">Enquire Now</span>
+                </div>
+                <div className="at-property-hx9 eff-4gn">
+                  <h5 className="text-lg font-medium">
+                    {formatConfigName(config)}
+                  </h5>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {property.price_range[config]
+                      ? `₹ ${property.price_range[config]}`
+                      : "Price on Request"}
+                  </p>
+                </div>
               </div>
-              <div className="at-property-hx9 eff-4gn">
-                <h5>1 BHK</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="col-gco">
-          <a className="text-oid" onClick={triggerPopup}>
-            <div className="item-3xt shadow-y88 bor-5eh mt-asz">
-              <div className="at-property-etq">
-                <picture>
-                  <img
-                    className="floor-plan-tp3 blu-ao1"
-                    src="https://newprojectsonline.com/assets/uploads/floor_plans/1719552962-merac_2_bhk_thumb.webp"
-                  />
-                </picture>
-                <div className="overlay-bhv" />
-                <span className="btn-26v btn-g38">Enquire Now</span>
-              </div>
-              <div className="at-property-hx9 eff-4gn">
-                <h5>2 BHK</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div className="col-gco">
-          <a className="text-oid" onClick={triggerPopup}>
-            <div className="item-3xt shadow-y88 bor-5eh mt-asz">
-              <div className="at-property-etq">
-                <picture>
-                  <img
-                    className="floor-plan-tp3 blu-ao1"
-                    src="https://newprojectsonline.com/assets/uploads/floor_plans/1719552968-merac_3bhk_thumb.webp"
-                  />
-                </picture>
-                <div className="overlay-bhv" />
-                <span className="btn-26v btn-g38">Enquire Now</span>
-              </div>
-              <div className="at-property-hx9 eff-4gn">
-                <h5>3 BHK</h5>
-              </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
+        ))}
       </div>
+
       <PropertyPopup
         property={property}
         trigger={showPopup}
