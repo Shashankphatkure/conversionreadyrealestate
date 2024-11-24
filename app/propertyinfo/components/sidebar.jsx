@@ -166,7 +166,11 @@ export default function Sidebar({ property }) {
       <div className="social-share-container">
         <p>Share This Project On Social Media</p>
         <div className="social-icons">
-          <a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+          <a
+            href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fshreeganeshrealty.com&title=Share This Project in social media')"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src="https://newprojectsonline.com/assets/img/comman/facebook.png"
               width={30}
@@ -174,7 +178,11 @@ export default function Sidebar({ property }) {
               alt="Share on Facebook"
             />
           </a>
-          <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+          <a
+            href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fshreeganeshrealty.com&title=Share This Project in social media')"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src="https://newprojectsonline.com/assets/img/comman/linkedin.png"
               width={30}
@@ -182,7 +190,11 @@ export default function Sidebar({ property }) {
               alt="Share on LinkedIn"
             />
           </a>
-          <a href="https://twitter.com/share?url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+          <a
+            href="https://twitter.com/share?url=http%3A%2F%2Fshreeganeshrealty.com&title=Share This Project in social media')"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src="https://newprojectsonline.com/assets/img/comman/twitter.png"
               width={30}
@@ -190,7 +202,11 @@ export default function Sidebar({ property }) {
               alt="Share on Twitter"
             />
           </a>
-          <a href="https://wa.me/?text=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
+          <a
+            href="https://wa.me/?text=http%3A%2F%2Fshreeganeshrealty.com&title=Share This Project in social media')"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src="https://newprojectsonline.com/assets/img/comman/whatsapp.png"
               width={30}
