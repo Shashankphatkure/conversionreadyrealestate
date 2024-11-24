@@ -9,7 +9,7 @@ export default function PropertyPrice({ property }) {
 
   const formatPrice = (price) => {
     if (!price) return "Price on Request";
-    return `₹ ${price} ${price >= 10000000 ? "Cr*" : "Lacs*"} + Onwards`;
+    return `₹ ${price}`;
   };
 
   const getFormattedArea = (area) => {
@@ -20,6 +20,15 @@ export default function PropertyPrice({ property }) {
   const triggerPopup = () => {
     setShowPopup(false);
     setTimeout(() => setShowPopup(true), 0);
+  };
+
+  const getConfigurations = () => {
+    const carpetArea = property.carpet_area || {};
+    return Object.keys(carpetArea).filter((key) => carpetArea[key]);
+  };
+
+  const formatConfigName = (configKey) => {
+    return configKey.replace(/_/g, " ").toUpperCase();
   };
 
   return (
@@ -53,22 +62,22 @@ export default function PropertyPrice({ property }) {
               </tr>
             </thead>
             <tbody>
-              {property.carpet_area?.["1_bhk"] && (
-                <tr>
+              {getConfigurations().map((config) => (
+                <tr key={config}>
                   <td
                     className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
                     style={{ textAlign: "left" }}
                   >
-                    1 BHK
+                    {formatConfigName(config)}
                   </td>
                   <td
                     className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
                     style={{ textAlign: "left" }}
                   >
-                    {getFormattedArea(property.carpet_area["1_bhk"])}
+                    {getFormattedArea(property.carpet_area[config])}
                   </td>
                   <td className="price-rit" style={{ textAlign: "left" }}>
-                    {formatPrice(property.price_range?.["1_bhk"]?.min)}
+                    {formatPrice(property.price_range?.[config])}
                   </td>
                   <td>
                     <button
@@ -79,63 +88,7 @@ export default function PropertyPrice({ property }) {
                     </button>
                   </td>
                 </tr>
-              )}
-
-              {property.carpet_area?.["2_bhk"] && (
-                <tr>
-                  <td
-                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                    style={{ textAlign: "left" }}
-                  >
-                    2 BHK
-                  </td>
-                  <td
-                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                    style={{ textAlign: "left" }}
-                  >
-                    {getFormattedArea(property.carpet_area["2_bhk"])}
-                  </td>
-                  <td className="price-rit" style={{ textAlign: "left" }}>
-                    {formatPrice(property.price_range?.["2_bhk"]?.min)}
-                  </td>
-                  <td>
-                    <button
-                      className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa"
-                      onClick={triggerPopup}
-                    >
-                      Click Here
-                    </button>
-                  </td>
-                </tr>
-              )}
-
-              {property.carpet_area?.["3_bhk"] && (
-                <tr>
-                  <td
-                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                    style={{ textAlign: "left" }}
-                  >
-                    3 BHK
-                  </td>
-                  <td
-                    className="bor-pz1 border-left-coa border-top-4v4 border-bottom-9fg"
-                    style={{ textAlign: "left" }}
-                  >
-                    {getFormattedArea(property.carpet_area["3_bhk"])}
-                  </td>
-                  <td className="price-rit" style={{ textAlign: "left" }}>
-                    {formatPrice(property.price_range?.["3_bhk"]?.min)}
-                  </td>
-                  <td>
-                    <button
-                      className="btn-rwp btn-ljg info-q8m eff-lgs eff-asa"
-                      onClick={triggerPopup}
-                    >
-                      Click Here
-                    </button>
-                  </td>
-                </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>

@@ -65,6 +65,9 @@ const PropertyForm = ({
     construction: useRef(null),
   };
 
+  const [newBhk, setNewBhk] = useState("");
+  const [newConfigType, setNewConfigType] = useState("");
+
   const handleMainImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -114,6 +117,66 @@ const PropertyForm = ({
         toast.error("Error uploading logo");
       }
     }
+  };
+
+  const handleAddBhk = () => {
+    if (newBhk) {
+      const bhkKey = `${newBhk}_bhk`;
+      setProperty({
+        ...property,
+        carpet_area: {
+          ...property.carpet_area,
+          [bhkKey]: "",
+        },
+        price_range: {
+          ...property.price_range,
+          [bhkKey]: { price: "" },
+        },
+      });
+      setNewBhk("");
+    }
+  };
+
+  const handleRemoveBhk = (bhkKey) => {
+    const newCarpetArea = { ...property.carpet_area };
+    const newPriceRange = { ...property.price_range };
+    delete newCarpetArea[bhkKey];
+    delete newPriceRange[bhkKey];
+    setProperty({
+      ...property,
+      carpet_area: newCarpetArea,
+      price_range: newPriceRange,
+    });
+  };
+
+  const handleAddConfig = () => {
+    if (newConfigType) {
+      const configKey = newConfigType.trim().toLowerCase().replace(/\s+/g, "_");
+      setProperty({
+        ...property,
+        carpet_area: {
+          ...property.carpet_area,
+          [configKey]: "",
+        },
+        price_range: {
+          ...property.price_range,
+          [configKey]: "",
+        },
+      });
+      setNewConfigType("");
+    }
+  };
+
+  const handleRemoveConfig = (configKey) => {
+    const newCarpetArea = { ...property.carpet_area };
+    const newPriceRange = { ...property.price_range };
+    delete newCarpetArea[configKey];
+    delete newPriceRange[configKey];
+    setProperty({
+      ...property,
+      carpet_area: newCarpetArea,
+      price_range: newPriceRange,
+    });
   };
 
   return (
@@ -517,87 +580,84 @@ const PropertyForm = ({
           </div>
         </div>
 
-        {/* Add Price Range Section */}
+        {/* Unit Configurations */}
         <div className="col-span-2">
           <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Price Range
+            Unit Configurations
           </h3>
-          {["1_bhk", "2_bhk", "3_bhk", "4_bhk", "5_bhk"].map((bhk) => (
-            <div key={bhk} className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {bhk.replace("_", " ").toUpperCase()} Min Price
-                </label>
-                <input
-                  type="text"
-                  value={property.price_range?.[bhk]?.min || ""}
-                  onChange={(e) =>
-                    setProperty({
-                      ...property,
-                      price_range: {
-                        ...property.price_range,
-                        [bhk]: {
-                          ...property.price_range?.[bhk],
-                          min: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter minimum price"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {bhk.replace("_", " ").toUpperCase()} Max Price
-                </label>
-                <input
-                  type="text"
-                  value={property.price_range?.[bhk]?.max || ""}
-                  onChange={(e) =>
-                    setProperty({
-                      ...property,
-                      price_range: {
-                        ...property.price_range,
-                        [bhk]: {
-                          ...property.price_range?.[bhk],
-                          max: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter maximum price"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
 
-        {/* Add Carpet Area Section */}
-        <div className="col-span-2">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
-            Carpet Area
-          </h3>
-          {["1_bhk", "2_bhk", "3_bhk"].map((bhk) => (
-            <div key={bhk} className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                {bhk.replace("_", " ").toUpperCase()} Carpet Area
-              </label>
-              <input
-                type="text"
-                value={property.carpet_area?.[bhk] || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    carpet_area: {
-                      ...property.carpet_area,
-                      [bhk]: e.target.value,
-                    },
-                  })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
+          {/* Add new configuration input */}
+          <div className="flex gap-2 mb-4">
+            <input
+              type="text"
+              value={newConfigType}
+              onChange={(e) => setNewConfigType(e.target.value)}
+              placeholder="Enter unit type (e.g., 2 BHK, Studio, Office Space)"
+              className="flex-1 border p-2 rounded-lg"
+            />
+            <button
+              type="button"
+              onClick={handleAddConfig}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              Add Configuration
+            </button>
+          </div>
+
+          {/* Display existing configurations */}
+          {Object.keys(property.carpet_area || {}).map((configKey) => (
+            <div
+              key={configKey}
+              className="grid grid-cols-3 gap-4 mb-4 items-start"
+            >
+              <div className="col-span-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {configKey.replace(/_/g, " ").toUpperCase()}
+                </label>
+              </div>
+              <div className="col-span-1">
+                <input
+                  type="text"
+                  value={property.carpet_area[configKey] || ""}
+                  onChange={(e) =>
+                    setProperty({
+                      ...property,
+                      carpet_area: {
+                        ...property.carpet_area,
+                        [configKey]: e.target.value,
+                      },
+                    })
+                  }
+                  placeholder="Carpet Area (sq.ft.)"
+                  className="w-full border p-2 rounded-lg"
+                />
+              </div>
+              <div className="col-span-1">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={property.price_range[configKey] || ""}
+                    onChange={(e) =>
+                      setProperty({
+                        ...property,
+                        price_range: {
+                          ...property.price_range,
+                          [configKey]: e.target.value,
+                        },
+                      })
+                    }
+                    placeholder="Price (e.g., 1.5 Cr, 85 Lacs)"
+                    className="w-full border p-2 rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveConfig(configKey)}
+                    className="px-3 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -845,18 +905,8 @@ export default function Dashboard() {
       landmarks: [],
       connectivity: {},
     },
-    carpet_area: {
-      "1_bhk": "",
-      "2_bhk": "",
-      "3_bhk": "",
-    },
-    price_range: {
-      "1_bhk": { min: "", max: "" },
-      "2_bhk": { min: "", max: "" },
-      "3_bhk": { min: "", max: "" },
-      "4_bhk": { min: "", max: "" },
-      "5_bhk": { min: "", max: "" },
-    },
+    carpet_area: {},
+    price_range: {},
     builder: "",
     locality: "",
   };
@@ -908,6 +958,20 @@ export default function Dashboard() {
 
     const propertyToAdd = {
       ...newProperty,
+      carpet_area: Object.keys(newProperty.carpet_area || {}).reduce(
+        (acc, key) => {
+          acc[key] = newProperty.carpet_area[key] || null;
+          return acc;
+        },
+        {}
+      ),
+      price_range: Object.keys(newProperty.price_range || {}).reduce(
+        (acc, key) => {
+          acc[key] = newProperty.price_range[key] || null;
+          return acc;
+        },
+        {}
+      ),
       // Convert string arrays
       amenities: Array.isArray(newProperty.amenities)
         ? newProperty.amenities
@@ -980,36 +1044,6 @@ export default function Dashboard() {
         connectivity: newProperty.location_details?.connectivity || {},
       },
 
-      // Format carpet area
-      carpet_area: {
-        "1_bhk": newProperty.carpet_area?.["1_bhk"] || null,
-        "2_bhk": newProperty.carpet_area?.["2_bhk"] || null,
-        "3_bhk": newProperty.carpet_area?.["3_bhk"] || null,
-      },
-
-      // Format price range
-      price_range: {
-        "1_bhk": {
-          min: newProperty.price_range?.["1_bhk"]?.min || null,
-          max: newProperty.price_range?.["1_bhk"]?.max || null,
-        },
-        "2_bhk": {
-          min: newProperty.price_range?.["2_bhk"]?.min || null,
-          max: newProperty.price_range?.["2_bhk"]?.max || null,
-        },
-        "3_bhk": {
-          min: newProperty.price_range?.["3_bhk"]?.min || null,
-          max: newProperty.price_range?.["3_bhk"]?.max || null,
-        },
-        "4_bhk": {
-          min: newProperty.price_range?.["4_bhk"]?.min || null,
-          max: newProperty.price_range?.["4_bhk"]?.max || null,
-        },
-        "5_bhk": {
-          min: newProperty.price_range?.["5_bhk"]?.min || null,
-          max: newProperty.price_range?.["5_bhk"]?.max || null,
-        },
-      },
       builder: newProperty.builder || null,
       locality: newProperty.locality || null,
     };
@@ -1047,6 +1081,20 @@ export default function Dashboard() {
 
     const propertyToUpdate = {
       ...editingProperty,
+      carpet_area: Object.keys(editingProperty.carpet_area || {}).reduce(
+        (acc, key) => {
+          acc[key] = editingProperty.carpet_area[key] || null;
+          return acc;
+        },
+        {}
+      ),
+      price_range: Object.keys(editingProperty.price_range || {}).reduce(
+        (acc, key) => {
+          acc[key] = editingProperty.price_range[key] || null;
+          return acc;
+        },
+        {}
+      ),
       // Convert string arrays
       amenities: Array.isArray(editingProperty.amenities)
         ? editingProperty.amenities
@@ -1126,36 +1174,6 @@ export default function Dashboard() {
         connectivity: editingProperty.location_details?.connectivity || {},
       },
 
-      // Format carpet area
-      carpet_area: {
-        "1_bhk": editingProperty.carpet_area?.["1_bhk"] || null,
-        "2_bhk": editingProperty.carpet_area?.["2_bhk"] || null,
-        "3_bhk": editingProperty.carpet_area?.["3_bhk"] || null,
-      },
-
-      // Format price range
-      price_range: {
-        "1_bhk": {
-          min: editingProperty.price_range?.["1_bhk"]?.min || null,
-          max: editingProperty.price_range?.["1_bhk"]?.max || null,
-        },
-        "2_bhk": {
-          min: editingProperty.price_range?.["2_bhk"]?.min || null,
-          max: editingProperty.price_range?.["2_bhk"]?.max || null,
-        },
-        "3_bhk": {
-          min: editingProperty.price_range?.["3_bhk"]?.min || null,
-          max: editingProperty.price_range?.["3_bhk"]?.max || null,
-        },
-        "4_bhk": {
-          min: editingProperty.price_range?.["4_bhk"]?.min || null,
-          max: editingProperty.price_range?.["4_bhk"]?.max || null,
-        },
-        "5_bhk": {
-          min: editingProperty.price_range?.["5_bhk"]?.min || null,
-          max: editingProperty.price_range?.["5_bhk"]?.max || null,
-        },
-      },
       builder: editingProperty.builder || null,
       locality: editingProperty.locality || null,
     };
