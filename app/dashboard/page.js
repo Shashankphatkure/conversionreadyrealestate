@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/utils/supabase";
-import { FiEdit2, FiTrash2, FiExternalLink, FiPlus } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiExternalLink, FiPlus, FiX } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/AuthProvider";
 import DashboardLayout from "@/components/DashboardLayout";
@@ -176,6 +176,37 @@ const PropertyForm = ({
       ...property,
       carpet_area: newCarpetArea,
       price_range: newPriceRange,
+    });
+  };
+
+  const handleAddLandmark = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const newLandmark = e.target.value.trim();
+
+      if (newLandmark) {
+        setProperty({
+          ...property,
+          location_details: {
+            landmarks: [
+              ...(property.location_details?.landmarks || []),
+              newLandmark,
+            ],
+          },
+        });
+        e.target.value = ""; // Clear the input
+      }
+    }
+  };
+
+  const handleRemoveLandmark = (indexToRemove) => {
+    setProperty({
+      ...property,
+      location_details: {
+        landmarks: property.location_details?.landmarks.filter(
+          (_, index) => index !== indexToRemove
+        ),
+      },
     });
   };
 
@@ -740,90 +771,41 @@ const PropertyForm = ({
           </div>
         </div>
 
-        {/* Location Details Section */}
+        {/* Updated Location Details Section */}
         <div className="col-span-2">
           <h3 className="text-lg font-medium text-gray-900 mb-4">
             Location Details
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Full Address
-              </label>
-              <textarea
-                value={property.location_details?.address || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    location_details: {
-                      ...property.location_details,
-                      address: e.target.value,
-                    },
-                  })
-                }
-                rows={3}
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Landmarks (comma separated)
+                Landmarks
               </label>
               <input
                 type="text"
-                value={property.location_details?.landmarks?.join(", ") || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    location_details: {
-                      ...property.location_details,
-                      landmarks: e.target.value
-                        .split(",")
-                        .map((item) => item.trim()),
-                    },
-                  })
-                }
-                placeholder="Enter landmarks separated by commas"
+                placeholder="Type a landmark and press Enter"
+                onKeyDown={handleAddLandmark}
                 className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Latitude
-              </label>
-              <input
-                type="text"
-                value={property.location_details?.latitude || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    location_details: {
-                      ...property.location_details,
-                      latitude: e.target.value,
-                    },
-                  })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Longitude
-              </label>
-              <input
-                type="text"
-                value={property.location_details?.longitude || ""}
-                onChange={(e) =>
-                  setProperty({
-                    ...property,
-                    location_details: {
-                      ...property.location_details,
-                      longitude: e.target.value,
-                    },
-                  })
-                }
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-              />
+
+            {/* Landmarks Pills */}
+            <div className="flex flex-wrap gap-2">
+              {property.location_details?.landmarks?.map((landmark, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-1 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm"
+                >
+                  <span>{landmark}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveLandmark(index)}
+                    className="text-blue-500 hover:text-blue-700 focus:outline-none"
+                  >
+                    <FiX className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -894,16 +876,7 @@ export default function Dashboard() {
       construction: [],
     },
     location_details: {
-      nearby: {
-        schools: [],
-        shopping: [],
-        hospitals: [],
-        transport: [],
-      },
-      address: "",
-      mapEmbed: "",
       landmarks: [],
-      connectivity: {},
     },
     carpet_area: {},
     price_range: {},
@@ -1011,37 +984,14 @@ export default function Dashboard() {
             null,
       },
 
-      // Format location details
+      // Simplified location_details formatting
       location_details: {
-        nearby: {
-          schools: Array.isArray(newProperty.location_details?.nearby?.schools)
-            ? newProperty.location_details.nearby.schools
-            : [],
-          shopping: Array.isArray(
-            newProperty.location_details?.nearby?.shopping
-          )
-            ? newProperty.location_details.nearby.shopping
-            : [],
-          hospitals: Array.isArray(
-            newProperty.location_details?.nearby?.hospitals
-          )
-            ? newProperty.location_details.nearby.hospitals
-            : [],
-          transport: Array.isArray(
-            newProperty.location_details?.nearby?.transport
-          )
-            ? newProperty.location_details.nearby.transport
-            : [],
-        },
-        address: newProperty.location_details?.address || null,
-        mapEmbed: newProperty.location_details?.mapEmbed || null,
         landmarks: Array.isArray(newProperty.location_details?.landmarks)
           ? newProperty.location_details.landmarks
           : newProperty.location_details?.landmarks
               ?.split(",")
               .map((item) => item.trim())
               .filter(Boolean) || [],
-        connectivity: newProperty.location_details?.connectivity || {},
       },
 
       builder: newProperty.builder || null,
@@ -1139,39 +1089,14 @@ export default function Dashboard() {
               .filter(Boolean) || null,
       },
 
-      // Format location details
+      // Simplified location_details formatting
       location_details: {
-        nearby: {
-          schools: Array.isArray(
-            editingProperty.location_details?.nearby?.schools
-          )
-            ? editingProperty.location_details.nearby.schools
-            : [],
-          shopping: Array.isArray(
-            editingProperty.location_details?.nearby?.shopping
-          )
-            ? editingProperty.location_details.nearby.shopping
-            : [],
-          hospitals: Array.isArray(
-            editingProperty.location_details?.nearby?.hospitals
-          )
-            ? editingProperty.location_details.nearby.hospitals
-            : [],
-          transport: Array.isArray(
-            editingProperty.location_details?.nearby?.transport
-          )
-            ? editingProperty.location_details.nearby.transport
-            : [],
-        },
-        address: editingProperty.location_details?.address || null,
-        mapEmbed: editingProperty.location_details?.mapEmbed || null,
         landmarks: Array.isArray(editingProperty.location_details?.landmarks)
           ? editingProperty.location_details.landmarks
           : editingProperty.location_details?.landmarks
               ?.split(",")
               .map((item) => item.trim())
               .filter(Boolean) || [],
-        connectivity: editingProperty.location_details?.connectivity || {},
       },
 
       builder: editingProperty.builder || null,
