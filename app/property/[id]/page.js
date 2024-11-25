@@ -12,10 +12,22 @@ import PropertySiteTour from "../components/PropertySiteTour";
 import Sidebar from "../components/sidebar";
 import PropertyModal from "../components/PropertyModal";
 import PropertyPopup from "../components/PropertyPopup";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const revalidate = 0;
 
 export default async function SingleProperty({ params }) {
+  // Add mobile detection
+  const headersList = headers();
+  const userAgent = headersList.get("user-agent") || "";
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
+
+  // Redirect to mobile-specific page if on a mobile device
+  if (isMobile) {
+    redirect(`/propertyinfo/${params.id}`);
+  }
+
   // Initialize Supabase client
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
