@@ -75,13 +75,24 @@ export default function Properties({ properties }) {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
-    arrows: false,
+    arrows: true,
+    prevArrow: (
+      <button className="slick-prev absolute left-4 z-10 bg-black/50 rounded p-1 hover:bg-black/70">
+        <ChevronLeftIcon className="h-8 w-8 text-white" />
+      </button>
+    ),
+    nextArrow: (
+      <button className="slick-next absolute right-4 z-10 bg-black/50 rounded p-1 hover:bg-black/70">
+        <ChevronRightIcon className="h-8 w-8 text-white" />
+      </button>
+    ),
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          arrows: true,
         },
       },
       {
@@ -89,6 +100,7 @@ export default function Properties({ properties }) {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          arrows: false,
           infinite: true,
           centerMode: true,
           centerPadding: "40px",
@@ -99,6 +111,7 @@ export default function Properties({ properties }) {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false,
           infinite: true,
           centerMode: true,
           centerPadding: "40px",
