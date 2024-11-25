@@ -14,29 +14,18 @@ export default function PropertyLocation({ property }) {
     setTimeout(() => setShowPopup(true), 0);
   };
 
-  // Helper function to format nearby places with time
+  // Helper function to format landmarks
   const formatNearbyPlaces = () => {
-    if (!property.location_details?.nearby) return [];
+    if (!property.location_details?.landmarks) return [];
 
-    const places = [];
-    // Add schools
-    property.location_details.nearby.schools?.forEach((school) =>
-      places.push({ name: school.name, time: school.distance_time })
-    );
-    // Add shopping
-    property.location_details.nearby.shopping?.forEach((shop) =>
-      places.push({ name: shop.name, time: shop.distance_time })
-    );
-    // Add hospitals
-    property.location_details.nearby.hospitals?.forEach((hospital) =>
-      places.push({ name: hospital.name, time: hospital.distance_time })
-    );
-    // Add transport
-    property.location_details.nearby.transport?.forEach((transport) =>
-      places.push({ name: transport.name, time: transport.distance_time })
-    );
-
-    return places;
+    return property.location_details.landmarks.map((landmark) => {
+      // Split landmark string into name and time/distance
+      const [name, time] = landmark.split(/(?=\d)(.+)/).filter(Boolean);
+      return {
+        name: name.trim(),
+        time: time?.trim() || "",
+      };
+    });
   };
 
   const nearbyPlaces = formatNearbyPlaces();
@@ -48,44 +37,17 @@ export default function PropertyLocation({ property }) {
       <br />
       <div className="row-fv6 mb-d67">
         <div className="col-dpq col-353">
-          <span className="block-lob section-jdn text-lxi">Map View</span>
+          <span className="block-lob section-jdn text-lxi">
+            Request Map View
+          </span>
           <div className="map-qda">
             <iframe
               src={property.location_details?.mapEmbed}
-              width={400}
+              width={600}
               height={450}
               style={{ border: "0" }}
             />
           </div>
-        </div>
-        <div className="col-ofk col-353 map-8tm text-zgr">
-          <span className="block-lob section-jdn text-lxi text-zgr">
-            Location Map
-          </span>
-          {property.location_details?.address && (
-            <p className="mb-4">{property.location_details.address}</p>
-          )}
-          <a
-            className="text-wix"
-            onClick={triggerPopup}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="item-sxo mb-p1y">
-              <div className="at-property-beb master-gz3">
-                {property.location_details?.staticMap && (
-                  <picture>
-                    <img
-                      src={property.location_details.staticMap}
-                      alt="Location Map"
-                      className="shadow-8vf bor-k37"
-                    />
-                  </picture>
-                )}
-                <div className="overlay-532" />
-                <span className="btn-w1o">View Location Map</span>
-              </div>
-            </div>
-          </a>
         </div>
       </div>
       <p />
