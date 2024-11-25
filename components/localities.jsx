@@ -122,7 +122,7 @@ const Localities = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          arrows: true,
+          arrows: false,
           infinite: true,
           centerMode: true,
           centerPadding: "40px",
@@ -133,7 +133,7 @@ const Localities = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          arrows: true,
+          arrows: false,
           infinite: true,
           centerMode: true,
           centerPadding: "40px",
