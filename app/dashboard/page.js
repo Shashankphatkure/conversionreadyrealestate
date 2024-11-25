@@ -46,6 +46,16 @@ const uploadMultipleImages = async (files, bucket = "properties") => {
   }
 };
 
+// Add this helper function at the top of your file
+const extractMapUrl = (input) => {
+  // If it's already just a URL, return it
+  if (input.startsWith("https://")) return input;
+
+  // Try to extract URL from iframe tag
+  const srcMatch = input.match(/src="([^"]+)"/);
+  return srcMatch ? srcMatch[1] : input;
+};
+
 // Add this component at the top of your file, outside the main Dashboard component
 const PropertyForm = ({
   property,
@@ -809,6 +819,49 @@ const PropertyForm = ({
             </div>
           </div>
         </div>
+
+        {/* Add Map Embed Section - place this before the form submit buttons */}
+        <div className="col-span-2">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Map Embed</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Google Maps Embed Code or URL
+              </label>
+              <textarea
+                value={property.map_embed || ""}
+                onChange={(e) => {
+                  const cleanUrl = extractMapUrl(e.target.value);
+                  setProperty({
+                    ...property,
+                    map_embed: cleanUrl,
+                  });
+                }}
+                placeholder="Paste Google Maps embed code or URL"
+                rows={3}
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="mt-1 text-sm text-gray-500">
+                You can paste either the full iframe embed code or just the URL
+                from Google Maps
+              </p>
+            </div>
+
+            {/* Preview the embedded map if URL exists */}
+            {property.map_embed && (
+              <div className="relative aspect-video w-full">
+                <iframe
+                  src={property.map_embed}
+                  className="absolute inset-0 w-full h-full rounded-lg border border-gray-200"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="flex justify-end gap-4 pt-4 border-t">
@@ -882,6 +935,7 @@ export default function Dashboard() {
     price_range: {},
     builder: "",
     locality: "",
+    map_embed: "",
   };
 
   const [newProperty, setNewProperty] = useState(initialPropertyState);

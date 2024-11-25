@@ -35,22 +35,25 @@ export default function PropertyLocation({ property }) {
       <span />
       <span className="hea-6ig text-lxi pr-5">Location</span>
       <br />
-      <div className="row-fv6 mb-d67">
-        <div className="col-dpq col-353">
-          <span className="block-lob section-jdn text-lxi">
-            Request Map View
-          </span>
-          <div className="map-qda">
-            <iframe
-              src={property.map_embed}
-              width={600}
-              height={450}
-              style={{ border: "0" }}
-            />
-          </div>
+
+      {/* Updated Map Container */}
+      <div className="w-full mb-8">
+        <span className="block-lob section-jdn text-lxi ">
+          Request Location Map
+        </span>
+        <div className="w-full aspect-[16/9] relative">
+          <iframe
+            src={property.map_embed}
+            className="absolute inset-0 w-full h-full"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
-      <p />
+
+      {/* Landmarks Section */}
       <div className="location-list" style={{ textAlign: "left" }}>
         {nearbyPlaces.map((location, index) => (
           <div key={index} className="location-item">
@@ -61,6 +64,7 @@ export default function PropertyLocation({ property }) {
           </div>
         ))}
       </div>
+
       <PropertyPopup
         property={property}
         trigger={showPopup}
