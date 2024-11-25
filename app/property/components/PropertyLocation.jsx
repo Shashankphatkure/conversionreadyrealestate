@@ -37,7 +37,7 @@ export default function PropertyLocation({ property }) {
       <br />
 
       {/* Updated Map Container */}
-      <div className="w-full mb-8">
+      <div className="w-full ">
         <span className="block-lob section-jdn text-lxi ">
           Request Location Map
         </span>
