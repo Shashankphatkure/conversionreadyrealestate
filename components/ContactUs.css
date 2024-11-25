@@ -248,10 +248,10 @@ h5 {
 }
 
 h5 {
-  font-size: 12px !important;
-  margin: 10px 0 5px 0 !important;
-  font-weight: 700 !important;
-  color: #f64d0d !important;
+  font-size: 12px;
+  margin: 10px 0 5px 0;
+  font-weight: 700;
+  color: #f64d0d;
 }
 
 a:hover {

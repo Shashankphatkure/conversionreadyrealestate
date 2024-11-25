@@ -277,9 +277,9 @@ h5 {
 }
 
 .cou-4gh h5 {
-  font-size: 10px !important;
-  margin: 0 0 0 0 !important;
-  color: #f64d0d !important;
+  font-size: 10px;
+  margin: 0 0 0 0;
+  color: #f64d0d;
   letter-spacing: 3px;
   text-transform: uppercase;
 }

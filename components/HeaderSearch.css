@@ -495,8 +495,8 @@ button:not(:disabled) {
   height: 45px !important;
   font-size: 1.2rem !important;
   text-transform: uppercase;
-  padding: 0 5px !important;
-  background-color: #f64d0d !important;
+  padding: 0 5px;
+  background-color: #f64d0d;
 }
 
 input {
