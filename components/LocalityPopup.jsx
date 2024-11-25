@@ -75,7 +75,7 @@ export default function LocalityPopup({ isOpen, setIsOpen, selectedLocality }) {
 
   return (
     <div
-      className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 sm:p-4 mr-[30px] ${
+      className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 sm:p-4 ${
         isOpen ? "" : "hidden"
       }`}
     >
