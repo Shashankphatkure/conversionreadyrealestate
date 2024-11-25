@@ -5,7 +5,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./localities.css";
 import { supabase } from "@/utils/supabase";
-import { MapPinIcon, BuildingOfficeIcon } from "@heroicons/react/24/solid";
+import {
+  MapPinIcon,
+  BuildingOfficeIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/solid";
 import LocalityPopup from "./LocalityPopup";
 
 // Separate LocalityCard component with prop types
@@ -84,7 +89,7 @@ const Localities = () => {
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -92,19 +97,46 @@ const Localities = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
+    arrows: false,
+    prevArrow: (
+      <button className="slick-prev absolute left-0 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100">
+        <ChevronLeftIcon className="h-6 w-6 text-gray-600" />
+      </button>
+    ),
+    nextArrow: (
+      <button className="slick-next absolute right-0 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100">
+        <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+      </button>
+    ),
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          arrows: false,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          arrows: true,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "40px",
+        },
+      },
+      {
+        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: true,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "40px",
         },
       },
     ],

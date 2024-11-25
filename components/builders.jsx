@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BuildingOfficeIcon } from "@heroicons/react/24/solid";
+import {
+  BuildingOfficeIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/solid";
 import { supabase } from "@/utils/supabase";
 import BuilderPopup from "@/components/BuilderPopup";
 
@@ -13,15 +17,15 @@ const BuilderCard = ({ builder, onBuilderClick }) => {
   const { id, name, logo, total_projects } = builder;
 
   return (
-    <div className="item-cim">
+    <div className="item-cim px-2 sm:px-4">
       <div className="item-5t2">
         <div className="pro-oph">
           <div
             onClick={() => onBuilderClick(id)}
             className="block cursor-pointer"
           >
-            <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
-              <div className="relative h-32 flex items-center justify-center mb-4">
+            <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow">
+              <div className="relative h-24 sm:h-32 flex items-center justify-center mb-4">
                 <img
                   src={logo || "/placeholder-builder-logo.jpg"}
                   alt={name}
@@ -34,11 +38,11 @@ const BuilderCard = ({ builder, onBuilderClick }) => {
                 />
               </div>
               <div className="text-center">
-                <h3 className="font-semibold text-lg text-gray-800 mb-2">
+                <p className="font-semibold text-base sm:text-lg text-gray-800 mb-2">
                   {name}
-                </h3>
-                <p className="text-gray-600 flex items-center justify-center gap-2">
-                  <BuildingOfficeIcon className="h-5 w-5" />
+                </p>
+                <p className="text-sm sm:text-base text-gray-600 flex items-center justify-center gap-2">
+                  <BuildingOfficeIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                   {total_projects || 0} Projects
                 </p>
               </div>
@@ -84,7 +88,7 @@ const Builders = () => {
   };
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
@@ -92,12 +96,24 @@ const Builders = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
+    arrows: false,
+    prevArrow: (
+      <button className="slick-prev absolute left-0 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100">
+        <ChevronLeftIcon className="h-6 w-6 text-gray-600" />
+      </button>
+    ),
+    nextArrow: (
+      <button className="slick-next absolute right-0 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100">
+        <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+      </button>
+    ),
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
+          arrows: false,
         },
       },
       {
@@ -105,6 +121,10 @@ const Builders = () => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
+          arrows: true,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "40px",
         },
       },
       {
@@ -112,6 +132,10 @@ const Builders = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: true,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "40px",
         },
       },
     ],
@@ -147,7 +171,10 @@ const Builders = () => {
   }
 
   return (
-    <div className="content-5j6" style={{ paddingTop: "0px" }}>
+    <div
+      className="content-5j6"
+      style={{ paddingTop: "0px", paddingBottom: "0px" }}
+    >
       <BuilderPopup
         isOpen={isOpen}
         setIsOpen={setIsOpen}
@@ -158,7 +185,7 @@ const Builders = () => {
           <div>
             <div className="row-qzg">
               <div className="carousel-evd owl-hfs owl-bdo owl-62r">
-                <div className="builders-slider">
+                <div className="builders-slider mb-0">
                   <Slider {...settings}>
                     {builders.map((builder) => (
                       <BuilderCard

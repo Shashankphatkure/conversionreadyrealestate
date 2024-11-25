@@ -1,7 +1,12 @@
 import React from "react";
 import Slider from "react-slick";
 import Link from "next/link";
-import { HomeIcon, CurrencyRupeeIcon } from "@heroicons/react/24/solid";
+import {
+  HomeIcon,
+  CurrencyRupeeIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/solid";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./properties.css";
@@ -62,11 +67,15 @@ const PropertyCard = ({ property }) => (
 
 export default function Properties({ properties }) {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -76,10 +85,23 @@ export default function Properties({ properties }) {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "40px",
+        },
+      },
+      {
+        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "40px",
         },
       },
     ],
