@@ -19,7 +19,7 @@ export default function HeaderSearch() {
     <div className="w-full h-full relative bg-[url('https://newprojectsonline.com/assets/main/img/properties/properties-6.webp')] bg-cover bg-center bg-no-repeat py-24">
       <div className="absolute inset-0 bg-black/50" />
 
-      <div className="relative z-10 w-full pt-10">
+      <div className="relative z-1 w-full pt-10">
         <div className="container mx-auto px-4 max-w-[1250px]">
           <div className="py-16">
             <div className="flex flex-col items-center justify-center">
