@@ -42,7 +42,7 @@ export default function PropertyLocation({ property }) {
           </span>
           <div className="map-qda">
             <iframe
-              src={property.location_details?.mapEmbed}
+              src={property.map_embed}
               width={600}
               height={450}
               style={{ border: "0" }}
