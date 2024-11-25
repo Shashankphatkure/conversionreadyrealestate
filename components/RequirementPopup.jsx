@@ -59,7 +59,7 @@ export default function RequirementPopup() {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 sm:p-4">
-      <div className="bg-white rounded-xl max-w-3xl w-full relative overflow-hidden shadow-2xl animate-fadeIn max-h-[90vh] overflow-y-auto m-2 sm:m-0">
+      <div className="bg-white rounded-xl max-w-3xl w-full relative overflow-hidden shadow-2xl animate-fadeIn max-h-[90vh] overflow-y-auto m-2 sm:m-0 mr-[40px]">
         {/* Close Button */}
         <button
           onClick={() => setIsOpen(false)}
