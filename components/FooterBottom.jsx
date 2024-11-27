@@ -65,8 +65,8 @@ export default function FooterBottom() {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} />
-                    <a href="mailto:omshree5707@gmail.com">
-                      omshree5707@gmail.com
+                    <a href="shreeganeshrealty90@gmail.com">
+                      shreeganeshrealty90@gmail.com
                     </a>
                   </li>
                   <li>

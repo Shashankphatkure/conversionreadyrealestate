@@ -100,10 +100,10 @@ export default function ContactUs() {
                   Email Us
                 </h41>
                 <a
-                  href="mailto:omshree5707@gmail.com"
+                  href="mailto:shreeganeshrealty90@gmail.com"
                   className="text-gray-600 hover:text-red-500 transition-colors leading-tight"
                 >
-                  omshree5707@gmail.com
+                  shreeganeshrealty90@gmail.com
                 </a>
               </div>
             </div>
