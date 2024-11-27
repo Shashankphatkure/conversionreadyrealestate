@@ -198,24 +198,15 @@ export default function Sidebar({ property }) {
               alt="Share on WhatsApp"
             />
           </a>
+          <a href="mailto:shreeganeshrealty90@gmail.com">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/552/552486.png"
+              width={30}
+              height={30}
+              alt="Share via Email"
+            />
+          </a>
         </div>
-      </div>
-      <div className="link-ec4">
-        <a href="tel:+919892666207">
-          <PhoneIcon className="h-6 w-6" />
-        </a>
-        <a href="#">
-          <EnvelopeIcon className="h-6 w-6" />
-        </a>
-        <a href="#">
-          <ChatBubbleLeftIcon className="h-6 w-6" />
-        </a>
-        <a href="#">
-          <MapPinIcon className="h-6 w-6" />
-        </a>
-        <a href="#">
-          <DocumentIcon className="h-6 w-6" />
-        </a>
       </div>
     </div>
   );
