@@ -14,29 +14,18 @@ export default function PropertyLocation({ property }) {
     setTimeout(() => setShowPopup(true), 0);
   };
 
-  // Helper function to format nearby places with time
+  // Updated helper function to format nearby places
   const formatNearbyPlaces = () => {
-    if (!property.location_details?.nearby) return [];
+    if (!property.location_details?.landmarks) return [];
 
-    const places = [];
-    // Add schools
-    property.location_details.nearby.schools?.forEach((school) =>
-      places.push({ name: school.name, time: school.distance_time })
-    );
-    // Add shopping
-    property.location_details.nearby.shopping?.forEach((shop) =>
-      places.push({ name: shop.name, time: shop.distance_time })
-    );
-    // Add hospitals
-    property.location_details.nearby.hospitals?.forEach((hospital) =>
-      places.push({ name: hospital.name, time: hospital.distance_time })
-    );
-    // Add transport
-    property.location_details.nearby.transport?.forEach((transport) =>
-      places.push({ name: transport.name, time: transport.distance_time })
-    );
-
-    return places;
+    return property.location_details.landmarks.map((landmark) => {
+      // Split landmark string into name and time/distance
+      const [name, time] = landmark.split(/(?=\d)(.+)/).filter(Boolean);
+      return {
+        name: name.trim(),
+        time: time?.trim() || "",
+      };
+    });
   };
 
   const nearbyPlaces = formatNearbyPlaces();
@@ -50,53 +39,19 @@ export default function PropertyLocation({ property }) {
         Location
       </span>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-8">
-        <div className="w-full">
-          <span className="block-lob section-jdn text-lxi text-xl md:text-2xl font-semibold mb-4 block">
-            Map View
-          </span>
-          <div className="map-qda w-full h-[300px] md:h-[450px] rounded-lg overflow-hidden shadow-lg">
-            <iframe
-              src={property.location_details?.mapEmbed}
-              className="w-full h-full border-0"
-              title="Property Location Map"
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-        <div className="w-full">
-          <span className="block-lob section-jdn text-lxi text-xl md:text-2xl font-semibold mb-4 block">
-            Location Map
-          </span>
-
-          {property.location_details?.address && (
-            <p className="mb-4 text-base md:text-lg">
-              {property.location_details.address}
-            </p>
-          )}
-
-          <div
-            onClick={triggerPopup}
-            className="cursor-pointer transition-transform hover:scale-[1.02] duration-300"
-          >
-            <div className="relative overflow-hidden rounded-lg shadow-lg">
-              {property.location_details?.staticMap && (
-                <div className="aspect-video">
-                  <img
-                    src={property.location_details.staticMap}
-                    alt="Location Map"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <span className="btn-w1o text-white text-lg md:text-xl font-medium">
-                      View Location Map
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+      <div className="w-full mb-8">
+        <span className="block-lob section-jdn text-lxi text-xl md:text-2xl font-semibold mb-4 block">
+          Request Location Map
+        </span>
+        <div className="w-full aspect-[16/9] relative">
+          <iframe
+            src={property.map_embed}
+            className="absolute inset-0 w-full h-full border-0"
+            title="Property Location Map"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen=""
+          />
         </div>
       </div>
 
