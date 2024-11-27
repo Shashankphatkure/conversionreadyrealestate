@@ -168,7 +168,7 @@ export default function Sidebar({ property }) {
         <div className="social-icons">
           <a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
             <img
-              src="https://newprojectsonline.com/assets/img/comman/facebook.png"
+              src="/facebook.png"
               width={30}
               height={30}
               alt="Share on Facebook"
@@ -176,7 +176,7 @@ export default function Sidebar({ property }) {
           </a>
           <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
             <img
-              src="https://newprojectsonline.com/assets/img/comman/linkedin.png"
+              src="/linkedin.png"
               width={30}
               height={30}
               alt="Share on LinkedIn"
@@ -184,7 +184,7 @@ export default function Sidebar({ property }) {
           </a>
           <a href="https://twitter.com/share?url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
             <img
-              src="https://newprojectsonline.com/assets/img/comman/twitter.png"
+              src="/twitter.png"
               width={30}
               height={30}
               alt="Share on Twitter"
@@ -192,7 +192,7 @@ export default function Sidebar({ property }) {
           </a>
           <a href="https://wa.me/?text=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
             <img
-              src="https://newprojectsonline.com/assets/img/comman/whatsapp.png"
+              src="/whatsapp.png"
               width={30}
               height={30}
               alt="Share on WhatsApp"
