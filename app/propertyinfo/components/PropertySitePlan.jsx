@@ -13,6 +13,26 @@ export default function PropertySitePlan({ property }) {
     setTimeout(() => setShowPopup(true), 0);
   };
 
+  const getConfigurations = () => {
+    const priceRange = property.price_range || {};
+    return Object.keys(priceRange).filter((key) => priceRange[key]);
+  };
+
+  const formatConfigName = (configKey) => {
+    return configKey.replace(/_/g, " ").toUpperCase();
+  };
+
+  const getFloorPlanImage = (index) => {
+    const images = [
+      "https://newprojectsonline.com/assets/uploads/floor_plans/1719552954-mer_1_bhk_thumb.webp",
+      "https://newprojectsonline.com/assets/uploads/floor_plans/1719552962-merac_2_bhk_thumb.webp",
+      "https://newprojectsonline.com/assets/uploads/floor_plans/1719552968-merac_3bhk_thumb.webp",
+    ];
+    return images[index] || images[0];
+  };
+
+  const configurations = getConfigurations();
+
   return (
     <section
       id="sitefloorplan"
@@ -53,86 +73,40 @@ export default function PropertySitePlan({ property }) {
       </span>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* 1 BHK */}
-        <div className="w-full">
-          <a className="text-oid cursor-pointer block" onClick={triggerPopup}>
-            <div className="shadow-y88 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="at-property-etq relative">
-                <picture>
-                  <img
-                    className="w-full h-auto object-cover"
-                    src="https://newprojectsonline.com/assets/uploads/floor_plans/1719552954-mer_1_bhk_thumb.webp"
-                    alt="1 BHK Floor Plan"
-                  />
-                </picture>
-                <div className="overlay-bhv absolute inset-0 bg-black/50" />
-                <span
-                  className="btn-g38 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
-                  bg-[#c9b06b] text-white px-4 py-2 rounded-md hover:bg-[#b39a5a] transition-colors"
-                >
-                  Enquire Now
-                </span>
+        {configurations.map((config, index) => (
+          <div key={config} className="w-full">
+            <a className="text-oid cursor-pointer block" onClick={triggerPopup}>
+              <div className="shadow-y88 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="at-property-etq relative">
+                  <picture>
+                    <img
+                      className="w-full h-auto object-cover"
+                      src={getFloorPlanImage(index)}
+                      alt={`${formatConfigName(config)} Floor Plan`}
+                    />
+                  </picture>
+                  <div className="overlay-bhv absolute inset-0 bg-black/50" />
+                  <span
+                    className="btn-g38 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+                    bg-[#c9b06b] text-white px-4 py-2 rounded-md hover:bg-[#b39a5a] transition-colors"
+                  >
+                    Enquire Now
+                  </span>
+                </div>
+                <div className="p-3 text-center bg-white border-t border-[#c9b06b]/20">
+                  <h5 className="text-lg font-semibold text-[#c9b06b]">
+                    {formatConfigName(config)}
+                  </h5>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {property.price_range[config]
+                      ? `₹ ${property.price_range[config]}`
+                      : "Price on Request"}
+                  </p>
+                </div>
               </div>
-              <div className="p-3 text-center bg-white border-t border-[#c9b06b]/20">
-                <h5 className="text-lg font-semibold text-[#c9b06b]">1 BHK</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        {/* 2 BHK */}
-        <div className="w-full">
-          <a className="text-oid cursor-pointer block" onClick={triggerPopup}>
-            <div className="shadow-y88 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="at-property-etq relative">
-                <picture>
-                  <img
-                    className="w-full h-auto object-cover"
-                    src="https://newprojectsonline.com/assets/uploads/floor_plans/1719552962-merac_2_bhk_thumb.webp"
-                    alt="2 BHK Floor Plan"
-                  />
-                </picture>
-                <div className="overlay-bhv absolute inset-0 bg-black/50" />
-                <span
-                  className="btn-g38 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
-                  bg-[#c9b06b] text-white px-4 py-2 rounded-md hover:bg-[#b39a5a] transition-colors"
-                >
-                  Enquire Now
-                </span>
-              </div>
-              <div className="p-3 text-center bg-white border-t border-[#c9b06b]/20">
-                <h5 className="text-lg font-semibold text-[#c9b06b]">2 BHK</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        {/* 3 BHK */}
-        <div className="w-full">
-          <a className="text-oid cursor-pointer block" onClick={triggerPopup}>
-            <div className="shadow-y88 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="at-property-etq relative">
-                <picture>
-                  <img
-                    className="w-full h-auto object-cover"
-                    src="https://newprojectsonline.com/assets/uploads/floor_plans/1719552968-merac_3bhk_thumb.webp"
-                    alt="3 BHK Floor Plan"
-                  />
-                </picture>
-                <div className="overlay-bhv absolute inset-0 bg-black/50" />
-                <span
-                  className="btn-g38 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
-                  bg-[#c9b06b] text-white px-4 py-2 rounded-md hover:bg-[#b39a5a] transition-colors"
-                >
-                  Enquire Now
-                </span>
-              </div>
-              <div className="p-3 text-center bg-white border-t border-[#c9b06b]/20">
-                <h5 className="text-lg font-semibold text-[#c9b06b]">3 BHK</h5>
-              </div>
-            </div>
-          </a>
-        </div>
+            </a>
+          </div>
+        ))}
       </div>
 
       <PropertyPopup
