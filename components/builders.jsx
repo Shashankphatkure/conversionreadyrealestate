@@ -60,6 +60,7 @@ const Builders = () => {
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBuilder, setSelectedBuilder] = useState(null);
+  const sliderRef = React.useRef(null);
 
   useEffect(() => {
     fetchBuilders();
@@ -96,17 +97,8 @@ const Builders = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
-    arrows: false,
-    prevArrow: (
-      <button className="slick-prev absolute left-0 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100">
-        <ChevronLeftIcon className="h-6 w-6 text-gray-600" />
-      </button>
-    ),
-    nextArrow: (
-      <button className="slick-next absolute right-0 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100">
-        <ChevronRightIcon className="h-6 w-6 text-gray-600" />
-      </button>
-    ),
+    arrows: true,
+
     responsive: [
       {
         breakpoint: 1024,
@@ -186,7 +178,7 @@ const Builders = () => {
             <div className="row-qzg">
               <div className="carousel-evd owl-hfs owl-bdo owl-62r">
                 <div className="builders-slider mb-0">
-                  <Slider {...settings}>
+                  <Slider {...settings} ref={sliderRef}>
                     {builders.map((builder) => (
                       <BuilderCard
                         key={builder.id}
