@@ -9,7 +9,7 @@ export default function PropertyPrice({ property }) {
 
   const formatPrice = (price) => {
     if (!price) return "Price on Request";
-    return `₹ ${price} ${price >= 10000000 ? "Cr*" : "Lacs*"} + Onwards`;
+    return `₹ ${price}`;
   };
 
   const getFormattedArea = (area) => {
@@ -22,6 +22,15 @@ export default function PropertyPrice({ property }) {
     setTimeout(() => setShowPopup(true), 0);
   };
 
+  const getConfigurations = () => {
+    const carpetArea = property.carpet_area || {};
+    return Object.keys(carpetArea).filter((key) => carpetArea[key]);
+  };
+
+  const formatConfigName = (configKey) => {
+    return configKey.replace(/_/g, " ").toUpperCase();
+  };
+
   return (
     <section
       id="pricing"
@@ -32,90 +41,39 @@ export default function PropertyPrice({ property }) {
         Price
       </span>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {property.carpet_area?.["1_bhk"] && (
-          <div className="bg-white rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow border border-[#c9b06b]/20">
-            <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">
-              1 BHK
-            </h3>
-            <p className="text-gray-600 text-lg mb-2">
-              {getFormattedArea(property.carpet_area["1_bhk"])}
-            </p>
-            <p className="text-xl font-semibold text-[#c9b06b] mb-4">
-              {formatPrice(property.price_range?.["1_bhk"]?.min)}
-            </p>
-            <button
-              onClick={triggerPopup}
-              className="w-full bg-[#c9b06b] text-white py-2 px-4 rounded-md
-                hover:bg-[#b39a5a] transition-colors text-base md:text-lg"
-            >
-              Get Details
-            </button>
-          </div>
-        )}
-
-        {property.carpet_area?.["2_bhk"] && (
-          <div className="bg-white rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow border border-[#c9b06b]/20">
-            <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">
-              2 BHK
-            </h3>
-            <p className="text-gray-600 text-lg mb-2">
-              {getFormattedArea(property.carpet_area["2_bhk"])}
-            </p>
-            <p className="text-xl font-semibold text-[#c9b06b] mb-4">
-              {formatPrice(property.price_range?.["2_bhk"]?.min)}
-            </p>
-            <button
-              onClick={triggerPopup}
-              className="w-full bg-[#c9b06b] text-white py-2 px-4 rounded-md
-                hover:bg-[#b39a5a] transition-colors text-base md:text-lg"
-            >
-              Get Details
-            </button>
-          </div>
-        )}
-
-        {property.carpet_area?.["3_bhk"] && (
-          <div className="bg-white rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow border border-[#c9b06b]/20">
-            <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">
-              3 BHK
-            </h3>
-            <p className="text-gray-600 text-lg mb-2">
-              {getFormattedArea(property.carpet_area["3_bhk"])}
-            </p>
-            <p className="text-xl font-semibold text-[#c9b06b] mb-4">
-              {formatPrice(property.price_range?.["3_bhk"]?.min)}
-            </p>
-            <button
-              onClick={triggerPopup}
-              className="w-full bg-[#c9b06b] text-white py-2 px-4 rounded-md
-                hover:bg-[#b39a5a] transition-colors text-base md:text-lg"
-            >
-              Get Details
-            </button>
-          </div>
-        )}
-
-        {property.carpet_area?.["4_bhk"] && (
-          <div className="bg-white rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow border border-[#c9b06b]/20">
-            <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">
-              4 BHK
-            </h3>
-            <p className="text-gray-600 text-lg mb-2">
-              {getFormattedArea(property.carpet_area["4_bhk"])}
-            </p>
-            <p className="text-xl font-semibold text-[#c9b06b] mb-4">
-              {formatPrice(property.price_range?.["4_bhk"]?.min)}
-            </p>
-            <button
-              onClick={triggerPopup}
-              className="w-full bg-[#c9b06b] text-white py-2 px-4 rounded-md
-                hover:bg-[#b39a5a] transition-colors text-base md:text-lg"
-            >
-              Get Details
-            </button>
-          </div>
-        )}
+      <div className="overflow-x-auto mb-8">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="bg-gray-50">
+              <th className="p-4 text-left border">Type</th>
+              <th className="p-4 text-left border">Carpet Area</th>
+              <th className="p-4 text-left border">Price</th>
+              <th className="p-4 text-left border"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {getConfigurations().map((config) => (
+              <tr key={config} className="border-b">
+                <td className="p-4 border">{formatConfigName(config)}</td>
+                <td className="p-4 border">
+                  {getFormattedArea(property.carpet_area[config])}
+                </td>
+                <td className="p-4 border">
+                  {formatPrice(property.price_range?.[config])}
+                </td>
+                <td className="p-4 border">
+                  <button
+                    onClick={triggerPopup}
+                    className="bg-[#c9b06b] text-white py-2 px-4 rounded-md
+                    hover:bg-[#b39a5a] transition-colors"
+                  >
+                    Click Here
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <div className="max-w-2xl mx-auto">
@@ -131,22 +89,15 @@ export default function PropertyPrice({ property }) {
                 alt="Complete Costing Details"
               />
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <span
-                  className="px-6 py-2 bg-[#c9b06b] text-white rounded-md text-lg 
-                  hover:bg-[#b39a5a] transition-colors"
-                >
-                  Get Complete Details
+                <span className="px-6 py-2 bg-[#c9b06b] text-white rounded-md text-lg">
+                  Enquire Now
                 </span>
               </div>
             </div>
             <div className="p-4">
-              <h5 className="text-xl md:text-2xl font-semibold text-center text-black">
+              <h5 className="text-xl font-semibold text-center">
                 Complete Costing Details
               </h5>
-              <p className="text-gray-600 text-center mt-2">
-                Get detailed pricing information including floor plans, payment
-                plans, and more
-              </p>
             </div>
           </div>
         </button>
