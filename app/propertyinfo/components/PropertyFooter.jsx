@@ -9,32 +9,16 @@ export default function PropertyFooter() {
         </div>
         <div className="social-icons">
           <a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane">
-            <img
-              className="social-icon"
-              src="https://newprojectsonline.com/assets/img/comman/facebook.png"
-              alt="Facebook"
-            />
+            <img className="social-icon" src="/facebook.png" alt="Facebook" />
           </a>
           <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane">
-            <img
-              className="social-icon"
-              src="https://newprojectsonline.com/assets/img/comman/linkedin.png"
-              alt="LinkedIn"
-            />
+            <img className="social-icon" src="/linkedin.png" alt="LinkedIn" />
           </a>
           <a href="https://twitter.com/share?url=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane">
-            <img
-              className="social-icon"
-              src="https://newprojectsonline.com/assets/img/comman/twitter.png"
-              alt="Twitter"
-            />
+            <img className="social-icon" src="/twitter.png" alt="Twitter" />
           </a>
           <a href="https://wa.me/?text=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane">
-            <img
-              className="social-icon"
-              src="https://newprojectsonline.com/assets/img/comman/whatsapp.png"
-              alt="WhatsApp"
-            />
+            <img className="social-icon" src="/whatsapp.png" alt="WhatsApp" />
           </a>
         </div>
       </div>
