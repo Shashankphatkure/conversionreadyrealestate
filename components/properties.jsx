@@ -76,16 +76,7 @@ export default function Properties({ properties }) {
     autoplaySpeed: 3000,
     pauseOnHover: true,
     arrows: true,
-    prevArrow: (
-      <button className="slick-prev absolute left-4 z-10 bg-black/50 rounded p-1 hover:bg-black/70">
-        <ChevronLeftIcon className="h-8 w-8 text-white" />
-      </button>
-    ),
-    nextArrow: (
-      <button className="slick-next absolute right-4 z-10 bg-black/50 rounded p-1 hover:bg-black/70">
-        <ChevronRightIcon className="h-8 w-8 text-white" />
-      </button>
-    ),
+
     responsive: [
       {
         breakpoint: 1024,
