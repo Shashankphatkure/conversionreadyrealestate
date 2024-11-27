@@ -14,6 +14,7 @@ import PropertyModal from "../components/PropertyModal";
 import PropertyPopup from "../components/PropertyPopup";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import PropertyPopup2 from "../components/PropertyPopup2";
 
 export const revalidate = 0;
 
@@ -88,6 +89,7 @@ export default async function SingleProperty({ params }) {
       </div>
 
       <PropertyPopup property={property} />
+      <PropertyPopup2 property={property} />
     </>
   );
 }
