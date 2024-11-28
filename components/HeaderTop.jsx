@@ -9,8 +9,10 @@ import {
   faCopy,
   faAddressCard,
   faBars,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { faEnvelopeOpen } from "@fortawesome/free-regular-svg-icons";
 
 export default function HeaderTop() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,6 +45,14 @@ export default function HeaderTop() {
                   className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
                 >
                   <FontAwesomeIcon icon={faInstagram} className="text-lg" />
+                </a>
+              </li>
+              <li className="border-r border-white border-opacity-20">
+                <a
+                  href="mailto:shreeganeshrealty90@gmail.com"
+                  className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
+                >
+                  <FontAwesomeIcon icon={faEnvelopeOpen} className="text-lg" />
                 </a>
               </li>
             </ul>
