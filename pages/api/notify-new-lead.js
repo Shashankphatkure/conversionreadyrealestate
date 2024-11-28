@@ -18,17 +18,19 @@ export default async function handler(req, res) {
 
   try {
     const lead = req.body.record;
+    console.log("Received new lead notification:", lead);
 
     if (!lead) {
       return res.status(400).json({ message: "No lead data provided" });
     }
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: process.env.SMTP_FROM_EMAIL,
       to: process.env.NOTIFICATION_EMAIL,
       subject: "New Lead Notification",
       html: newLeadEmailTemplate(lead),
     });
+    console.log("Email sent successfully:", info);
 
     return res
       .status(200)
