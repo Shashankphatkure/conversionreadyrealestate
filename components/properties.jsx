@@ -15,7 +15,11 @@ const PropertyCard = ({ property }) => (
   <div className="item-4f1">
     <div className="item-bgo">
       <div className="pro-85g">
-        <Link href={`/property/${property.id}`}>
+        <Link
+          href={`/property/${property.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <div className="pt-i6m">
             <img src={property.image} alt={property.name} />
             <div className="pti-tly">
@@ -54,6 +58,8 @@ const PropertyCard = ({ property }) => (
             property.name
           )}`}
           className="p-w95"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <img
             src="https://newprojectsonline.com/assets/newprojectonline/wa.svg"
