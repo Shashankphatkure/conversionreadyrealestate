@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -11,8 +12,16 @@ import {
   faFileDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import "./PropertyHeader.css";
+import PropertyPopup from "./PropertyPopup";
 
 export default function PropertyHeader({ property }) {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handlePopupTrigger = () => {
+    setShowPopup(false);
+    setTimeout(() => setShowPopup(true), 0);
+  };
+
   return (
     <nav className="navbar-t4w navbar-kqe navbar-ele bg-7pn navbar-5sv">
       <a className="navbar-brand-hol" href="#home">
@@ -94,7 +103,10 @@ export default function PropertyHeader({ property }) {
             </a>
           </li>
           <li className="nav-item-3s3 overflow-bdf">
-            <a className="nav-link-xai" href="#">
+            <a
+              className="nav-link-xai cursor-pointer"
+              onClick={handlePopupTrigger}
+            >
               <FontAwesomeIcon
                 icon={faFileDownload}
                 className="icon-jen fa-xs custom-icon block-gvw ani-5fc slide-obl inf-q4g"
@@ -104,6 +116,11 @@ export default function PropertyHeader({ property }) {
           </li>
         </ul>
       </div>
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Download Brochure"
+      />
     </nav>
   );
 }
