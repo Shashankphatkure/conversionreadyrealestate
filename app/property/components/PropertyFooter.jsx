@@ -3,7 +3,7 @@ import "./PropertyFooter.css";
 export default function PropertyFooter() {
   return (
     <footer style={{ padding: "0 10px" }}>
-      <div className="social-share-container">
+      {/* <div className="social-share-container">
         <div className="social-share-text">
           Share This Project On Social Media
         </div>
@@ -21,7 +21,7 @@ export default function PropertyFooter() {
             <img className="social-icon" src="/whatsapp.png" alt="WhatsApp" />
           </a>
         </div>
-      </div>
+      </div> */}
 
       <div className="disclaimer-container">
         <strong>Disclaimer:</strong> We are an authorised marketing partner for

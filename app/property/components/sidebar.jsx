@@ -175,7 +175,7 @@ export default function Sidebar({ property }) {
           Incl. Onwards
         </li>
       </ul>
-      <div className="social-share-container">
+      {/* <div className="social-share-container">
         <p>Share This Project On Social Media</p>
         <div className="social-icons">
           <a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fnewprojectsonline.com%2Fashar-merac-thane&title=Share This Project in social media')">
@@ -219,7 +219,7 @@ export default function Sidebar({ property }) {
             />
           </a>
         </div>
-      </div>
+      </div> */}
 
       <PropertyPopup
         property={property}
