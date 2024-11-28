@@ -279,7 +279,11 @@ export default function SearchResults() {
     maxBudget: searchParams.get("maxBudget") || "",
     city: searchParams.get("city") || "",
     configuration: searchParams.get("config") || "",
+    userName: "",
+    userPhone: "",
   });
+
+  const [validationError, setValidationError] = useState("");
 
   const [showFilters, setShowFilters] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -344,13 +348,14 @@ export default function SearchResults() {
           overview,
           location_details,
           created_at,
-          builder:builders (
+          builder,
+          builders!properties_builder_fkey (
             id,
             name,
             logo,
             established_year
           ),
-          locality:localities (
+          localities!properties_locality_fkey (
             id,
             name,
             properties
@@ -369,14 +374,26 @@ export default function SearchResults() {
       }
 
       if (filters.builder) {
-        query = query.eq("builder.name", filters.builder);
+        query = query.eq("builders.name", filters.builder);
       }
 
+      // Fix locality filtering - using the correct foreign key relationship
       if (filters.city) {
-        query = query.eq("locality.name", filters.city);
+        // First get the locality ID
+        const { data: localityData, error: localityError } = await supabase
+          .from("localities")
+          .select("id")
+          .eq("name", filters.city)
+          .single();
+
+        if (localityError) {
+          console.error("Error fetching locality:", localityError);
+        } else if (localityData) {
+          query = query.eq("locality", localityData.id);
+        }
       }
 
-      // Updated sorting logic
+      // Rest of the query remains the same...
       switch (sortBy) {
         case "price_low":
           query = query.order("price", { ascending: true, nullsLast: true });
@@ -393,7 +410,6 @@ export default function SearchResults() {
           break;
       }
 
-      // Apply pagination
       query = query.range(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage - 1
@@ -403,13 +419,13 @@ export default function SearchResults() {
 
       if (error) throw error;
 
-      // Transform the properties
+      // Transform the properties - using the correct locality reference
       const transformedProperties = data.map((property) => ({
         id: property.id,
         name: property.name,
         image: property.image,
-        location: property.locality?.name || property.location,
-        developer: property.builder?.name || "Unknown Developer",
+        location: property.localities?.name || property.location,
+        developer: property.builders?.name || "Unknown Developer",
         configurations: property.configurations,
         price: formatPrice(property.price_range),
         status: property.status.replace(/_/g, " "),
@@ -449,17 +465,19 @@ export default function SearchResults() {
   };
 
   const fetchLocalities = async () => {
-    const { data: localities, error } = await supabase
-      .from("localities")
-      .select("name")
-      .order("name");
+    try {
+      const { data: localities, error } = await supabase
+        .from("localities")
+        .select("name")
+        .order("name");
 
-    if (error) {
+      if (error) throw error;
+
+      return localities.map((locality) => locality.name);
+    } catch (error) {
       console.error("Error fetching localities:", error);
       return [];
     }
-
-    return localities.map((locality) => locality.name);
   };
 
   // Add this helper function to format the price range
@@ -502,19 +520,26 @@ export default function SearchResults() {
       [name]: value,
     };
     setFilters(newFilters);
-    setCurrentPage(1);
-    updateURL(newFilters);
+    // Remove the immediate URL update and search
+    // setCurrentPage(1);
+    // updateURL(newFilters);
   };
 
-  // Modified handleSearch to include history
-  const handleSearch = () => {
+  // Update handleSearch to handle everything when the button is clicked
+  const handleSearch = async () => {
     setCurrentPage(1);
     updateURL(filters);
-    fetchProperties();
+    await fetchProperties();
+
+    // Create lead if user info is provided
+    if (filters.userName || filters.userPhone) {
+      await createLead();
+    }
   };
 
-  // Modified clearFilters
-  const clearFilters = () => {
+  // Modified clearFilters function
+  const clearFilters = async () => {
+    // Reset all filters to initial state
     const emptyFilters = {
       projectName: "",
       projectType: "",
@@ -523,11 +548,89 @@ export default function SearchResults() {
       maxBudget: "",
       city: "",
       configuration: "",
+      userName: "",
+      userPhone: "",
     };
+
+    // Reset other states
     setFilters(emptyFilters);
     setCurrentPage(1);
-    updateURL(emptyFilters);
-    fetchProperties();
+    setSortBy("relevance");
+    setValidationError("");
+
+    // Clear URL parameters
+    router.push("/search", { scroll: false });
+
+    // Fetch all properties without filters
+    try {
+      setLoading(true);
+      const { data, error, count } = await supabase
+        .from("properties")
+        .select(
+          `
+          id,
+          name,
+          image,
+          location,
+          type,
+          status,
+          configurations,
+          price,
+          price_details,
+          amenities,
+          carpet_area,
+          price_range,
+          overview,
+          location_details,
+          created_at,
+          builder,
+          builders!properties_builder_fkey (
+            id,
+            name,
+            logo,
+            established_year
+          ),
+          localities!properties_locality_fkey (
+            id,
+            name,
+            properties
+          )
+        `,
+          { count: "exact" }
+        )
+        .range(0, itemsPerPage - 1)
+        .order("name", { ascending: true });
+
+      if (error) throw error;
+
+      // Transform properties using the same transformation logic
+      const transformedProperties = data.map((property) => ({
+        id: property.id,
+        name: property.name,
+        image: property.image,
+        location: property.localities?.name || property.location,
+        developer: property.builders?.name || "Unknown Developer",
+        configurations: property.configurations,
+        price: formatPrice(property.price_range),
+        status: property.status.replace(/_/g, " "),
+        possession: property.completion_date
+          ? new Date(property.completion_date).toLocaleDateString("en-US", {
+              month: "short",
+              year: "numeric",
+            })
+          : "Not Available",
+        amenities: property.amenities || [],
+        overview: property.overview || {},
+        location_details: property.location_details || {},
+      }));
+
+      setProperties(transformedProperties);
+      setTotalCount(count || 0);
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Pagination component
@@ -601,7 +704,15 @@ export default function SearchResults() {
     fetchProperties();
   };
 
-  // Create a separate sorting component for better organization
+  // Update the sort handler to store the value but not trigger immediate search
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+    setCurrentPage(1);
+    // Remove immediate search trigger
+    // fetchProperties();
+  };
+
+  // Update the SortingOptions component to use the new handler
   const SortingOptions = () => (
     <div className="flex items-center gap-2">
       <label htmlFor="sort-select" className="text-gray-600">
@@ -610,10 +721,7 @@ export default function SearchResults() {
       <select
         id="sort-select"
         value={sortBy}
-        onChange={(e) => {
-          setSortBy(e.target.value);
-          setCurrentPage(1); // Reset to first page when sorting changes
-        }}
+        onChange={handleSortChange}
         className="px-4 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500 bg-white"
       >
         <option value="relevance">Relevance</option>
@@ -623,6 +731,45 @@ export default function SearchResults() {
       </select>
     </div>
   );
+
+  // Add this function to handle lead creation
+  const createLead = async () => {
+    // Validate required fields
+    if (!filters.userName || !filters.userPhone) {
+      setValidationError("Please enter both name and phone number");
+      return;
+    }
+
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: filters.userName,
+        phone: filters.userPhone,
+        property_type: filters.projectType || null,
+        budget_range: filters.minBudget
+          ? `${filters.minBudget} - ${filters.maxBudget}`
+          : null,
+        location: filters.city || null,
+        notes: `Search Filters: ${JSON.stringify(filters)}`,
+        source: "property_search",
+      });
+
+      if (error) throw error;
+
+      // Clear user fields after successful submission
+      setFilters((prev) => ({
+        ...prev,
+        userName: "",
+        userPhone: "",
+      }));
+      setValidationError("");
+
+      // Show success message (you'll need to implement this UI)
+      alert("Thank you! We'll contact you soon.");
+    } catch (error) {
+      console.error("Error creating lead:", error);
+      setValidationError("Failed to submit. Please try again.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -774,6 +921,43 @@ export default function SearchResults() {
                     />
                   </FilterSection>
 
+                  {/* User Information Section */}
+                  <FilterSection title="Your Contact Information">
+                    <div className="space-y-3">
+                      <div>
+                        <input
+                          type="text"
+                          name="userName"
+                          value={filters.userName}
+                          onChange={handleFilterChange}
+                          placeholder="Your Name *"
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg 
+                                    text-gray-700 text-sm placeholder-gray-400
+                                    focus:ring-2 focus:ring-red-100 focus:border-red-400 
+                                    transition-all duration-200"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          type="tel"
+                          name="userPhone"
+                          value={filters.userPhone}
+                          onChange={handleFilterChange}
+                          placeholder="Your Phone Number *"
+                          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg 
+                                    text-gray-700 text-sm placeholder-gray-400
+                                    focus:ring-2 focus:ring-red-100 focus:border-red-400 
+                                    transition-all duration-200"
+                        />
+                      </div>
+                      {validationError && (
+                        <p className="text-red-500 text-sm">
+                          {validationError}
+                        </p>
+                      )}
+                    </div>
+                  </FilterSection>
+
                   {/* Apply Button */}
                   <button
                     onClick={handleSearch}
@@ -808,7 +992,7 @@ export default function SearchResults() {
                         Searching...
                       </div>
                     ) : (
-                      "Apply Filters"
+                      "Apply Filters & Get Updates"
                     )}
                   </button>
                 </div>
@@ -850,7 +1034,7 @@ export default function SearchResults() {
                   Try adjusting your search criteria or
                 </p>
                 <button
-                  onClick={clearFilters}
+                  onClick={async () => await clearFilters()}
                   className="text-red-500 hover:text-red-600 font-medium"
                 >
                   Clear all filters
