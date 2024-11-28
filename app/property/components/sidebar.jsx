@@ -10,6 +10,7 @@ import {
   DocumentIcon,
   HomeIcon,
 } from "@heroicons/react/24/outline";
+import PropertyPopup from "./PropertyPopup";
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -25,6 +26,7 @@ export default function Sidebar({ property }) {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -146,7 +148,7 @@ export default function Sidebar({ property }) {
         </a>
       </p>
       <p className="dlres">
-        <a href="#">
+        <a onClick={() => setShowPopup(true)} className="cursor-pointer">
           Book A Site Visit &nbsp;&nbsp;
           <HomeIcon className="h-5 w-5 inline-block" />
         </a>
@@ -208,6 +210,12 @@ export default function Sidebar({ property }) {
           </a>
         </div>
       </div>
+
+      <PropertyPopup
+        property={property}
+        trigger={showPopup}
+        title="Book Your Site Visit"
+      />
     </div>
   );
 }
