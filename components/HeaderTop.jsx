@@ -34,6 +34,8 @@ export default function HeaderTop() {
               <li className="border-r border-white border-opacity-20">
                 <a
                   href="https://www.facebook.com/GSrealtys/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
                 >
                   <FontAwesomeIcon icon={faFacebookF} className="text-lg" />
@@ -42,6 +44,8 @@ export default function HeaderTop() {
               <li className="border-r border-white border-opacity-20">
                 <a
                   href="https://www.instagram.com/shree_ganesh_realty/?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
                 >
                   <FontAwesomeIcon icon={faInstagram} className="text-lg" />
@@ -50,6 +54,8 @@ export default function HeaderTop() {
               <li className="border-r border-white border-opacity-20">
                 <a
                   href="mailto:shreeganeshrealty90@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-10 h-10 text-center leading-10 text-white hover:text-opacity-90"
                 >
                   <FontAwesomeIcon icon={faEnvelopeOpen} className="text-lg" />
