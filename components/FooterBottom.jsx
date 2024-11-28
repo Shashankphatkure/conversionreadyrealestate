@@ -37,6 +37,8 @@ export default function FooterBottom() {
                     <a
                       href="https://www.facebook.com/GSrealtys/"
                       aria-label="Facebook"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <FontAwesomeIcon icon={faFacebookF} />
                     </a>
@@ -45,6 +47,8 @@ export default function FooterBottom() {
                     <a
                       href="https://www.instagram.com/shree_ganesh_realty/?hl=en"
                       aria-label="Instagram"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <FontAwesomeIcon icon={faInstagram} />
                     </a>
@@ -65,7 +69,7 @@ export default function FooterBottom() {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} />
-                    <a href="shreeganeshrealty90@gmail.com">
+                    <a href="mailto:shreeganeshrealty90@gmail.com">
                       shreeganeshrealty90@gmail.com
                     </a>
                   </li>
