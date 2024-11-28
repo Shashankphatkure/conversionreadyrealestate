@@ -66,11 +66,21 @@ export default function Sidebar({ property }) {
     }
   };
 
+  const handlePopupTrigger = () => {
+    setShowPopup(false);
+    setTimeout(() => setShowPopup(true), 0);
+  };
+
   return (
     <div className="micro-9at text-bln">
       <div className="section-e6t pb-xe1">
         <ul className="nav-svv nav-6gq block-63t">
-          <li className="nav-item-rvj">Organize Site Visit</li>
+          <li
+            className="nav-item-rvj cursor-pointer"
+            onClick={handlePopupTrigger}
+          >
+            Organize Site Visit
+          </li>
           <li className="nav-item-rvj">
             <ChatBubbleLeftIcon className="h-5 w-5 inline-block" /> Send us
             Whatsapp
@@ -148,7 +158,7 @@ export default function Sidebar({ property }) {
         </a>
       </p>
       <p className="dlres">
-        <a onClick={() => setShowPopup(true)} className="cursor-pointer">
+        <a onClick={handlePopupTrigger} className="cursor-pointer">
           Book A Site Visit &nbsp;&nbsp;
           <HomeIcon className="h-5 w-5 inline-block" />
         </a>
