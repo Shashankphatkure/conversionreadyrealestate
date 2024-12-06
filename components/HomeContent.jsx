@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import ContactUs from "@/components/ContactUs";
 import FooterBottom from "@/components/FooterBottom";
 import FooterTop from "@/components/FooterTop";
@@ -145,7 +146,7 @@ export default function HomeContent({ properties }) {
           <div className="grid grid-cols-4 gap-2 p-4">
             {/* Call Button */}
             <a 
-              href="tel:+1234567890" 
+              href="tel:+919892666207" 
               className="flex flex-col items-center group transition-all duration-300"
             >
               <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-all duration-300">
@@ -156,7 +157,7 @@ export default function HomeContent({ properties }) {
             
             {/* WhatsApp Button */}
             <a 
-              href="https://wa.me/1234567890" 
+              href="https://wa.me/919892666207"
               className="flex flex-col items-center group transition-all duration-300"
             >
               <div className="p-2 rounded-xl bg-green-100 group-hover:bg-green-200 transition-all duration-300">
@@ -166,19 +167,19 @@ export default function HomeContent({ properties }) {
             </a>
             
             {/* Post Requirement Button */}
-            <button 
-              onClick={() => {/* Add your post requirement logic */}}
+            <Link 
+              href="/requirements"
               className="flex flex-col items-center group transition-all duration-300"
             >
               <div className="p-2 rounded-xl bg-purple-100 group-hover:bg-purple-200 transition-all duration-300">
                 <ClipboardDocumentListIcon className="h-6 w-6 text-purple-600" />
               </div>
               <span className="text-xs mt-1 font-medium text-gray-700">Post Require</span>
-            </button>
+            </Link>
             
             {/* Enquire Button */}
             <a 
-              href="mailto:example@email.com" 
+              href="mailto:shreeganeshrealty90@gmail.com" 
               className="flex flex-col items-center group transition-all duration-300"
             >
               <div className="p-2 rounded-xl bg-red-100 group-hover:bg-red-200 transition-all duration-300">
