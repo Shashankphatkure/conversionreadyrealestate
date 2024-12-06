@@ -38,11 +38,11 @@ const PropertyCard = ({ property }) => (
           </div>
           <div className="pt-h3v">
             <h3 className="text-base font-semibold">{property.name}</h3>
-            <div className="bui-wnd">
-              <span className="text-xs">
-                <strong>By {property.developer}</strong>
+            <div className="bui-wnd flex flex-col">
+              <span className="text-xs text-gray-600">
+                By: {property.developer}
               </span>
-              <div className="con-qk6 text-xs">
+              <div className="con-qk6 text-xs mt-1">
                 <HomeIcon className="h-3 w-3 inline-block mr-1" />
                 {property.configurations}
               </div>
