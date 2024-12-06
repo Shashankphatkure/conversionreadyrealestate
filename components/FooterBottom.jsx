@@ -90,21 +90,22 @@ export default function FooterBottom() {
 
       <div className="footer-middle">
         <div className="footer-container" style={{ padding: "20px" }}>
-          <div className="footer-middle-content">
-            <div className="certifications">
-              <ul>
+          <div className="footer-middle-content flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="certifications w-full md:w-auto">
+              <ul className="flex justify-center md:justify-start">
                 <li>
                   <img
                     src="https://newprojectsonline.com/assets/newprojectonline/306986922RERA%20Registered.png"
                     alt="RERA Registered"
+                    className="max-w-[200px] md:max-w-[250px] h-auto"
                   />
                 </li>
               </ul>
             </div>
-            <div className="contact-cta">
-              <FontAwesomeIcon icon={faPhone} />
-              <div>Do You Have Questions?</div>
-              <a href="tel:+919892666207">+91 9892666207</a>
+            <div className="contact-cta flex flex-col md:flex-row items-center gap-3 text-center md:text-left">
+              <FontAwesomeIcon icon={faPhone} className="text-2xl md:text-3xl" />
+              <div className="text-sm md:text-base">Do You Have Questions?</div>
+              <a href="tel:+919892666207" className="text-lg md:text-xl font-semibold hover:underline">+91 9892666207</a>
             </div>
           </div>
         </div>
