@@ -23,32 +23,32 @@ const PropertyCard = ({ property }) => (
           <div className="pt-i6m">
             <img src={property.image} alt={property.name} />
             <div className="pti-tly">
-              <h6>
-                <HomeIcon className="h-5 w-5 inline-block mr-1" />
+              <h6 className="text-sm">
+                <HomeIcon className="h-4 w-4 inline-block mr-1" />
                 {property.location}
               </h6>
               <div className="sta-6qv">
-                <span className="hdwah">
-                  <HomeIcon className="h-5 w-5 inline-block mr-1" />{" "}
+                <span className="hdwah text-sm">
+                  <HomeIcon className="h-4 w-4 inline-block mr-1" />
                   {property.type}
                 </span>
-                <span>{property.status}</span>
+                <span className="text-sm">{property.status}</span>
               </div>
             </div>
           </div>
           <div className="pt-h3v">
-            <h3>{property.name}</h3>
+            <h3 className="text-base font-semibold">{property.name}</h3>
             <div className="bui-wnd">
-              <span>
-                <strong>By: {property.developer}</strong>
+              <span className="text-xs">
+                <strong>By {property.developer}</strong>
               </span>
-              <div className="con-qk6">
-                <HomeIcon className="h-5 w-5 inline-block mr-1" />{" "}
+              <div className="con-qk6 text-xs">
+                <HomeIcon className="h-3 w-3 inline-block mr-1" />
                 {property.configurations}
               </div>
             </div>
-            <h4>
-              <CurrencyRupeeIcon className="h-5 w-5 inline-block mr-1" />{" "}
+            <h4 className="text-base">
+              
               {property.price}
             </h4>
           </div>

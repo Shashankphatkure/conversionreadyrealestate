@@ -344,7 +344,7 @@ h3 {
 .pro-85g a h3 {
   color: #1a1a1a !important;
   font-weight: 600 !important;
-  font-size: 20px !important;
+  font-size: 16px !important;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -355,6 +355,7 @@ h3 {
 .bui-wnd {
   display: flex;
   font-weight: bold;
+  font-size: 12px !important;
 }
 
 h4 {
@@ -391,11 +392,11 @@ h4 {
 }
 
 .pro-85g .pt-h3v h4 {
-  font-size: 20px !important;
+  font-size: 16px !important;
   font-weight: 600 !important;
   border-top: solid 1px #eee;
-  margin: 10px 0 0 0 !important;
-  padding: 10px 0 0 0 !important;
+  margin: 8px 0 0 0 !important;
+  padding: 8px 0 0 0 !important;
   color: #f64d0d;
 }
 
@@ -434,15 +435,15 @@ h6 {
   color: #999999 !important;
   font-style: normal;
   margin: 0 0 0 0 !important;
-  font-size: 15px !important;
+  font-size: 13px !important;
 }
 
 .pro-85g a .pt-i6m .pti-tly h6 {
   position: absolute;
-  font-size: 13px !important;
+  font-size: 12px !important;
   z-index: 1;
-  bottom: 1rem;
-  left: 1rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
   color: #fff !important;
   margin: 0 !important;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
@@ -462,10 +463,12 @@ h6 {
 
 .bui-wnd spam {
   color: #f64d0d;
+  font-size: 12px !important;
 }
 
 .con-qk6 {
-  margin-left: 30px;
+  margin-left: 20px;
+  font-size: 12px !important;
 }
 
 i {
@@ -539,10 +542,10 @@ span {
 .pro-85g a .pt-i6m .pti-tly .sta-6qv span {
   background-color: rgba(0, 0, 0, 0.7);
   display: inline-block;
-  padding: 0 8px;
-  margin: 0 3px;
+  padding: 0 6px;
+  margin: 0 2px;
   border-radius: 3px;
-  font-size: 10px;
+  font-size: 9px;
   text-transform: capitalize;
   font-weight: 400;
 }
