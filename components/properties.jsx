@@ -32,7 +32,11 @@ const PropertyCard = ({ property }) => (
                   <HomeIcon className="h-4 w-4 inline-block mr-1" />
                   {property.type}
                 </span>
-                <span className="text-sm">{property.status}</span>
+                <span className="text-sm">
+                  {property.status.split('_').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                  ).join(' ')}
+                </span>
               </div>
             </div>
           </div>

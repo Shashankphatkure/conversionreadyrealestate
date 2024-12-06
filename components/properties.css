@@ -443,11 +443,14 @@ h6 {
   position: absolute;
   font-size: 12px !important;
   z-index: 1;
-  bottom: 0.75rem;
+  bottom: 1.25rem;
   left: 0.75rem;
   color: #fff !important;
   margin: 0 !important;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .pro-85g a .pt-i6m .pti-tly .sta-6qv {
@@ -633,3 +636,28 @@ strong {
 }
 
 /* Add any additional styles from your original CSS here */
+
+.pro-85g a .pt-i6m .pti-tly h6 .h-4 {
+  height: 14px;
+  width: 14px;
+}
+
+@media (min-width: 768px) {
+  .pro-85g a h3 {
+    font-size: 18px !important;
+  }
+
+  .pro-85g a h6 {
+    font-size: 14px !important;
+  }
+
+  .pro-85g .pt-h3v h4 {
+    font-size: 18px !important;
+  }
+
+  .bui-wnd span,
+  .bui-wnd spam,
+  .con-qk6 {
+    font-size: 13px !important;
+  }
+}
