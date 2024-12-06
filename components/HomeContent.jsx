@@ -11,10 +11,12 @@ import Services from "@/components/services";
 import Welcome from "@/components/Welcome";
 import Builders from "./builders";
 import RequirementPopup from "@/components/RequirementPopup";
+import { PhoneIcon } from '@heroicons/react/24/solid'
+import { EnvelopeIcon, ClipboardDocumentListIcon, ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline'
 
 export default function HomeContent({ properties }) {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative pb-16 md:pb-0">
       <RequirementPopup />
 
       <div className="sticky top-0 left-0 right-0 z-[10]">
@@ -136,6 +138,57 @@ export default function HomeContent({ properties }) {
 
       <FooterTop />
       <FooterBottom />
+      
+      {/* Enhanced Mobile Navigation Buttons */}
+      <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
+        <div className="backdrop-blur-md bg-white/80 rounded-2xl shadow-lg border border-gray-200">
+          <div className="grid grid-cols-4 gap-2 p-4">
+            {/* Call Button */}
+            <a 
+              href="tel:+1234567890" 
+              className="flex flex-col items-center group transition-all duration-300"
+            >
+              <div className="p-2 rounded-xl bg-blue-100 group-hover:bg-blue-200 transition-all duration-300">
+                <PhoneIcon className="h-6 w-6 text-blue-600" />
+              </div>
+              <span className="text-xs mt-1 font-medium text-gray-700">Call</span>
+            </a>
+            
+            {/* WhatsApp Button */}
+            <a 
+              href="https://wa.me/1234567890" 
+              className="flex flex-col items-center group transition-all duration-300"
+            >
+              <div className="p-2 rounded-xl bg-green-100 group-hover:bg-green-200 transition-all duration-300">
+                <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 text-green-600" />
+              </div>
+              <span className="text-xs mt-1 font-medium text-gray-700">WhatsApp</span>
+            </a>
+            
+            {/* Post Requirement Button */}
+            <button 
+              onClick={() => {/* Add your post requirement logic */}}
+              className="flex flex-col items-center group transition-all duration-300"
+            >
+              <div className="p-2 rounded-xl bg-purple-100 group-hover:bg-purple-200 transition-all duration-300">
+                <ClipboardDocumentListIcon className="h-6 w-6 text-purple-600" />
+              </div>
+              <span className="text-xs mt-1 font-medium text-gray-700">Post Require</span>
+            </button>
+            
+            {/* Enquire Button */}
+            <a 
+              href="mailto:example@email.com" 
+              className="flex flex-col items-center group transition-all duration-300"
+            >
+              <div className="p-2 rounded-xl bg-red-100 group-hover:bg-red-200 transition-all duration-300">
+                <EnvelopeIcon className="h-6 w-6 text-red-600" />
+              </div>
+              <span className="text-xs mt-1 font-medium text-gray-700">Enquire</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
