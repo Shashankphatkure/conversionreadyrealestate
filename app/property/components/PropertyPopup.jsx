@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { PhoneIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { supabase } from '@/utils/supabase'
 
 export default function PropertyPopup({
   property,
@@ -13,6 +14,7 @@ export default function PropertyPopup({
     name: "",
     email: "",
     mobile: "",
+    location: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -40,10 +42,35 @@ export default function PropertyPopup({
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Prepare the lead data
+      const leadData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.mobile,
+        location: formData.location,
+        interested_property: property?.name || null,
+        property_type: property?.type || null,
+        source: 'website',
+        status: 'NEW'
+      };
+
+      // Insert into Supabase
+      const { data, error } = await supabase
+        .from('leads')
+        .insert([leadData])
+        .select();
+
+      if (error) throw error;
+
+      // Success! Close the popup
       setIsVisible(false);
+      
+      // Optional: Add success message
+      alert('Thank you! We will contact you shortly.');
+      
     } catch (error) {
       console.error("Form submission error:", error);
+      alert('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -97,6 +124,17 @@ export default function PropertyPopup({
               }
               required
             />
+            {title === "Book Your Site Visit" && (
+              <input
+                type="text"
+                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
+                placeholder="Your Location"
+                value={formData.location}
+                onChange={(e) =>
+                  setFormData({ ...formData, location: e.target.value })
+                }
+              />
+            )}
             <input
               type="tel"
               className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"

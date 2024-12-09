@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { PhoneIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { supabase } from '@/utils/supabase'
 
 export default function PropertyPopup2({
   property,
@@ -50,10 +51,39 @@ export default function PropertyPopup2({
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Prepare the lead data
+      const leadData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.mobile,
+        interested_property: property?.name || null,
+        property_type: property?.type || null,
+        source: 'website',
+        status: 'NEW'
+      };
+
+      // Insert into Supabase
+      const { data, error } = await supabase
+        .from('leads')
+        .insert([leadData])
+        .select();
+
+      if (error) throw error;
+
+      // Success! Clear form and close popup
+      setFormData({
+        name: "",
+        email: "",
+        mobile: "",
+      });
       setIsVisible(false);
+      
+      // Show success message
+      alert('Thank you! We will contact you shortly.');
+      
     } catch (error) {
       console.error("Form submission error:", error);
+      alert('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
