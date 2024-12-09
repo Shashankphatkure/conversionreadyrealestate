@@ -88,7 +88,7 @@ export default function PropertyModal({ property }) {
           <b>{configurations}</b>
         </p>
         <p style={{ textAlign: "center" }}>
-          <b>Starts ₹ {price_details?.["Starting Price"]}</b>
+          <b>Starts {price}</b>
         </p>
         <p style={{ textAlign: "center", fontSize: "14px" }}>
           <b>Book Online Presentation Today!</b>
