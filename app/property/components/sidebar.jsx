@@ -171,8 +171,7 @@ export default function Sidebar({ property }) {
           <span>✓ Location</span> : {property?.location || "N/A"}
         </li>
         <li>
-          <span>✓ Price </span> : {property?.price || "Price on Request"} All
-          Incl. Onwards
+          <span>✓ Price </span> : {property?.price || "Price on Request"} 
         </li>
       </ul>
       {/* <div className="social-share-container">
