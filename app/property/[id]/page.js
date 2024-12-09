@@ -66,18 +66,34 @@ export default async function SingleProperty({ params }) {
     <>
       <div className="flex">
         <main className="w-3/4">
-          <PropertyHeader property={property} />
+          <div className="sticky top-0 z-50 bg-white ">
+            <PropertyHeader property={property} />
+          </div>
           <PropertyHero property={property} />
           <PropertyModal property={property} />
 
           <div className="px-3">
-            <PropertyOverview property={property} />
-            <PropertyPrice property={property} />
-            <PropertySitePlan property={property} />
-            <PropertyAmenities property={property} />
-            <PropertyGallery property={property} />
-            <PropertyLocation property={property} />
-            <PropertySiteTour property={property} />
+            <div>
+              <PropertyOverview property={property} />
+            </div>
+            <div id="pricing" className="scroll-mt-20">
+              <PropertyPrice property={property} />
+            </div>
+            <div id="sitefloorplan" className="scroll-mt-20">
+              <PropertySitePlan property={property} />
+            </div>
+            <div id="amenities" className="scroll-mt-20">
+              <PropertyAmenities property={property} />
+            </div>
+            <div id="gallery" className="scroll-mt-20">
+              <PropertyGallery property={property} />
+            </div>
+            <div id="location" className="scroll-mt-20">
+              <PropertyLocation property={property} />
+            </div>
+            <div id="sitevisit" className="scroll-mt-20">
+              <PropertySiteTour property={property} />
+            </div>
           </div>
 
           <PropertyFooter property={property} />

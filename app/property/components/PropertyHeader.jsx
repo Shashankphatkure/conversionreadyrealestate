@@ -40,7 +40,7 @@ export default function PropertyHeader({ property }) {
       <div className="col-or6 navbar-collapse-8nw">
         <ul className="navbar-nav-vlg nav-vwb">
           <li className="nav-item-3s3">
-            <a className="nav-link-xai act-aef" href="#home">
+            <a className="nav-link-xai act-aef" href="#">
               <FontAwesomeIcon
                 icon={faHome}
                 className="icon-jen fa-xs custom-icon"
