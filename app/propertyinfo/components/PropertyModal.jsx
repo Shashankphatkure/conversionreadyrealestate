@@ -104,7 +104,7 @@ export default function PropertyModal({ property }) {
           {configurations}
         </p>
         <h4 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#c9b06b]">
-          Starts ₹ {price_details?.["Starting Price"]}
+          Starts {price}
         </h4>
         <p className="text-lg md:text-xl font-semibold text-gray-700">
           Book Online Presentation Today!
