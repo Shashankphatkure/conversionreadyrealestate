@@ -706,56 +706,90 @@ const PropertyForm = ({
         {/* Gallery Section */}
         <div className="col-span-2">
           <h3 className="text-lg font-medium text-gray-900 mb-4">Gallery</h3>
-          {["exterior", "interior", "amenities", "construction"].map(
-            (section) => (
-              <div key={section} className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {section.charAt(0).toUpperCase() + section.slice(1)} Images
-                </label>
-                <div className="space-y-2">
-                  <textarea
-                    value={property.gallery?.[section]?.join("\n") || ""}
-                    onChange={(e) =>
-                      setProperty({
-                        ...property,
-                        gallery: {
-                          ...property.gallery,
-                          [section]: e.target.value
-                            .split("\n")
-                            .filter((url) => url.trim()),
-                        },
-                      })
-                    }
-                    rows={3}
-                    className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter URLs (one per line)"
+          {["exterior", "interior", "amenities", "construction"].map((section) => (
+            <div key={section} className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {section.charAt(0).toUpperCase() + section.slice(1)} Images
+              </label>
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="file"
+                    ref={galleryRefs[section]}
+                    onChange={(e) => handleGalleryUpload(section, e)}
+                    accept="image/*"
+                    multiple
+                    className="hidden"
                   />
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="file"
-                      ref={galleryRefs[section]}
-                      onChange={(e) => handleGalleryUpload(section, e)}
-                      accept="image/*"
-                      multiple
-                      className="hidden"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => galleryRefs[section].current?.click()}
-                      className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
-                    >
-                      Upload Images
-                    </button>
-                    {property.gallery?.[section]?.length > 0 && (
-                      <span className="text-sm text-gray-500">
-                        {property.gallery[section].length} images
-                      </span>
-                    )}
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => galleryRefs[section].current?.click()}
+                    className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
+                  >
+                    Upload Images
+                  </button>
+                  {property.gallery?.[section]?.length > 0 && (
+                    <span className="text-sm text-gray-500">
+                      {property.gallery[section].length} images
+                    </span>
+                  )}
                 </div>
+
+                {/* Image Preview Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {property.gallery?.[section]?.map((url, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        src={url}
+                        alt={`${section} ${index + 1}`}
+                        className="w-full h-32 object-cover rounded-lg"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updatedGallery = property.gallery[section].filter(
+                              (_, i) => i !== index
+                            );
+                            setProperty({
+                              ...property,
+                              gallery: {
+                                ...property.gallery,
+                                [section]: updatedGallery,
+                              },
+                            });
+                            toast.success(`Image removed from ${section}`);
+                          }}
+                          className="text-white hover:text-red-400 p-2"
+                        >
+                          <FiTrash2 className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* URL Input */}
+                <textarea
+                  value={property.gallery?.[section]?.join("\n") || ""}
+                  onChange={(e) =>
+                    setProperty({
+                      ...property,
+                      gallery: {
+                        ...property.gallery,
+                        [section]: e.target.value
+                          .split("\n")
+                          .filter((url) => url.trim()),
+                      },
+                    })
+                  }
+                  rows={3}
+                  className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter URLs (one per line)"
+                />
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
 
         {/* Add Highlights Section */}
