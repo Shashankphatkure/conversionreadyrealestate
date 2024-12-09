@@ -4,7 +4,7 @@ import { PhoneIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { supabase } from '@/utils/supabase'
 
-export default function PropertyPopup({
+export default function PropertyPopup2({
   property,
   trigger,
   title = "Exclusive Offer!",
@@ -14,16 +14,25 @@ export default function PropertyPopup({
     name: "",
     email: "",
     mobile: "",
-    location: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Show popup whenever trigger becomes true
+    // Add new timeout for initial popup
+    const timeoutId = setTimeout(() => {
+      setIsVisible(true);
+    }, 5000); // 5 seconds delay
+
+    // Cleanup timeout on component unmount
+    return () => clearTimeout(timeoutId);
+  }, []); // Empty dependency array means this runs once on mount
+
+  useEffect(() => {
+    // Keep existing trigger logic
     if (trigger) {
       setIsVisible(true);
     } else {
-      setIsVisible(false); // Hide popup when trigger is false
+      setIsVisible(false);
     }
   }, [trigger]);
 
@@ -47,7 +56,6 @@ export default function PropertyPopup({
         name: formData.name,
         email: formData.email,
         phone: formData.mobile,
-        location: formData.location,
         interested_property: property?.name || null,
         property_type: property?.type || null,
         source: 'website',
@@ -62,10 +70,15 @@ export default function PropertyPopup({
 
       if (error) throw error;
 
-      // Success! Close the popup
+      // Success! Clear form and close popup
+      setFormData({
+        name: "",
+        email: "",
+        mobile: "",
+      });
       setIsVisible(false);
       
-      // Optional: Add success message
+      // Show success message
       alert('Thank you! We will contact you shortly.');
       
     } catch (error) {
@@ -124,17 +137,6 @@ export default function PropertyPopup({
               }
               required
             />
-            {title === "Book Your Site Visit" && (
-              <input
-                type="text"
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
-                placeholder="Your Location"
-                value={formData.location}
-                onChange={(e) =>
-                  setFormData({ ...formData, location: e.target.value })
-                }
-              />
-            )}
             <input
               type="tel"
               className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/10"
